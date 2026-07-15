@@ -30,8 +30,8 @@ export default async function AboutPage() {
         <div className="absolute -left-16 top-32 size-[360px] rounded-full bg-emerald-400/10 blur-[120px] dark:bg-emerald-500/10" />
       </div>
 
-      <div className="mx-auto max-w-2xl px-5 pt-8 pb-8 sm:pt-12">
-        <div className="flex flex-col items-center gap-6">
+      <div className="mx-auto max-w-2xl px-5 pt-8 pb-0 sm:pt-12">
+        <div className="flex flex-col items-center gap-5">
           <Image
             src={siteConfig.author.avatar}
             alt={siteConfig.author.name}
@@ -66,13 +66,14 @@ export default async function AboutPage() {
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-3 gap-4">
+        <div className="mt-6 grid grid-cols-3 gap-3">
           <StatCard label="文章" value={posts.length} />
           <StatCard label="标签" value={tags.length} />
           <StatCard label="上次更新" value={new Date().toLocaleDateString("zh-CN", { month: "short", day: "numeric" })} />
         </div>
+      </div>
 
-      <div className="mx-auto max-w-2xl px-5 pb-14 sm:pb-18">
+      <div className="mx-auto max-w-4xl px-5 pb-14 sm:pb-18 mt-10">
         <div className="flex flex-wrap justify-center gap-2">
           {tagsList.map((tag) => (
             <span
@@ -85,13 +86,12 @@ export default async function AboutPage() {
         </div>
       </div>
     </div>
-    </div>
   )
 }
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-2xl border border-border/60 bg-background/50 px-4 py-5 backdrop-blur-sm">
+    <div className="flex flex-col items-center gap-1 rounded-2xl border border-border/60 bg-background/50 px-6 py-5 backdrop-blur-sm">
       <span className="font-heading text-2xl font-semibold tabular-nums">{value}</span>
       <span className="text-xs text-muted-foreground">{label}</span>
     </div>

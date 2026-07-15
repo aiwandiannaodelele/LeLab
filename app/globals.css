@@ -124,6 +124,72 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
     }
+}
+
+/* ---- Prose: markdown article content ---- */
+.prose {
+  @apply text-[15px] leading-[1.8] text-foreground/90;
+}
+.prose > :first-child {
+  @apply mt-0;
+}
+.prose p {
+  @apply my-5;
+}
+.prose h2 {
+  @apply mt-12 mb-4 font-heading text-2xl font-semibold tracking-tight;
+}
+.prose h3 {
+  @apply mt-9 mb-3 font-heading text-xl font-semibold tracking-tight;
+}
+.prose h4 {
+  @apply mt-6 mb-2 font-heading text-base font-semibold;
+}
+.prose a {
+  @apply text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary;
+}
+.prose strong {
+  @apply font-semibold text-foreground;
+}
+.prose ul {
+  @apply my-5 list-disc space-y-2 pl-6 marker:text-muted-foreground;
+}
+.prose ol {
+  @apply my-5 list-decimal space-y-2 pl-6 marker:text-muted-foreground;
+}
+.prose ul ul,
+.prose ol ol,
+.prose ul ol,
+.prose ol ul {
+  @apply my-2;
+}
+.prose blockquote {
+  @apply my-6 rounded-r-lg border-l-2 border-primary/50 bg-muted/50 py-1 pl-5 pr-3 text-muted-foreground italic;
+}
+.prose code {
+  @apply rounded-[6px] bg-muted px-1.5 py-0.5 font-mono text-[0.85em] text-foreground;
+}
+.prose pre {
+  @apply my-6 overflow-x-auto rounded-xl border border-border/60 bg-muted/50 p-4 text-[13px] leading-relaxed;
+}
+.prose pre code {
+  @apply rounded-none bg-transparent p-0 text-foreground/90;
+}
+.prose hr {
+  @apply my-10 border-border/60;
+}
+.prose img {
+  @apply my-6 rounded-xl border border-border/60;
+}
+.prose table {
+  @apply my-6 w-full border-collapse text-sm;
+}
+.prose th,
+.prose td {
+  @apply border border-border/60 px-3 py-2 text-left;
+}
+.prose th {
+  @apply bg-muted font-medium;
 }

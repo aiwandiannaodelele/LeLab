@@ -1,14 +1,8 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/admin",
-        destination: "/admin/index.html",
-      },
-    ]
-  },
+  output: "export",
+  trailingSlash: true,
 }
 
 export default nextConfig

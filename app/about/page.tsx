@@ -3,7 +3,6 @@ import Link from "next/link"
 import { siteConfig } from "@/lib/site"
 import { getAllPosts, getAllTags } from "@/lib/posts"
 import { Icon } from "@/components/icons"
-import { SiteRunningTime } from "@/components/site-running-time"
 
 export const metadata = {
   title: "关于",
@@ -62,11 +61,7 @@ export default async function AboutPage() {
           <StatCard label="标签" value={tags.length} />
           <StatCard label="上次更新" value={new Date().toLocaleDateString("zh-CN", { month: "short", day: "numeric" })} />
         </div>
-
-        <div className="mt-6 text-center">
-          <SiteRunningTime />
-        </div>
-      </div>
+    </div>
     </div>
   )
 }

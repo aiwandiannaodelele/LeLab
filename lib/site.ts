@@ -15,7 +15,7 @@ export const siteConfig = {
     { label: "关于", href: "/about" },
   ],
   socials: [
-    { label: "GitHub", href: "https://github.com", icon: "github" },
+    { label: "GitHub", href: "https://github.com/aiwandiannaodelele", icon: "github" },
     { label: "Mail", href: "mailto:hello@example.com", icon: "mail" },
     { label: "Twitter", href: "https://twitter.com", icon: "twitter" },
   ],

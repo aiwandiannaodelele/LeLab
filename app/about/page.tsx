@@ -10,11 +10,13 @@ export const metadata = {
 }
 
 const tagsList = [
-  "node.js", "ai", "docker", "frontend development", "CI/CD",
-  "vibe coding", "linux", "cloud computing", "react", "automation",
-  "agent", "serverless", "static site", "git", "skills",
-  "nginx", "fullstack development", "cloud deployment", "typescript",
-  "version control", "containerization", "edge deployment", "api development",
+  "bash", "cloud deployment", "agent", "OI", "sqlite", "node.js",
+  "rustdesk", "automation", "NAS", "CI/CD", "ipv6", "react",
+  "version control", "vmware", "vibe coding", "docker", "ai",
+  "fullstack development", "static site", "algorithm", "c++", "linux",
+  "ddns", "frontend development", "git", "serverless", "homeassistant",
+  "cloud computing", "edge deployment", "python", "nginx", "skills",
+  "typescript", "remote desktop", "containerization", "api development",
 ]
 
 export default async function AboutPage() {

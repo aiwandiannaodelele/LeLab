@@ -9,6 +9,14 @@ export const metadata = {
   description: siteConfig.description,
 }
 
+const tagsList = [
+  "node.js", "ai", "docker", "frontend development", "CI/CD",
+  "vibe coding", "linux", "cloud computing", "react", "automation",
+  "agent", "serverless", "static site", "git", "skills",
+  "nginx", "fullstack development", "cloud deployment", "typescript",
+  "version control", "containerization", "edge deployment", "api development",
+]
+
 export default async function AboutPage() {
   const [posts, tags] = await Promise.all([getAllPosts(), getAllTags()])
 
@@ -61,6 +69,19 @@ export default async function AboutPage() {
           <StatCard label="标签" value={tags.length} />
           <StatCard label="上次更新" value={new Date().toLocaleDateString("zh-CN", { month: "short", day: "numeric" })} />
         </div>
+
+      <div className="mx-auto max-w-2xl px-5 pb-16">
+        <div className="flex flex-wrap justify-center gap-2">
+          {tagsList.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center rounded-full border border-border/60 bg-background/50 px-3 py-1 text-xs text-muted-foreground backdrop-blur-sm"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
     </div>
   )

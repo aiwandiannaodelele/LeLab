@@ -16,6 +16,7 @@ collections:
     folder: content/posts
     create: true
     delete: true
+    slug: "{{fields.slug}}"
     preview_path: posts/{{slug}}
     fields:
       - { label: 标题, name: title, widget: string, required: true }

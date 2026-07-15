@@ -7,8 +7,6 @@ import { Icon } from "@/components/icons"
 import { siteConfig } from "@/lib/site"
 import { Giscus } from "@/components/giscus"
 
-export const dynamicParams = false
-
 type Params = { slug: string }
 
 export async function generateStaticParams() {

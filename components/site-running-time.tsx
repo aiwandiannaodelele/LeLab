@@ -2,25 +2,23 @@
 
 import * as React from "react"
 
-const startDate = new Date("2026-07-15")
+const startDate = new Date("2026-07-14T20:00:00")
 
 function calc() {
   const now = new Date()
-  let years = now.getFullYear() - startDate.getFullYear()
-  let months = now.getMonth() - startDate.getMonth()
-  let days = now.getDate() - startDate.getDate()
+  const diff = Math.max(0, now.getTime() - startDate.getTime())
+  const totalMinutes = Math.floor(diff / 60000)
 
-  if (days < 0) {
-    months--
-    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0)
-    days += prevMonth.getDate()
-  }
-  if (months < 0) {
-    years--
-    months += 12
-  }
+  const minutes = totalMinutes % 60
+  const totalHours = (totalMinutes - minutes) / 60
+  const hours = totalHours % 24
+  const totalDays = (totalHours - hours) / 24
+  const days = totalDays % 30
+  const totalMonths = (totalDays - days) / 30
+  const months = totalMonths % 12
+  const years = (totalMonths - months) / 12
 
-  return { years, months, days }
+  return { years, months, days, hours }
 }
 
 export function SiteRunningTime() {
@@ -33,7 +31,7 @@ export function SiteRunningTime() {
 
   return (
     <span className="text-xs text-muted-foreground/50">
-      已运行 {elapsed.years} 年 {elapsed.months} 个月 {elapsed.days} 天
+      已运行 {elapsed.years} 年 {elapsed.months} 个月 {elapsed.days} 天 {elapsed.hours} 小时
     </span>
   )
 }

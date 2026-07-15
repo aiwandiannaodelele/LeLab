@@ -16,8 +16,6 @@ export const siteConfig = {
   ],
   socials: [
     { label: "GitHub", href: "https://github.com/aiwandiannaodelele", icon: "github" },
-    { label: "Mail", href: "mailto:hello@example.com", icon: "mail" },
-    { label: "Twitter", href: "https://twitter.com", icon: "twitter" },
   ],
   postsPerPage: 6,
   giscus: {
@@ -28,4 +26,4 @@ export const siteConfig = {
   },
 } as const
 
-export type SocialIcon = "github" | "mail" | "twitter"
+export type SocialIcon = "github"

@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "乐乐 Stack",
-  title: "乐乐 Stack · 一块自留地",
+  name: "乐乐 Lab",
+  title: "乐乐 Lab · 一块自留地",
   description:
     "爱玩电脑的乐乐的个人站点，写点代码，想点事情。",
   author: {

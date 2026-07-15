@@ -16,6 +16,7 @@ export const siteConfig = {
   ],
   socials: [
     { label: "GitHub", href: "https://github.com/aiwandiannaodelele", icon: "github" },
+    { label: "Bilibili", href: "https://space.bilibili.com/520410176", icon: "bilibili" },
   ],
   postsPerPage: 6,
   giscus: {
@@ -26,4 +27,4 @@ export const siteConfig = {
   },
 } as const
 
-export type SocialIcon = "github"
+export type SocialIcon = "github" | "bilibili"

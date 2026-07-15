@@ -57,11 +57,10 @@ export default async function AboutPage() {
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mt-12 grid grid-cols-3 gap-4">
           <StatCard label="文章" value={posts.length} />
           <StatCard label="标签" value={tags.length} />
           <StatCard label="上次更新" value={new Date().toLocaleDateString("zh-CN", { month: "short", day: "numeric" })} />
-          <StatCard label="状态" value="运行中" />
         </div>
 
         <div className="mt-6 text-center">

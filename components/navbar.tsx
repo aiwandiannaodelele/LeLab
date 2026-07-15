@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { siteConfig } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -37,9 +38,14 @@ export function Navbar() {
           href="/"
           className="group flex items-center gap-2 text-base font-semibold tracking-tight"
         >
-          <span className="grid size-8 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:rotate-6">
-            <span className="text-sm">{siteConfig.author.avatar}</span>
-          </span>
+          <Image
+            src={siteConfig.author.avatar}
+            alt={siteConfig.name}
+            width={32}
+            height={32}
+            className="size-8 rounded-xl object-cover shadow-sm transition-transform group-hover:rotate-6"
+            unoptimized
+          />
           <span className="font-heading">{siteConfig.name}</span>
         </Link>
 

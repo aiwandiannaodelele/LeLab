@@ -11,7 +11,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero postsCount={posts.length} tagsCount={tags.length} />
+      <Hero />
 
       <div className="mx-auto max-w-5xl px-5">
         <SectionTitle title="最近写的东西" href="/posts" action="查看全部" />

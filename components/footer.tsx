@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { siteConfig } from "@/lib/site"
 import { Icon } from "@/components/icons"
 
@@ -7,9 +8,14 @@ export function Footer() {
     <footer className="mt-20 border-t border-border/60">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 py-10 sm:flex-row">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground text-xs">
-            {siteConfig.author.avatar}
-          </span>
+          <Image
+            src={siteConfig.author.avatar}
+            alt={siteConfig.name}
+            width={28}
+            height={28}
+            className="size-7 rounded-lg object-cover"
+            unoptimized
+          />
           <span>
             © {new Date().getFullYear()} {siteConfig.name}
           </span>

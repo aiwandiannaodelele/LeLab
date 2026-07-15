@@ -16,7 +16,7 @@ export function Hero() {
       </div>
 
       <div className="mx-auto max-w-5xl px-5 pt-12 pb-8 sm:pt-16">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-4">
           <Image
             src={siteConfig.author.avatar}
             alt={siteConfig.author.name}
@@ -26,16 +26,16 @@ export function Hero() {
             unoptimized
           />
           <div>
-            <h1 className="font-heading text-xl font-semibold tracking-tight sm:text-2xl">
+            <h1 className="font-heading text-xl font-semibold tracking-tight text-center sm:text-2xl">
               {siteConfig.author.name}
             </h1>
-            <p className="mt-0.5 text-sm text-muted-foreground">
+            <p className="mt-0.5 text-center text-sm text-muted-foreground">
               {siteConfig.author.bio}
             </p>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/posts"
             className="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3.5 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"

@@ -6,7 +6,7 @@ export const siteConfig = {
   author: {
     name: "爱玩电脑的乐乐",
     bio: "写点代码，想点事情。这里是一个慢慢生长的角落。",
-    avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=2992025461&spec=0",
+    avatar: "/avatar.jpg",
   },
   nav: [
     { label: "首页", href: "/" },

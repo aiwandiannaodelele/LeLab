@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: siteConfig.author.avatar,
+    apple: siteConfig.author.avatar,
   },
 }
 
@@ -44,6 +45,7 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={cn(
         "antialiased",
         fontMono.variable,

@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     type: "website",
   },
+  icons: {
+    icon: siteConfig.author.avatar,
+  },
 }
 
 export default function RootLayout({

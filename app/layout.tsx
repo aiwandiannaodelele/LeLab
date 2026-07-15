@@ -31,8 +31,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: siteConfig.author.avatar,
-    apple: siteConfig.author.avatar,
+    icon: "/favicon.ico",
   },
 }
 

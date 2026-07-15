@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import type { PostMeta } from "@/lib/posts"
 import { formatDate } from "@/lib/posts"
 import { Icon } from "@/components/icons"
@@ -10,7 +11,7 @@ export function PostCard({ post }: { post: PostMeta }) {
       href={`/posts/${post.slug}`}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-lg sm:rounded-3xl"
     >
-      <Cover cover={post.cover} title={post.title} />
+      <Cover cover={post.cover} coverImage={post.coverImage} title={post.title} />
 
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
@@ -50,7 +51,24 @@ export function PostCard({ post }: { post: PostMeta }) {
   )
 }
 
-function Cover({ cover, title }: { cover: string; title: string }) {
+function Cover({ cover, coverImage, title }: { cover: string; coverImage?: string; title: string }) {
+  if (coverImage) {
+    return (
+      <div className="relative aspect-[16/7] w-full overflow-hidden">
+        <Image
+          src={coverImage}
+          alt={title}
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <span className="absolute bottom-3 left-4 right-4 font-heading text-lg font-semibold text-white drop-shadow-sm">
+          {title}
+        </span>
+      </div>
+    )
+  }
+
   return (
     <div
       className="relative aspect-[16/7] w-full overflow-hidden"

@@ -17,6 +17,7 @@ export type Post = {
   excerpt: string
   tags: string[]
   cover: string
+  coverImage?: string
   readingMinutes: number
   content: string
 }
@@ -59,6 +60,7 @@ async function parsePostFile(
   const date = new Date(data.date).toISOString()
   const tags = Array.isArray(data.tags) ? (data.tags as string[]) : []
   const cover = (data.cover as string) || "#6366f1"
+  const coverImage = data.coverImage as string | undefined
 
   const readingMinutes = computeReadingTime(content)
 
@@ -71,6 +73,7 @@ async function parsePostFile(
       content.replace(/[#>*`_]/g, "").trim().split("\n").slice(0, 2).join(" "),
     tags,
     cover,
+    coverImage,
     readingMinutes,
   }
 

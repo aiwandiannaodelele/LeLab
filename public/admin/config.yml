@@ -26,4 +26,5 @@ collections:
       - { label: 摘要, name: excerpt, widget: text, required: false }
       - { label: 标签, name: tags, widget: list, required: false }
       - { label: 封面色, name: cover, widget: color, allow_input: true, required: false }
+      - { label: 封面图, name: coverImage, widget: image, required: false, hint: "上传图片后自动覆盖封面色" }
       - { label: 正文, name: body, widget: markdown, required: false }

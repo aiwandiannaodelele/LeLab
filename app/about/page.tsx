@@ -28,7 +28,7 @@ export default async function AboutPage() {
         <div className="absolute -left-16 top-32 size-[360px] rounded-full bg-emerald-400/10 blur-[120px] dark:bg-emerald-500/10" />
       </div>
 
-      <div className="mx-auto max-w-2xl px-5 pt-10 pb-8 sm:pt-14">
+      <div className="mx-auto max-w-2xl px-5 pt-8 pb-8 sm:pt-12">
         <div className="flex flex-col items-center gap-6">
           <Image
             src={siteConfig.author.avatar}

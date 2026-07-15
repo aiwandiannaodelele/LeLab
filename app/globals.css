@@ -124,13 +124,13 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-sans;
+    @apply font-sans text-[17px];
     }
 }
 
 /* ---- Prose: markdown article content ---- */
 .prose {
-  @apply text-[15px] leading-[1.8] text-foreground/90;
+  @apply leading-[1.8] text-foreground/90;
 }
 .prose > :first-child {
   @apply mt-0;

@@ -2,10 +2,10 @@ export const siteConfig = {
   name: "乐乐 Stack",
   title: "乐乐 Stack · 一块自留地",
   description:
-    "乐乐的个人博客，记录关于前端、工具与生活的一些碎片。",
+    "爱玩电脑的乐乐的个人站点，写点代码，想点事情。",
   author: {
     name: "爱玩电脑的乐乐",
-    bio: "写点代码，想点事情。这里是一个慢慢生长的角落。",
+    bio: "写点代码，想点事情。",
     avatar: "/avatar.jpg",
   },
   nav: [

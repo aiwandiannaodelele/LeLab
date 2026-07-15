@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Geist, Geist_Mono, Roboto } from "next/font/google"
 
 import "./globals.css"
@@ -55,6 +56,11 @@ export default function RootLayout({
     >
       <body className="min-h-svh bg-background text-foreground">
         <ThemeProvider>
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id="42b570a2-505c-4f96-b36b-6476b9a2cc0d"
+            strategy="afterInteractive"
+          />
           <div className="flex min-h-svh flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>

@@ -3,6 +3,7 @@
 backend:
   name: github
   repo: aiwandiannaodelele/lele-site
+  base_url: https://cmsauth.lelab.cc.cd
 
 media_folder: public/images
 public_folder: /images

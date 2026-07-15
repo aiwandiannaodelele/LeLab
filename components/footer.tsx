@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { siteConfig } from "@/lib/site"
 import { Icon } from "@/components/icons"
+import { SiteRunningTime } from "@/components/site-running-time"
 
 export function Footer() {
   return (
@@ -20,6 +21,8 @@ export function Footer() {
             © {new Date().getFullYear()} {siteConfig.name}
           </span>
         </div>
+
+        <SiteRunningTime />
 
         <div className="flex items-center gap-1">
           {siteConfig.socials.map((social) => (

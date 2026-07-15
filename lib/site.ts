@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "乐乐的存档",
-  title: "乐乐的存档 · 一块自留地好吗",
+  title: "乐乐的存档 · 一块自留地",
   description:
     "乐乐的个人博客，记录关于前端、工具与生活的一些碎片。静态生成，慢慢生长。",
   author: {

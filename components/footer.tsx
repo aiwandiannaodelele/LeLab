@@ -20,6 +20,14 @@ export function Footer() {
           <span>
             © {new Date().getFullYear()} {siteConfig.name}
           </span>
+          <a
+            href="https://icp.gov.moe/?keyword=20266608"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+          >
+            萌ICP备20266608号
+          </a>
         </div>
 
         <SiteRunningTime />

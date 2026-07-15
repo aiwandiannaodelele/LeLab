@@ -49,10 +49,6 @@ export function Hero() {
           >
             关于我
           </Link>
-          <span className="ml-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-            <span className="size-1.5 animate-pulse rounded-full bg-emerald-500" />
-            在更新中
-          </span>
         </div>
       </div>
     </section>

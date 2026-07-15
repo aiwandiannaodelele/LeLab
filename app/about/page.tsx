@@ -28,7 +28,7 @@ export default async function AboutPage() {
         <div className="absolute -left-16 top-32 size-[360px] rounded-full bg-emerald-400/10 blur-[120px] dark:bg-emerald-500/10" />
       </div>
 
-      <div className="mx-auto max-w-2xl px-5 pt-20 pb-16 sm:pt-28">
+      <div className="mx-auto max-w-2xl px-5 pt-14 pb-10 sm:pt-20">
         <div className="flex flex-col items-center gap-6">
           <Image
             src={siteConfig.author.avatar}
@@ -70,7 +70,7 @@ export default async function AboutPage() {
           <StatCard label="上次更新" value={new Date().toLocaleDateString("zh-CN", { month: "short", day: "numeric" })} />
         </div>
 
-      <div className="mx-auto max-w-2xl px-5 pb-16">
+      <div className="mx-auto max-w-2xl px-5 pb-14 sm:pb-18">
         <div className="flex flex-wrap justify-center gap-2">
           {tagsList.map((tag) => (
             <span

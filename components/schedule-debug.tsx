@@ -11,6 +11,8 @@ export function ScheduleDebug() {
   const [day, setDay] = React.useState<number | null>(null)
   const [time, setTime] = React.useState("")
 
+  if (process.env.NODE_ENV !== "development") return null
+
   function apply() {
     scheduleDebug.set(day, time || null)
   }

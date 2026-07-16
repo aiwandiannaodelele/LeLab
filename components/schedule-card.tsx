@@ -36,9 +36,13 @@ function getStatus() {
   if (!current && next) return { status: "before", label: weekDays[day], next: subjects[next.key] || "", time: next.start }
 
   const c = current!
+
   if (c.type === "class") {
-    const endH = Number(c.end.split(":")[0]), endM = Number(c.end.split(":")[1])
-    const remain = Math.max(0, Math.floor((new Date().setHours(endH, endM, 0, 0) - Date.now()) / 60000))
+    const [endH, endM] = c.end.split(":").map(Number)
+    const endDate = new Date()
+    endDate.setHours(endH, endM, 0, 0)
+    const diffMs = endDate.getTime() - Date.now()
+    const remain = Math.max(0, Math.round(diffMs / 60000))
     return { status: "class", label: weekDays[day], subject: subjects[c.key] || "", remain, end: c.end }
   }
 
@@ -71,23 +75,19 @@ export function ScheduleCard() {
   const isBreak = status.status === "break" || status.status === "before"
   const isDone = status.status === "放学"
 
-  const colors = isClass
-    ? { border: "border-emerald-500/30", bg: "bg-emerald-500/5", icon: "text-emerald-500", badge: "bg-emerald-500/10 text-emerald-600" }
-    : isBreak
-      ? { border: "border-amber-500/30", bg: "bg-amber-500/5", icon: "text-amber-500", badge: "bg-amber-500/10 text-amber-600" }
-      : { border: "border-border/60", bg: "bg-card", icon: "text-muted-foreground", badge: "bg-muted text-muted-foreground" }
+  const accentColor = isClass ? "text-emerald-500" : isBreak ? "text-amber-500" : "text-muted-foreground"
 
   return (
-    <div className={`rounded-2xl border ${colors.border} ${colors.bg} p-5`}>
+    <div className="rounded-2xl border border-border/60 bg-card p-5">
       <div className="flex items-start gap-4">
-        <div className={`grid size-10 shrink-0 place-items-center rounded-xl ${colors.bg} ${colors.icon}`}>
+        <div className={`grid size-10 shrink-0 place-items-center rounded-xl bg-muted ${accentColor}`}>
           <Icon name="calendar" size={20} />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground">{status.label}</span>
-            <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${colors.badge}`}>
-              {status.status === "class" ? "上课中" : status.status === "break" || status.status === "before" ? "休息" : "已放学"}
+            <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${isClass ? "bg-emerald-500/10 text-emerald-600" : isBreak ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"}`}>
+              {isClass ? "上课中" : isBreak ? "休息" : "已放学"}
             </span>
           </div>
 
@@ -97,7 +97,9 @@ export function ScheduleCard() {
                 <span className="font-heading text-xl font-semibold">{status.subject}</span>
                 <span className="ml-2 text-sm text-muted-foreground">~ {status.end}</span>
               </div>
-              <span className="text-lg font-semibold tabular-nums text-emerald-500">{status.remain}<span className="text-sm font-normal text-muted-foreground"> 分钟</span></span>
+              <span className={`text-lg font-semibold tabular-nums ${accentColor}`}>
+                {status.remain}<span className="text-sm font-normal text-muted-foreground"> 分钟</span>
+              </span>
             </div>
           )}
 

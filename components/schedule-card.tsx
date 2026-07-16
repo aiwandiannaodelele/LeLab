@@ -15,6 +15,16 @@ function getStatus() {
   const time = scheduleDebug.time !== null ? scheduleDebug.time : now.toTimeString().slice(0, 5)
   const isWeekend = day < 1 || day > 5
 
+  function getCurrentMs() {
+    if (scheduleDebug.time !== null) {
+      const [h, m] = scheduleDebug.time.split(":").map(Number)
+      const d = new Date()
+      d.setHours(h, m, 0, 0)
+      return d.getTime()
+    }
+    return Date.now()
+  }
+
   if (isWeekend) return { status: "放学", label: "周末" }
 
   const raw = schedule[String(day)]
@@ -38,7 +48,7 @@ function getStatus() {
     const [h, m] = c.end.split(":").map(Number)
     const endDate = new Date()
     endDate.setHours(h, m, 0, 0)
-    const remain = Math.max(0, Math.round((endDate.getTime() - Date.now()) / 60000))
+    const remain = Math.max(0, Math.round((endDate.getTime() - getCurrentMs()) / 60000))
     return { status: "class", label: weekDays[day], subject: subjects[c.key] || "", remain, end: c.end }
   }
 

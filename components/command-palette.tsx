@@ -88,7 +88,20 @@ export function CommandPalette({
     [posts],
   )
 
-  const items = React.useMemo(() => [...pages, ...postItems], [pages, postItems])
+  const toolItems: SearchItem[] = [
+    {
+      id: "github-accelerator",
+      title: "GitHub 加速",
+      titlePy: "githubjiasu",
+      href: "/tools/github-accelerator",
+      group: "工具",
+    },
+  ]
+
+  const items = React.useMemo(
+    () => [...pages, ...toolItems, ...postItems],
+    [pages, postItems],
+  )
 
   const fuse = React.useMemo(
     () =>

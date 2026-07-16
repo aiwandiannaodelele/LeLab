@@ -9,10 +9,11 @@ export const siteConfig = {
     avatar: "/avatar.jpg",
   },
   nav: [
-    { label: "首页", href: "/" },
-    { label: "文章", href: "/posts" },
-    { label: "标签", href: "/tags" },
-    { label: "关于", href: "/about" },
+    { label: "首页", href: "/", icon: "home" },
+    { label: "文章", href: "/posts", icon: "book" },
+    { label: "标签", href: "/tags", icon: "tag" },
+    { label: "工具", href: "/tools", icon: "sparkles" },
+    { label: "关于", href: "/about", icon: "sparkles" },
   ],
   socials: [
     { label: "GitHub", href: "https://github.com/aiwandiannaodelele", icon: "github" },

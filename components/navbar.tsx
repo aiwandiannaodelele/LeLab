@@ -55,7 +55,7 @@ export function Navbar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                "relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5",
                 isActive(item.href)
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -64,6 +64,7 @@ export function Navbar() {
               {isActive(item.href) && (
                 <span className="absolute inset-0 -z-10 rounded-full bg-muted" />
               )}
+              <Icon name={item.icon} size={15} />
               {item.label}
             </Link>
           ))}
@@ -91,12 +92,13 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "rounded-lg px-3 py-2.5 text-sm transition-colors",
+                  "rounded-lg px-3 py-2.5 text-sm transition-colors inline-flex items-center gap-2",
                   isActive(item.href)
                     ? "bg-muted text-foreground"
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
                 )}
               >
+                <Icon name={item.icon} size={16} />
                 {item.label}
               </Link>
             ))}

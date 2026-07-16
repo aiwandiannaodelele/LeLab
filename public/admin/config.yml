@@ -17,11 +17,11 @@ collections:
     folder: content/posts
     create: true
     delete: true
-    slug: "{{fields.slug}}"
+    slug: "{{slug}}"
     preview_path: posts/{{slug}}
     fields:
       - { label: 标题, name: title, widget: string, required: true }
-      - { label: 链接标识 (slug), name: slug, widget: string, hint: "用于 URL，如 rethinking-static-sites", required: true }
+      - { label: 链接标识 (slug), name: slug, widget: string, required: false, hint: "留空自动从标题生成" }
       - { label: 发布日期, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: true }
       - { label: 摘要, name: excerpt, widget: text, required: false }
       - { label: 标签, name: tags, widget: list, required: false }

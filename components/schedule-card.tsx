@@ -9,8 +9,6 @@ const subjects: Record<string, string> = scheduleData.subjects
 const schedule: Record<string, [string, string, string, string][]> = scheduleData.schedule as any
 const weekDays = ["", "周一", "周二", "周三", "周四", "周五"]
 
-type Period = { start: string; end: string; key: string; type: string; index: number }
-
 function getStatus() {
   const now = new Date()
   const day = scheduleDebug.day !== null ? scheduleDebug.day : now.getDay()
@@ -22,37 +20,33 @@ function getStatus() {
   const raw = schedule[String(day)]
   if (!raw) return { status: "放学", label: weekDays[day] }
 
-  const periods: Period[] = raw.map(([start, end, key, type], i) => ({ start, end, key, type, index: i }))
+  let current: ({ start: string; end: string; key: string; type: string; index: number }) | null = null
+  let next: ({ start: string; end: string; key: string; type: string; index: number }) | null = null
 
-  let current: Period | null = null
-  let next: Period | null = null
-
-  for (const p of periods) {
-    if (time >= p.start && time < p.end) current = p
-    if (time < p.start && !next) next = p
+  for (let i = 0; i < raw.length; i++) {
+    const [start, end, key, type] = raw[i]
+    if (time >= start && time < end) current = { start, end, key, type, index: i }
+    if (time < start && !next) next = { start, end, key, type, index: i }
   }
 
   if (!current && !next) return { status: "放学", label: weekDays[day], detail: "今日课程已结束" }
   if (!current && next) return { status: "before", label: weekDays[day], next: subjects[next.key] || "", time: next.start }
 
-  const c = current!
-
-  if (c.type === "class") {
-    const [endH, endM] = c.end.split(":").map(Number)
+  if (current.type === "class") {
+    const [h, m] = current.end.split(":").map(Number)
     const endDate = new Date()
-    endDate.setHours(endH, endM, 0, 0)
-    const diffMs = endDate.getTime() - Date.now()
-    const remain = Math.max(0, Math.round(diffMs / 60000))
-    return { status: "class", label: weekDays[day], subject: subjects[c.key] || "", remain, end: c.end }
+    endDate.setHours(h, m, 0, 0)
+    const remain = Math.max(0, Math.round((endDate.getTime() - Date.now()) / 60000))
+    return { status: "class", label: weekDays[day], subject: subjects[current.key] || "", remain, end: current.end }
   }
 
-  if (c.type === "break") {
+  if (current.type === "break") {
     let nextSubject: string | null = null
     let nextTime: string | null = null
-    for (let i = c.index + 1; i < periods.length; i++) {
-      if (periods[i].type === "class") {
-        nextSubject = subjects[periods[i].key] || ""
-        nextTime = periods[i].start
+    for (let i = current.index + 1; i < raw.length; i++) {
+      if (raw[i][3] === "class") {
+        nextSubject = subjects[raw[i][2]] || ""
+        nextTime = raw[i][0]
         break
       }
     }
@@ -74,7 +68,6 @@ export function ScheduleCard() {
   const isClass = status.status === "class"
   const isBreak = status.status === "break" || status.status === "before"
   const isDone = status.status === "放学"
-
   const accentColor = isClass ? "text-emerald-500" : isBreak ? "text-amber-500" : "text-muted-foreground"
 
   return (

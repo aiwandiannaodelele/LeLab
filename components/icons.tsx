@@ -17,6 +17,7 @@ import {
   Book02Icon,
   Settings02Icon,
   Link02Icon,
+  Search01Icon,
 } from "@hugeicons/core-free-icons"
 
 import type { ComponentProps } from "react"
@@ -65,6 +66,7 @@ export function Icon({
     book: Book02Icon,
     settings: Settings02Icon,
     link: Link02Icon,
+    search: Search01Icon,
   }
   return <HugeiconsIcon icon={map[name] ?? SparklesIcon} {...props} />
 }

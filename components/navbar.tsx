@@ -76,7 +76,7 @@ export function Navbar() {
             onClick={() => window.dispatchEvent(new Event("open-command-palette"))}
             className="hidden md:inline-flex h-8 items-center gap-1.5 rounded-full border border-border/70 px-3 text-sm text-muted-foreground/70 transition-colors hover:bg-muted hover:text-foreground"
           >
-            <Icon name="sparkles" size={14} />
+            <Icon name="search" size={14} />
             <span className="text-xs">⌘K</span>
           </button>
           <ThemeToggle />

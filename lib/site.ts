@@ -12,7 +12,8 @@ export const siteConfig = {
     { label: "首页", href: "/", icon: "home" },
     { label: "文章", href: "/posts", icon: "book" },
     { label: "标签", href: "/tags", icon: "tag" },
-    { label: "工具", href: "/tools", icon: "sparkles" },
+    { label: "工具", href: "/tools", icon: "settings" },
+    { label: "友链", href: "/links", icon: "link" },
     { label: "关于", href: "/about", icon: "sparkles" },
   ],
   socials: [

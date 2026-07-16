@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { siteConfig } from "@/lib/site"
 import { Icon } from "@/components/icons"
+import { ScheduleCard } from "@/components/schedule-card"
 
 export function Hero() {
   return (
@@ -49,6 +50,10 @@ export function Hero() {
           >
             关于我
           </Link>
+        </div>
+
+        <div className="mt-6 max-w-md mx-auto">
+          <ScheduleCard />
         </div>
       </div>
     </section>

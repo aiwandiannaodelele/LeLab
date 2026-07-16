@@ -8,6 +8,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { CommandPalette } from "@/components/command-palette"
+import { ScheduleDebug } from "@/components/schedule-debug"
 import { siteConfig } from "@/lib/site"
 import { getAllPosts } from "@/lib/posts"
 import { cn } from "@/lib/utils"
@@ -71,6 +72,7 @@ export default async function RootLayout({
             <Footer />
           </div>
           <BackToTop />
+          <ScheduleDebug />
           <CommandPalette posts={posts} />
         </ThemeProvider>
       </body>

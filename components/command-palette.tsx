@@ -97,14 +97,6 @@ export function CommandPalette({
       group: "工具",
       icon: "github",
     },
-    {
-      id: "schedule",
-      title: "课表",
-      titlePy: "kebiao",
-      href: "/tools/schedule",
-      group: "工具",
-      icon: "calendar",
-    },
   ]
 
   const items = React.useMemo(

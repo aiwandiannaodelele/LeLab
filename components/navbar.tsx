@@ -77,6 +77,7 @@ export function Navbar() {
             className="hidden md:inline-flex h-8 items-center gap-1.5 rounded-full border border-border/70 px-3 text-sm text-muted-foreground/70 transition-colors hover:bg-muted hover:text-foreground"
           >
             <Icon name="search" size={14} />
+            搜索
             <span className="text-xs">⌘K</span>
           </button>
           <ThemeToggle />

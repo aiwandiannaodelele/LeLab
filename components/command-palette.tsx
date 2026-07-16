@@ -95,6 +95,7 @@ export function CommandPalette({
       titlePy: "githubjiasu",
       href: "/tools/github-accelerator",
       group: "工具",
+      icon: "github",
     },
   ]
 

@@ -3,6 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import Fuse from "fuse.js"
+import { pinyin } from "pinyin-pro"
 import {
   Command,
   CommandInput,
@@ -17,7 +18,9 @@ import { siteConfig } from "@/lib/site"
 type SearchItem = {
   id: string
   title: string
+  titlePy: string
   excerpt?: string
+  excerptPy?: string
   href: string
   group: string
   icon?: string
@@ -61,6 +64,7 @@ export function CommandPalette({
       siteConfig.nav.map((n) => ({
         id: n.href,
         title: n.label,
+        titlePy: pinyin(n.label, { toneType: "none", separator: "", type: "string" }),
         href: n.href,
         group: "页面",
         icon: navIconMap[n.href],
@@ -73,7 +77,11 @@ export function CommandPalette({
       posts.map((p) => ({
         id: p.slug,
         title: p.title,
+        titlePy: pinyin(p.title, { toneType: "none", separator: "", type: "string" }),
         excerpt: p.excerpt,
+        excerptPy: p.excerpt
+          ? pinyin(p.excerpt, { toneType: "none", separator: "", type: "string" })
+          : undefined,
         href: `/posts/${p.slug}`,
         group: "文章",
       })),
@@ -86,8 +94,10 @@ export function CommandPalette({
     () =>
       new Fuse(items, {
         keys: [
-          { name: "title", weight: 2 },
+          { name: "title", weight: 3 },
+          { name: "titlePy", weight: 3 },
           { name: "excerpt", weight: 1 },
+          { name: "excerptPy", weight: 1 },
         ],
         threshold: 0.4,
       }),

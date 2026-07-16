@@ -168,6 +168,9 @@
 .prose blockquote {
   @apply my-6 rounded-r-lg border-l-2 border-primary/50 bg-muted/50 py-1 pl-5 pr-3 text-muted-foreground italic;
 }
+.prose del {
+  @apply line-through decoration-muted-foreground/60;
+}
 .prose code {
   @apply rounded-[6px] bg-muted px-1.5 py-0.5 font-mono text-[0.85em] text-foreground;
 }

@@ -13,7 +13,7 @@ export default async function HomePage() {
     <>
       <Hero />
 
-      <div className="mx-auto max-w-5xl px-5">
+      <div className="mx-auto max-w-5xl px-5 pt-6">
         <SectionTitle title="随笔" href="/posts" action="查看全部" />
 
         {latest.length === 0 ? (

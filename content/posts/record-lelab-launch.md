@@ -9,7 +9,7 @@ tags:
   - Cloudflare Worker
   - LeLab
   - Serverless
-cover: ''
+cover: '#669c35'
 coverImage: ''
 ---
 

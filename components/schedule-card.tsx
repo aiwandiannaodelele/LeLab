@@ -32,18 +32,20 @@ function getStatus() {
   if (!current && !next) return { status: "放学", label: weekDays[day], detail: "今日课程已结束" }
   if (!current && next) return { status: "before", label: weekDays[day], next: subjects[next.key] || "", time: next.start }
 
-  if (current.type === "class") {
-    const [h, m] = current.end.split(":").map(Number)
+  const c = current!
+
+  if (c.type === "class") {
+    const [h, m] = c.end.split(":").map(Number)
     const endDate = new Date()
     endDate.setHours(h, m, 0, 0)
     const remain = Math.max(0, Math.round((endDate.getTime() - Date.now()) / 60000))
-    return { status: "class", label: weekDays[day], subject: subjects[current.key] || "", remain, end: current.end }
+    return { status: "class", label: weekDays[day], subject: subjects[c.key] || "", remain, end: c.end }
   }
 
-  if (current.type === "break") {
+  if (c.type === "break") {
     let nextSubject: string | null = null
     let nextTime: string | null = null
-    for (let i = current.index + 1; i < raw.length; i++) {
+    for (let i = c.index + 1; i < raw.length; i++) {
       if (raw[i][3] === "class") {
         nextSubject = subjects[raw[i][2]] || ""
         nextTime = raw[i][0]

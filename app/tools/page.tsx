@@ -13,6 +13,12 @@ const tools = [
     href: "/tools/github-accelerator",
     icon: "github",
   },
+  {
+    title: "课表",
+    desc: "查看每日课表，实时显示上课状态与倒计时。",
+    href: "/tools/schedule",
+    icon: "calendar",
+  },
 ]
 
 export default function ToolsPage() {

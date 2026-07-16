@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Icon } from "@/components/icons"
-import { cn } from "@/lib/utils"
 
 export const metadata = {
   title: "工具",

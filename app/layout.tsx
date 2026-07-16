@@ -7,7 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
+import { CommandPalette } from "@/components/command-palette"
 import { siteConfig } from "@/lib/site"
+import { getAllPosts } from "@/lib/posts"
 import { cn } from "@/lib/utils"
 
 const geistHeading = Geist({ subsets: ["latin"], variable: "--font-heading" })
@@ -36,11 +38,13 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const posts = await getAllPosts()
+
   return (
     <html
       lang="zh-CN"
@@ -67,6 +71,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <BackToTop />
+          <CommandPalette posts={posts} />
         </ThemeProvider>
       </body>
     </html>

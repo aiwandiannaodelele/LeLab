@@ -95,7 +95,7 @@ export function Hero() {
       </div>
 
       <div className="mx-auto max-w-5xl px-5 pt-12 pb-8 sm:pt-16">
-          <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4">
           <div
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -112,45 +112,40 @@ export function Hero() {
               />
               <span className={`absolute -top-0.5 -right-0.5 size-4 rounded-full border-2 border-background ${indicatorColor} transition-colors duration-500`} />
             </div>
-
             <div
               className={`transition-all duration-300 ease-out overflow-hidden ${
                 hover ? "w-[300px] ml-3 opacity-100" : "w-0 opacity-0"
               }`}
             >
               <div className="w-[300px] rounded-2xl border border-border/60 bg-card p-4">
-                  <div className="flex items-start gap-3">
-                    <div className={`grid size-9 shrink-0 place-items-center rounded-xl bg-muted ${isClass ? "text-emerald-500" : isActive ? "text-amber-500" : "text-muted-foreground"}`}>
-                      <Icon name="calendar" size={18} />
+                <div className="flex items-start gap-3">
+                  <div className={`grid size-9 shrink-0 place-items-center rounded-xl bg-muted ${isClass ? "text-emerald-500" : isActive ? "text-amber-500" : "text-muted-foreground"}`}>
+                    <Icon name="calendar" size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">{status.label}</span>
+                      <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${isClass ? "bg-emerald-500/10 text-emerald-600" : isActive ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"}`}>
+                        {status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学"}
+                      </span>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-muted-foreground">{status.label}</span>
-                        <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${isClass ? "bg-emerald-500/10 text-emerald-600" : isActive ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"}`}>
-                          {status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学"}
+                    {status.type === "class" && (
+                      <div className="mt-1.5 flex items-baseline justify-between gap-2">
+                        <span className="font-heading text-base font-semibold">{status.subject}</span>
+                        <span className="text-sm font-semibold tabular-nums text-emerald-500">
+                          {status.remain}<span className="text-xs font-normal text-muted-foreground"> 分钟</span>
                         </span>
                       </div>
-
-                      {status.type === "class" && (
-                        <div className="mt-1.5 flex items-baseline justify-between gap-2">
-                          <span className="font-heading text-base font-semibold">{status.subject}</span>
-                          <span className="text-sm font-semibold tabular-nums text-emerald-500">
-                            {status.remain}<span className="text-xs font-normal text-muted-foreground"> 分钟</span>
-                          </span>
-                        </div>
-                      )}
-
-                      {(status.type === "break" || status.type === "before") && (
-                        <p className="mt-1.5 text-sm">
-                          <span className="font-medium">下一节 {status.next}</span>
-                          <span className="ml-1.5 text-xs text-muted-foreground">{status.time} 上课</span>
-                        </p>
-                      )}
-
-                      {status.type === "done" || status.type === "weekend" ? (
-                        <p className="mt-1.5 text-sm text-muted-foreground">今日课程已结束</p>
-                      ) : null}
-                    </div>
+                    )}
+                    {(status.type === "break" || status.type === "before") && (
+                      <p className="mt-1.5 text-sm">
+                        <span className="font-medium">下一节 {status.next}</span>
+                        <span className="ml-1.5 text-xs text-muted-foreground">{status.time} 上课</span>
+                      </p>
+                    )}
+                    {status.type === "done" || status.type === "weekend" ? (
+                      <p className="mt-1.5 text-sm text-muted-foreground">今日课程已结束</p>
+                    ) : null}
                   </div>
                 </div>
               </div>

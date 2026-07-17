@@ -9,6 +9,8 @@ log() {
 
 get_status() {
   local titles
+  local STATUS_RESULT=""
+  local STATUS_WINDOW=""
 
   # macOS: 获取所有应用的所有窗口标题
   titles=$(osascript -e '
@@ -29,7 +31,7 @@ get_status() {
     return allTitles
   ' 2>/dev/null)
 
-  # 逐个检查每个窗口
+  log "所有窗口:"
   while IFS= read -r line; do
     [ -z "$line" ] && continue
     process=$(echo "$line" | cut -d'|' -f1)
@@ -40,24 +42,30 @@ get_status() {
     log "  $process - $title"
 
     if [ "$process_lower" = "java" ] || [ "$process_lower" = "javaw" ]; then
-      echo "游戏中"
-      return
+      STATUS_RESULT="游戏中"
+      STATUS_WINDOW="$process - $title"
     fi
 
     for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
       if echo "$title_lower" | grep -q "$kw"; then
-        echo "编程中"
-        return
+        STATUS_RESULT="编程中"
+        STATUS_WINDOW="$process - $title"
       fi
     done
 
     if echo "$title_lower" | grep -q "clion"; then
-      echo "刷题中"
-      return
+      STATUS_RESULT="刷题中"
+      STATUS_WINDOW="$process - $title"
     fi
   done <<< "$titles"
 
-  echo ""
+  if [ -n "$STATUS_RESULT" ]; then
+    log "→ 匹配: $STATUS_RESULT (来自: $STATUS_WINDOW)"
+    echo "$STATUS_RESULT"
+  else
+    log "→ 无匹配"
+    echo ""
+  fi
 }
 
 log "状态上报脚本启动"

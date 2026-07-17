@@ -106,12 +106,12 @@ export function Hero() {
                 <Image
                   src={siteConfig.author.avatar}
                   alt={siteConfig.author.name}
-                  width={56}
-                  height={56}
-                  className="size-14 rounded-full object-cover ring-2 ring-border/50"
+                  width={72}
+                  height={72}
+                  className="size-[72px] rounded-full object-cover ring-2 ring-border/50"
                   unoptimized
                 />
-                <span className={`absolute -top-0.5 -right-0.5 size-3.5 rounded-full border-2 border-background ${indicatorColor} transition-colors duration-500`} />
+                <span className={`absolute -top-0.5 -right-0.5 size-4 rounded-full border-2 border-background ${indicatorColor} transition-colors duration-500`} />
               </div>
 
               <div
@@ -121,7 +121,7 @@ export function Hero() {
                     : "opacity-0 scale-95 max-w-0 pointer-events-none"
                 }`}
               >
-                <div className="w-[300px] rounded-2xl border border-border/60 bg-card p-4 shadow-lg">
+                <div className="w-[300px] rounded-2xl border border-border/60 bg-card p-4">
                   <div className="flex items-start gap-3">
                     <div className={`grid size-9 shrink-0 place-items-center rounded-xl bg-muted ${isClass ? "text-emerald-500" : isActive ? "text-amber-500" : "text-muted-foreground"}`}>
                       <Icon name="calendar" size={18} />

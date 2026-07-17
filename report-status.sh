@@ -4,7 +4,7 @@ TOKEN="0402467da62d23db170ad60fb4def3280de761f18f7924ef295dbdb6898e2244"
 URL="https://status.lelab.cc.cd/api/status"
 
 log() {
-  echo "[$(date '+%H:%M:%S')] $1"
+  echo "[$(date '+%H:%M:%S')] $1" >&2
 }
 
 get_status() {

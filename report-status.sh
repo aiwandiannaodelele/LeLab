@@ -8,47 +8,57 @@ log() {
 }
 
 get_status() {
-  local info
-  info=$(osascript -e '
+  local titles
+
+  # macOS: 获取所有应用的所有窗口标题
+  titles=$(osascript -e '
+    set allTitles to ""
     tell application "System Events"
-      set frontApp to first application process whose frontmost is true
-      set appName to name of frontApp
-      set winTitle to ""
-      try
-        set winTitle to name of front window of frontApp
-      end try
-      return appName & "|||" & winTitle
+      set allProcesses to every process whose background only is false
+      repeat with p in allProcesses
+        try
+          set winTitles to name of every window of p
+          repeat with t in winTitles
+            if t is not "" then
+              set allTitles to allTitles & (name of p) & "|||" & t & linefeed
+            end if
+          end repeat
+        end try
+      end repeat
     end tell
+    return allTitles
   ' 2>/dev/null)
 
-  process=$(echo "$info" | cut -d'|' -f1)
-  title=$(echo "$info" | cut -d'|' -f3)
-  title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
-  process_lower=$(echo "$process" | tr '[:upper:]' '[:lower:]')
+  # 逐个检查每个窗口
+  while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    process=$(echo "$line" | cut -d'|' -f1)
+    title=$(echo "$line" | cut -d'|' -f3)
+    title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
+    process_lower=$(echo "$process" | tr '[:upper:]' '[:lower:]')
 
-  log "窗口: $process - $title"
-
-  if [ "$process_lower" = "java" ] || [ "$process_lower" = "javaw" ]; then
-    log "→ 匹配: 游戏中 (进程: $process_lower)"
-    echo "游戏中"
-    return
-  fi
-
-  for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
-    if echo "$title_lower" | grep -q "$kw"; then
-      log "→ 匹配: 编程中 ($kw)"
-      echo "编程中"
+    if [ "$process_lower" = "java" ] || [ "$process_lower" = "javaw" ]; then
+      log "窗口: $process - $title → 游戏中"
+      echo "游戏中"
       return
     fi
-  done
 
-  if echo "$title_lower" | grep -q "clion"; then
-    log "→ 匹配: 刷题中"
-    echo "刷题中"
-    return
-  fi
+    for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
+      if echo "$title_lower" | grep -q "$kw"; then
+        log "窗口: $process - $title → 编程中 ($kw)"
+        echo "编程中"
+        return
+      fi
+    done
 
-  log "→ 无匹配，不上报"
+    if echo "$title_lower" | grep -q "clion"; then
+      log "窗口: $process - $title → 刷题中"
+      echo "刷题中"
+      return
+    fi
+  done <<< "$titles"
+
+  log "所有窗口均无匹配，不上报"
   echo ""
 }
 

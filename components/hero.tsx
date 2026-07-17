@@ -95,30 +95,29 @@ export function Hero() {
       </div>
 
       <div className="mx-auto max-w-5xl px-5 pt-12 pb-8 sm:pt-16">
-        <div className="flex flex-col items-center gap-4">
-          <div
-            className="relative"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-          >
-            <div className="flex items-center gap-4">
-              <div className="relative shrink-0">
+          <div className="flex flex-col items-center gap-4">
+          <div className="relative">
+            <div
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              <div className="relative">
                 <Image
                   src={siteConfig.author.avatar}
                   alt={siteConfig.author.name}
-                  width={72}
-                  height={72}
-                  className="size-[72px] rounded-full object-cover ring-2 ring-border/50"
+                  width={96}
+                  height={96}
+                  className="size-24 rounded-full object-cover ring-2 ring-border/50"
                   unoptimized
                 />
                 <span className={`absolute -top-0.5 -right-0.5 size-4 rounded-full border-2 border-background ${indicatorColor} transition-colors duration-500`} />
               </div>
 
               <div
-                className={`transition-all duration-300 ease-out origin-left ${
+                className={`absolute left-full top-1/2 -translate-y-1/2 ml-3 transition-all duration-300 ease-out ${
                   hover
-                    ? "opacity-100 scale-100 max-w-[320px]"
-                    : "opacity-0 scale-95 max-w-0 pointer-events-none"
+                    ? "opacity-100 visible translate-x-0"
+                    : "opacity-0 invisible -translate-x-2"
                 }`}
               >
                 <div className="w-[300px] rounded-2xl border border-border/60 bg-card p-4">

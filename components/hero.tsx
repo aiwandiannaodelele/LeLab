@@ -5,7 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Icon } from "@/components/icons"
 import { scheduleDebug } from "@/lib/schedule-debug"
-import { StatusBadge } from "@/components/status-badge"
+import { useStatus } from "@/components/status-badge"
 import { siteConfig } from "@/lib/site"
 import scheduleData from "@/lib/schedule.json"
 
@@ -76,6 +76,7 @@ function getStatus() {
 export function Hero() {
   const [status, setStatus] = React.useState(getStatus)
   const [hover, setHover] = React.useState(false)
+  const deviceStatus = useStatus()
 
   React.useEffect(() => {
     const t = setInterval(() => setStatus(getStatus()), 10000)
@@ -154,6 +155,20 @@ export function Hero() {
                     {status.type === "done" || status.type === "weekend" ? (
                       <p className="mt-1.5 text-sm text-muted-foreground">今日课程已结束</p>
                     ) : null}
+                    {deviceStatus.status && (
+                      <div className="mt-2 flex items-center gap-2 border-t border-border/40 pt-2">
+                        <span className={`text-xs font-medium ${
+                          deviceStatus.status === "编程中" ? "text-blue-500" :
+                          deviceStatus.status === "刷题中" ? "text-purple-500" :
+                          "text-rose-500"
+                        }`}>
+                          {deviceStatus.status}
+                        </span>
+                        {deviceStatus.battery && (
+                          <span className="text-xs text-muted-foreground">· {deviceStatus.battery}</span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -167,9 +182,6 @@ export function Hero() {
             <p className="mt-0.5 text-sm text-muted-foreground">
               {siteConfig.author.bio}
             </p>
-            <div className="mt-2 flex justify-center">
-              <StatusBadge />
-            </div>
           </div>
         </div>
 

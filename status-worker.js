@@ -22,9 +22,10 @@ export default {
         })
       }
       try {
-        const { status } = await request.json()
-        if (status && env.STATUS) {
-          await env.STATUS.put("current", status, { expirationTtl: 300 })
+        const { status, battery } = await request.json()
+        const data = JSON.stringify({ status: status || null, battery: battery || null })
+        if (env.STATUS) {
+          await env.STATUS.put("current", data, { expirationTtl: 300 })
           return new Response("ok", { headers: corsHeaders })
         }
         return new Response("no status or no KV", { headers: corsHeaders })
@@ -39,8 +40,9 @@ export default {
     // 网站读取状态
     if (request.method === "GET" && url.pathname === "/api/status") {
       try {
-        const status = env.STATUS ? await env.STATUS.get("current") : null
-        return new Response(JSON.stringify({ status: status || null }), {
+        const raw = env.STATUS ? await env.STATUS.get("current") : null
+        const data = raw ? JSON.parse(raw) : { status: null, battery: null }
+        return new Response(JSON.stringify(data), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         })
       } catch (e) {

@@ -11,6 +11,7 @@ get_status() {
   local titles
   local STATUS_RESULT=""
   local STATUS_WINDOW=""
+  local BATTERY=""
 
   # macOS: 获取所有应用的所有窗口标题
   titles=$(osascript -e '
@@ -62,11 +63,17 @@ get_status() {
 
   if [ -n "$STATUS_RESULT" ]; then
     log "→ 匹配: $STATUS_RESULT (来自: $STATUS_WINDOW)"
-    echo "$STATUS_RESULT"
+    RESULT="$STATUS_RESULT"
   else
     log "→ 无匹配"
-    echo ""
+    RESULT=""
   fi
+
+  # 获取电量
+  BATTERY=$(pmset -g batt 2>/dev/null | grep -oE '[0-9]+%' | head -1)
+  [ -z "$BATTERY" ] && BATTERY=""
+
+  echo "${RESULT}||${BATTERY}"
 }
 
 log "状态上报脚本启动"
@@ -75,12 +82,22 @@ echo ""
 
 while true; do
   status=$(get_status)
-  if [ -n "$status" ]; then
+  STATUS_VAL=$(echo "$status" | cut -d'|' -f1)
+  BATTERY_VAL=$(echo "$status" | cut -d'|' -f2)
+
+  if [ -n "$STATUS_VAL" ] || [ -n "$BATTERY_VAL" ]; then
+    PAYLOAD=$(cat <<EOF
+{
+  "status": $( [ -n "$STATUS_VAL" ] && echo "\"$STATUS_VAL\"" || echo null ),
+  "battery": $( [ -n "$BATTERY_VAL" ] && echo "\"$BATTERY_VAL\"" || echo null )
+}
+EOF
+)
     response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$URL" \
       -H "Authorization: Bearer $TOKEN" \
       -H "Content-Type: application/json" \
-      -d "{\"status\":\"$status\"}")
-    log "上报 $status → HTTP $response"
+      -d "$PAYLOAD")
+    log "上报 status=$STATUS_VAL battery=$BATTERY_VAL → HTTP $response"
   fi
   sleep 5
 done

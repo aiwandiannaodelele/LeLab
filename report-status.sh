@@ -71,17 +71,18 @@ get_status() {
 
   # 获取电量
   local batt_raw
-  batt_raw=$(pmset -g batt 2>/dev/null | grep -i "InternalBattery" | head -1)
-  if [ -n "$batt_raw" ]; then
+  batt_raw=$(pmset -g batt 2>/dev/null)
+  if echo "$batt_raw" | grep -qi "InternalBattery"; then
     BATTERY=$(echo "$batt_raw" | grep -oE '[0-9]+%')
-    local charging
     if echo "$batt_raw" | grep -qi "charging\|AC"; then
       BATTERY="${BATTERY} 充电中"
-    elif echo "$batt_raw" | grep -qi "discharging"; then
-      BATTERY="${BATTERY} 使用电池"
     elif echo "$batt_raw" | grep -qi "charged"; then
       BATTERY="${BATTERY} 已充满"
+    elif echo "$batt_raw" | grep -qi "discharging"; then
+      BATTERY="${BATTERY} 使用电池"
     fi
+  elif echo "$batt_raw" | grep -qi "AC Power\|charged"; then
+    BATTERY="电源供电"
   fi
 
   echo "${RESULT}||${BATTERY}"

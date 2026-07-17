@@ -70,8 +70,19 @@ get_status() {
   fi
 
   # 获取电量
-  BATTERY=$(pmset -g batt 2>/dev/null | grep -oE '[0-9]+%' | head -1)
-  [ -z "$BATTERY" ] && BATTERY=""
+  local batt_raw
+  batt_raw=$(pmset -g batt 2>/dev/null | grep -i "InternalBattery" | head -1)
+  if [ -n "$batt_raw" ]; then
+    BATTERY=$(echo "$batt_raw" | grep -oE '[0-9]+%')
+    local charging
+    if echo "$batt_raw" | grep -qi "charging\|AC"; then
+      BATTERY="${BATTERY} 充电中"
+    elif echo "$batt_raw" | grep -qi "discharging"; then
+      BATTERY="${BATTERY} 使用电池"
+    elif echo "$batt_raw" | grep -qi "charged"; then
+      BATTERY="${BATTERY} 已充满"
+    fi
+  fi
 
   echo "${RESULT}||${BATTERY}"
 }
@@ -86,18 +97,18 @@ while true; do
   BATTERY_VAL=$(echo "$status" | cut -d'|' -f2)
 
   if [ -n "$STATUS_VAL" ] || [ -n "$BATTERY_VAL" ]; then
-    PAYLOAD=$(cat <<EOF
-{
-  "status": $( [ -n "$STATUS_VAL" ] && echo "\"$STATUS_VAL\"" || echo null ),
-  "battery": $( [ -n "$BATTERY_VAL" ] && echo "\"$BATTERY_VAL\"" || echo null )
-}
-EOF
-)
+    PAYLOAD=$(python3 -c "
+import json
+d = {}
+d['status'] = $( [ -n "$STATUS_VAL" ] && echo "\"$STATUS_VAL\"" || echo "None" )
+d['battery'] = $( [ -n "$BATTERY_VAL" ] && echo "\"$BATTERY_VAL\"" || echo "None" )
+print(json.dumps(d, ensure_ascii=False))
+")
     response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$URL" \
       -H "Authorization: Bearer $TOKEN" \
       -H "Content-Type: application/json" \
       -d "$PAYLOAD")
-    log "上报 status=$STATUS_VAL battery=$BATTERY_VAL → HTTP $response"
+    log "上报 → HTTP $response ($PAYLOAD)"
   fi
   sleep 5
 done

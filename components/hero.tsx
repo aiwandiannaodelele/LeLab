@@ -84,7 +84,6 @@ export function Hero() {
 
   const isClass = status.type === "class"
   const isActive = status.type === "class" || status.type === "break" || status.type === "before"
-  const indicatorColor = isClass ? "bg-emerald-500" : isActive ? "bg-amber-500" : "bg-muted-foreground/40"
 
   return (
     <section className="relative overflow-hidden">
@@ -110,7 +109,15 @@ export function Hero() {
                 className="size-24 rounded-full object-cover ring-2 ring-border/50"
                 unoptimized
               />
-              <span className={`absolute -top-0.5 -right-0.5 size-4 rounded-full border-2 border-background ${indicatorColor} transition-colors duration-500`} />
+              <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${
+                isClass
+                  ? "bg-emerald-500 text-white"
+                  : isActive
+                    ? "bg-amber-500 text-white"
+                    : "bg-muted-foreground/40 text-white"
+              }`}>
+                {isClass ? "上课" : isActive ? "休息" : "放学"}
+              </span>
             </div>
             <div
               className={`transition-all duration-300 ease-out overflow-hidden ${

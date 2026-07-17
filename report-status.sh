@@ -85,7 +85,7 @@ get_status() {
     BATTERY="电源供电"
   fi
 
-  echo "${RESULT}||${BATTERY}"
+  echo "${RESULT}>>>${BATTERY}"
 }
 
 log "状态上报脚本启动"
@@ -94,8 +94,8 @@ echo ""
 
 while true; do
   status=$(get_status)
-  STATUS_VAL=$(echo "$status" | cut -d'|' -f1)
-  BATTERY_VAL=$(echo "$status" | cut -d'|' -f2)
+  STATUS_VAL=$(echo "$status" | cut -d'>' -f1)
+  BATTERY_VAL=$(echo "$status" | cut -d'>' -f3)
 
   if [ -n "$STATUS_VAL" ] || [ -n "$BATTERY_VAL" ]; then
     PAYLOAD=$(python3 -c "

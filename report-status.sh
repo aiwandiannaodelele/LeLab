@@ -38,6 +38,7 @@ get_status() {
     title=$(echo "$line" | cut -d'|' -f3)
     title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
     process_lower=$(echo "$process" | tr '[:upper:]' '[:lower:]')
+    combined="$title_lower $process_lower"
 
     log "  $process - $title"
 
@@ -47,13 +48,13 @@ get_status() {
     fi
 
     for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
-      if echo "$title_lower" | grep -q "$kw"; then
+      if echo "$combined" | grep -q "$kw"; then
         STATUS_RESULT="编程中"
         STATUS_WINDOW="$process - $title"
       fi
     done
 
-    if echo "$title_lower" | grep -q "clion"; then
+    if echo "$combined" | grep -q "clion"; then
       STATUS_RESULT="刷题中"
       STATUS_WINDOW="$process - $title"
     fi

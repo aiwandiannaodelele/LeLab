@@ -96,12 +96,12 @@ export function Hero() {
 
       <div className="mx-auto max-w-5xl px-5 pt-12 pb-8 sm:pt-16">
           <div className="flex flex-col items-center gap-4">
-          <div className="relative">
+          <div className="relative mx-auto">
             <div
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
             >
-              <div className="relative">
+              <div className="relative inline-block">
                 <Image
                   src={siteConfig.author.avatar}
                   alt={siteConfig.author.name}

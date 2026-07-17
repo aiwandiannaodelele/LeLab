@@ -24,7 +24,7 @@ export default {
       try {
         const { status } = await request.json()
         if (status && env.STATUS) {
-          await env.STATUS.put("current", status, { expirationTtl: 120 })
+          await env.STATUS.put("current", status, { expirationTtl: 300 })
           return new Response("ok", { headers: corsHeaders })
         }
         return new Response("no status or no KV", { headers: corsHeaders })

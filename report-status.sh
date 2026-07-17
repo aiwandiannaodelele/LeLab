@@ -37,28 +37,26 @@ get_status() {
     title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
     process_lower=$(echo "$process" | tr '[:upper:]' '[:lower:]')
 
+    log "  $process - $title"
+
     if [ "$process_lower" = "java" ] || [ "$process_lower" = "javaw" ]; then
-      log "窗口: $process - $title → 游戏中"
       echo "游戏中"
       return
     fi
 
     for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
       if echo "$title_lower" | grep -q "$kw"; then
-        log "窗口: $process - $title → 编程中 ($kw)"
         echo "编程中"
         return
       fi
     done
 
     if echo "$title_lower" | grep -q "clion"; then
-      log "窗口: $process - $title → 刷题中"
       echo "刷题中"
       return
     fi
   done <<< "$titles"
 
-  log "所有窗口均无匹配，不上报"
   echo ""
 }
 
@@ -75,5 +73,5 @@ while true; do
       -d "{\"status\":\"$status\"}")
     log "上报 $status → HTTP $response"
   fi
-  sleep 30
+  sleep 5
 done

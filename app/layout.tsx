@@ -29,6 +29,15 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   authors: [{ name: siteConfig.author.name }],
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,

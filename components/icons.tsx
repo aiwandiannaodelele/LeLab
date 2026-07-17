@@ -48,6 +48,29 @@ export function Icon({
     )
   }
 
+  if (name === "rss") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        role="img"
+        width={props.size ?? 24}
+        height={props.size ?? 24}
+        viewBox="0 0 24 24"
+        className={props.className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    )
+  }
+
   const map: Record<string, IconProps["icon"]> = {
     github: Github01Icon,
     home: Home01Icon,

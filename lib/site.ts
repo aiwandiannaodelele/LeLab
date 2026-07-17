@@ -19,6 +19,7 @@ export const siteConfig = {
   socials: [
     { label: "GitHub", href: "https://github.com/aiwandiannaodelele", icon: "github" },
     { label: "Bilibili", href: "https://space.bilibili.com/520410176", icon: "bilibili" },
+    { label: "RSS", href: "/feed.xml", icon: "rss" },
   ],
   postsPerPage: 6,
   giscus: {

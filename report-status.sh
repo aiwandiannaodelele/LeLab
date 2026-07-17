@@ -1,13 +1,13 @@
 #!/bin/bash
 
-TOKEN="你的TOKEN"
+TOKEN="0402467da62d23db170ad60fb4def3280de761f18f7924ef295dbdb6898e2244"
 URL="https://status.lelab.cc.cd/api/status"
 
-# 获取当前活动窗口的进程名和窗口标题
-get_status() {
-  local title process
+log() {
+  echo "[$(date '+%H:%M:%S')] $1"
+}
 
-  # macOS: 用 AppleScript 获取当前窗口标题和进程名
+get_status() {
   local info
   info=$(osascript -e '
     tell application "System Events"
@@ -26,38 +26,44 @@ get_status() {
   title_lower=$(echo "$title" | tr '[:upper:]' '[:lower:]')
   process_lower=$(echo "$process" | tr '[:upper:]' '[:lower:]')
 
-  # 规则匹配（优先级从上到下）
+  log "窗口: $process - $title"
 
-  # Minecraft: java / javaw
   if [ "$process_lower" = "java" ] || [ "$process_lower" = "javaw" ]; then
+    log "→ 匹配: 游戏中 (进程: $process_lower)"
     echo "游戏中"
     return
   fi
 
-  # 编程中
   for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
     if echo "$title_lower" | grep -q "$kw"; then
+      log "→ 匹配: 编程中 ($kw)"
       echo "编程中"
       return
     fi
   done
 
-  # 刷题中
   if echo "$title_lower" | grep -q "clion"; then
+    log "→ 匹配: 刷题中"
     echo "刷题中"
     return
   fi
 
+  log "→ 无匹配，不上报"
   echo ""
 }
+
+log "状态上报脚本启动"
+log "Worker: $URL"
+echo ""
 
 while true; do
   status=$(get_status)
   if [ -n "$status" ]; then
-    curl -s -X POST "$URL" \
+    response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$URL" \
       -H "Authorization: Bearer $TOKEN" \
       -H "Content-Type: application/json" \
-      -d "{\"status\":\"$status\"}" > /dev/null
+      -d "{\"status\":\"$status\"}")
+    log "上报 $status → HTTP $response"
   fi
   sleep 30
 done

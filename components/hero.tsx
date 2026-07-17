@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Icon } from "@/components/icons"
 import { scheduleDebug } from "@/lib/schedule-debug"
+import { StatusBadge } from "@/components/status-badge"
 import { siteConfig } from "@/lib/site"
 import scheduleData from "@/lib/schedule.json"
 
@@ -159,13 +160,16 @@ export function Hero() {
             </div>
           </div>
 
-          <div>
-            <h1 className="font-heading text-xl font-semibold tracking-tight text-center sm:text-2xl">
+          <div className="text-center">
+            <h1 className="font-heading text-xl font-semibold tracking-tight sm:text-2xl">
               {siteConfig.author.name}
             </h1>
-            <p className="mt-0.5 text-center text-sm text-muted-foreground">
+            <p className="mt-0.5 text-sm text-muted-foreground">
               {siteConfig.author.bio}
             </p>
+            <div className="mt-2 flex justify-center">
+              <StatusBadge />
+            </div>
           </div>
         </div>
 

@@ -1,0 +1,12 @@
+name = "lele-status"
+compatibility_date = "2026-07-15"
+
+[observability]
+enabled = true
+
+[[kv_namespaces]]
+binding = "STATUS"
+id = ""
+
+[env.variables]
+AUTH_TOKEN = "请设置一个随机Token"

@@ -24,7 +24,14 @@ export function useDevices() {
       try {
         const res = await fetch(STATUS_API)
         const d = await res.json()
-        setDevices(d.devices || [])
+        // 兼容旧格式 { status, battery, device } 和新格式 { devices: [...] }
+        if (d.devices) {
+          setDevices(d.devices)
+        } else if (d.status) {
+          setDevices([{ status: d.status, battery: d.battery || null, device: d.device || null }])
+        } else {
+          setDevices([])
+        }
       } catch {
         setDevices([])
       }

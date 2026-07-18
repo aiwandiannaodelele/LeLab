@@ -37,7 +37,7 @@ export default {
       try {
         const body = await request.text()
         console.log("body:", body)
-        await env.STATUS.put("current", body, { expirationTtl: 30 })
+        await env.STATUS.put("current", body, { expirationTtl: 60 })
         console.log("stored ok")
         return new Response("ok", { headers: corsHeaders })
       } catch (e) {

@@ -38,9 +38,9 @@ export function useDevices() {
 }
 
 export function getPrimaryStatus(devices: DeviceData[]) {
-  if (devices.length === 0) return null
-  for (const d of devices) {
-    if (d.status) return d.status
+  const order = ["游戏中", "编程中", "刷题中"]
+  for (const s of order) {
+    if (devices.some(d => d.status === s)) return s
   }
   return null
 }

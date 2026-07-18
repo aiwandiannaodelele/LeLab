@@ -122,6 +122,9 @@ export function Hero() {
                     : "bg-muted-foreground/40 text-white"
               }`}>
                 {isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
+                {hasDevice && !isClass && !isActive && (
+                  <span className="ml-0.5 text-[9px] opacity-70">{devices.length}</span>
+                )}
                 <svg className="inline-block ml-0.5" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
               </span>
             </div>

@@ -29,7 +29,15 @@ export default {
         const data = JSON.parse(body)
         const device = data.device || "unknown"
         const key = `device:${device}`
-        await env.STATUS.put(key, body, { expirationTtl: 60 })
+
+        // 读取旧值，只有变化时才写入
+        const oldRaw = await env.STATUS.get(key)
+        const changed = !oldRaw || oldRaw !== body
+
+        if (changed) {
+          await env.STATUS.put(key, body, { expirationTtl: 60 })
+        }
+
         return new Response("ok", { headers: corsHeaders })
       } catch (e) {
         return new Response(JSON.stringify({ error: e.message }), {

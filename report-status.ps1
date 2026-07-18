@@ -111,8 +111,17 @@ while ($true) {
     } | ConvertTo-Json -Compress
 
     try {
-      $jsonBytes = [System.Text.Encoding]::UTF8.GetBytes($body)
-      $resp = Invoke-RestMethod -Uri $URL -Method Post -Body $jsonBytes -ContentType "application/json; charset=utf-8" -Headers @{ Authorization = "Bearer $TOKEN" } -ErrorAction Stop
+      $json = @{
+        status = if ($status) { $status } else { $null }
+        battery = if ($battery) { $battery } else { $null }
+        device = $DEVICE
+      } | ConvertTo-Json -Compress
+
+      $tempFile = [System.IO.Path]::GetTempFileName()
+      [System.IO.File]::WriteAllText($tempFile, $json, [System.Text.Encoding]::UTF8)
+      $resp = Invoke-RestMethod -Uri $URL -Method Post -InFile $tempFile -ContentType "application/json; charset=utf-8" -Headers @{ Authorization = "Bearer $TOKEN" } -ErrorAction Stop
+      Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+      Write-Host "$(Get-Date -Format 'HH:mm:ss') 上报 → HTTP 200"
       Write-Host "$(Get-Date -Format 'HH:mm:ss') 上报 → HTTP 200"
     } catch {
       Write-Host "$(Get-Date -Format 'HH:mm:ss') 上报 → 失败: $_"

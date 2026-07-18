@@ -26,11 +26,11 @@ function Get-Status {
   [void][WinAPI]::GetWindowText($hwnd, $sb, 256)
   $title = $sb.ToString()
 
-  $pid = 0
-  [WinAPI]::GetWindowThreadProcessId($hwnd, [ref]$pid) | Out-Null
+  $procId = 0
+  [WinAPI]::GetWindowThreadProcessId($hwnd, [ref]$procId) | Out-Null
   $process = ""
-  if ($pid -gt 0) {
-    try { $process = (Get-Process -Id $pid -ErrorAction Stop).ProcessName } catch {}
+  if ($procId -gt 0) {
+    try { $process = (Get-Process -Id $procId -ErrorAction Stop).ProcessName } catch {}
   }
 
   $titleLower = $title.ToLower()
@@ -46,9 +46,9 @@ function Get-Status {
     return "游戏中"
   }
 
-  # 检查所有窗口（不只是前台窗口）
-  $allWindows = [System.Diagnostics.Process]::GetProcesses()
-  foreach ($p in $allWindows) {
+  # 检查所有进程（不只是前台窗口）
+  $allProcs = Get-Process
+  foreach ($p in $allProcs) {
     $pn = $p.ProcessName.ToLower()
     if ($pn -eq "java" -or $pn -eq "javaw" -or $pn.Contains("deltaforceclient")) {
       return "游戏中"
@@ -75,21 +75,15 @@ function Get-Battery {
   try {
     $battery = Get-WmiObject -Class Win32_Battery -ErrorAction Stop
     $pct = $battery.EstimatedChargeRemaining
+    if ($pct -eq $null) { return "电源供电" }
     $status = ""
     if ($battery.BatteryStatus -eq 2) { $status = "使用电池" }
     elseif ($battery.BatteryStatus -eq 6 -or $battery.BatteryStatus -eq 3) { $status = "充电中" }
     elseif ($battery.BatteryStatus -eq 7) { $status = "已充满" }
-
-    if ($pct) {
-      $result = "${pct}%"
-      if ($status) { $result += " $status" }
-      return $result
-    }
+    if ($status) { return "${pct}% $status" } else { return "${pct}%" }
   } catch {
-    # 台式机没有电池
     return "电源供电"
   }
-  return $null
 }
 
 Write-Host "状态上报脚本启动 (Windows)"

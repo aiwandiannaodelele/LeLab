@@ -84,9 +84,6 @@ get_status() {
   elif echo "$batt_raw" | grep -qi "AC Power\|charged"; then
     BATTERY="电源供电"
   fi
-  elif echo "$batt_raw" | grep -qi "AC Power\|charged"; then
-    BATTERY="电源供电"
-  fi
   log "Battery final: $BATTERY"
 
   echo "${RESULT}|${BATTERY}"

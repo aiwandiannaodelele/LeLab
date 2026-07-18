@@ -10,20 +10,23 @@ const statusColors: Record<string, string> = {
   "游戏中": "bg-rose-500/10 text-rose-500",
 }
 
-export function useStatus() {
-  const [data, setData] = React.useState<{ status: string | null; battery: string | null }>({
-    status: null,
-    battery: null,
-  })
+export type DeviceData = {
+  status: string | null
+  battery: string | null
+  device: string | null
+}
+
+export function useDevices() {
+  const [devices, setDevices] = React.useState<DeviceData[]>([])
 
   React.useEffect(() => {
     async function fetchStatus() {
       try {
         const res = await fetch(STATUS_API)
         const d = await res.json()
-        setData({ status: d.status || null, battery: d.battery || null })
+        setDevices(d.devices || [])
       } catch {
-        setData({ status: null, battery: null })
+        setDevices([])
       }
     }
     fetchStatus()
@@ -31,5 +34,13 @@ export function useStatus() {
     return () => clearInterval(t)
   }, [])
 
-  return data
+  return devices
+}
+
+export function getPrimaryStatus(devices: DeviceData[]) {
+  if (devices.length === 0) return null
+  for (const d of devices) {
+    if (d.status) return d.status
+  }
+  return null
 }

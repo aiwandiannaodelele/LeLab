@@ -5,7 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Icon } from "@/components/icons"
 import { scheduleDebug } from "@/lib/schedule-debug"
-import { useStatus } from "@/components/status-badge"
+import { useDevices, getPrimaryStatus } from "@/components/status-badge"
 import { siteConfig } from "@/lib/site"
 import scheduleData from "@/lib/schedule.json"
 
@@ -76,7 +76,8 @@ function getStatus() {
 export function Hero() {
   const [status, setStatus] = React.useState(getStatus)
   const [hover, setHover] = React.useState(false)
-  const deviceStatus = useStatus()
+  const devices = useDevices()
+  const primaryStatus = getPrimaryStatus(devices)
 
   React.useEffect(() => {
     const t = setInterval(() => setStatus(getStatus()), 10000)
@@ -117,19 +118,19 @@ export function Hero() {
                   ? "bg-emerald-500 text-white"
                   : isActive
                     ? "bg-amber-500 text-white"
-                    : deviceStatus.status
+                    : primaryStatus
                       ? "bg-blue-500 text-white"
                       : "bg-muted-foreground/40 text-white"
               }`}>
-                {isClass ? "上课" : isActive ? "休息" : deviceStatus.status || "离线"}
+                {isClass ? "上课" : isActive ? "休息" : primaryStatus || "离线"}
               </span>
             </div>
             <div
-              className={`transition-all duration-300 ease-out overflow-hidden ${
-                hover ? "w-[300px] ml-3 opacity-100" : "w-0 opacity-0"
+                className={`transition-all duration-300 ease-out overflow-hidden ${
+                hover ? "w-[380px] ml-3 opacity-100" : "w-0 opacity-0"
               }`}
             >
-              <div className="w-[300px] rounded-2xl border border-border/60 bg-card p-4">
+              <div className="w-[380px] rounded-2xl border border-border/60 bg-card p-4">
                 <div className="flex items-start gap-3">
                   <div className={`grid size-9 shrink-0 place-items-center rounded-xl bg-muted ${isClass ? "text-emerald-500" : isActive ? "text-amber-500" : "text-muted-foreground"}`}>
                     <Icon name="calendar" size={18} />
@@ -158,18 +159,22 @@ export function Hero() {
                     {status.type === "done" || status.type === "weekend" ? (
                       <p className="mt-1.5 text-sm text-muted-foreground">今日课程已结束</p>
                     ) : null}
-                    {deviceStatus.status && (
-                      <div className="mt-2 flex items-center gap-2 border-t border-border/40 pt-2">
-                        <span className={`text-xs font-medium ${
-                          deviceStatus.status === "编程中" ? "text-blue-500" :
-                          deviceStatus.status === "刷题中" ? "text-purple-500" :
-                          "text-rose-500"
-                        }`}>
-                          {deviceStatus.status}
-                        </span>
-                        {deviceStatus.battery && (
-                          <span className="text-xs text-muted-foreground">· {deviceStatus.battery}</span>
-                        )}
+                    {devices.length > 0 && devices.some(d => d.status) && (
+                      <div className="mt-2 flex flex-col gap-1.5 border-t border-border/40 pt-2">
+                        {devices.filter(d => d.status).map((d, i) => (
+                          <div key={i} className="flex items-center justify-between text-xs">
+                            <span className={`font-medium ${
+                              d.status === "编程中" ? "text-blue-500" :
+                              d.status === "刷题中" ? "text-purple-500" : "text-rose-500"
+                            }`}>
+                              {d.status}
+                            </span>
+                            <div className="flex items-center gap-2 text-muted-foreground">
+                              {d.battery && <span>{d.battery}</span>}
+                              <span>{d.device || "未知设备"}</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>

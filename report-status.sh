@@ -2,6 +2,7 @@
 
 TOKEN="0402467da62d23db170ad60fb4def3280de761f18f7924ef295dbdb6898e2244"
 URL="https://status.lelab.cc.cd/api/status"
+DEVICE="乐乐的 MacBook Air"
 
 log() {
   echo "[$(date '+%H:%M:%S')] $1" >&2
@@ -112,6 +113,7 @@ import json
 d = {}
 d['status'] = $( [ -n "$STATUS_VAL" ] && echo "\"$STATUS_VAL\"" || echo "None" )
 d['battery'] = $( [ -n "$BATTERY_VAL" ] && echo "\"$BATTERY_VAL\"" || echo "None" )
+d['device'] = \"$DEVICE\"
 print(json.dumps(d, ensure_ascii=False))
 ")
     response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$URL" \

@@ -11,63 +11,63 @@ export default {
     }
 
     const url = new URL(request.url)
-    console.log(`${request.method} ${url.pathname}`)
 
     if (request.method === "POST" && url.pathname === "/api/status") {
       const auth = request.headers.get("Authorization")
-      console.log("AUTH_TOKEN exists:", !!env.AUTH_TOKEN)
-      console.log("STATUS KV exists:", !!env.STATUS)
-
       if (!env.AUTH_TOKEN || auth !== `Bearer ${env.AUTH_TOKEN}`) {
-        console.log("auth failed")
         return new Response(JSON.stringify({ error: "unauthorized" }), {
-          status: 401,
-          headers: corsHeaders,
+          status: 401, headers: corsHeaders,
         })
       }
-
       if (!env.STATUS) {
-        console.log("KV not bound")
         return new Response(JSON.stringify({ error: "KV not bound" }), {
-          status: 500,
-          headers: corsHeaders,
+          status: 500, headers: corsHeaders,
         })
       }
-
       try {
         const body = await request.text()
-        console.log("body:", body)
-        await env.STATUS.put("current", body, { expirationTtl: 60 })
-        console.log("stored ok")
+        const data = JSON.parse(body)
+        const device = data.device || "unknown"
+        const key = `device:${device}`
+        await env.STATUS.put(key, body, { expirationTtl: 60 })
         return new Response("ok", { headers: corsHeaders })
       } catch (e) {
-        console.log("error:", e.message)
         return new Response(JSON.stringify({ error: e.message }), {
-          status: 500,
-          headers: corsHeaders,
+          status: 500, headers: corsHeaders,
         })
       }
     }
 
     if (request.method === "GET" && url.pathname === "/api/status") {
       try {
-        const raw = env.STATUS ? await env.STATUS.get("current") : null
-        console.log("get status:", raw)
-        return new Response(raw || JSON.stringify({}), {
+        if (!env.STATUS) {
+          return new Response(JSON.stringify({ devices: [] }), {
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          })
+        }
+        const list = await env.STATUS.list({ prefix: "device:" })
+        const devices = []
+        for (const key of list.keys) {
+          const raw = await env.STATUS.get(key.name)
+          if (raw) {
+            try {
+              const data = JSON.parse(raw)
+              devices.push(data)
+            } catch {}
+          }
+        }
+        return new Response(JSON.stringify({ devices }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         })
       } catch (e) {
-        console.log("get error:", e.message)
         return new Response(JSON.stringify({ error: e.message }), {
-          status: 500,
-          headers: corsHeaders,
+          status: 500, headers: corsHeaders,
         })
       }
     }
 
     return new Response(JSON.stringify({ error: "not found" }), {
-      status: 404,
-      headers: corsHeaders,
+      status: 404, headers: corsHeaders,
     })
   },
 }

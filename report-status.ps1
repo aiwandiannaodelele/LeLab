@@ -111,7 +111,8 @@ while ($true) {
     } | ConvertTo-Json -Compress
 
     try {
-      $resp = Invoke-RestMethod -Uri $URL -Method Post -Body $body -ContentType "application/json" -Headers @{ Authorization = "Bearer $TOKEN" } -ErrorAction Stop
+      $jsonBytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+      $resp = Invoke-RestMethod -Uri $URL -Method Post -Body $jsonBytes -ContentType "application/json; charset=utf-8" -Headers @{ Authorization = "Bearer $TOKEN" } -ErrorAction Stop
       Write-Host "$(Get-Date -Format 'HH:mm:ss') 上报 → HTTP 200"
     } catch {
       Write-Host "$(Get-Date -Format 'HH:mm:ss') 上报 → 失败: $_"

@@ -22,6 +22,7 @@ export const siteConfig = {
     { label: "RSS", href: "/feed.xml", icon: "rss" },
   ],
   postsPerPage: 6,
+  holidayMode: true,
   giscus: {
     repo: "aiwandiannaodelele/giscus",
     repoId: "R_kgDOTY2nVw",

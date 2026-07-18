@@ -88,6 +88,7 @@ export function Hero() {
   const isClass = status.type === "class"
   const isActive = status.type === "class" || status.type === "break" || status.type === "before"
   const hasDevice = devices.length > 0
+  const holiday = siteConfig.holidayMode
 
   return (
     <section className="relative overflow-hidden">
@@ -115,14 +116,16 @@ export function Hero() {
                 loading="eager"
               />
               <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${
-                isClass || primaryStatus
-                  ? "bg-emerald-500 text-white"
-                  : isActive || hasDevice
-                    ? "bg-amber-500 text-white"
-                    : "bg-muted-foreground/40 text-white"
+                holiday
+                  ? "bg-amber-500 text-white"
+                  : isClass || primaryStatus
+                    ? "bg-emerald-500 text-white"
+                    : isActive || hasDevice
+                      ? "bg-amber-500 text-white"
+                      : "bg-muted-foreground/40 text-white"
               }`}>
-                {isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
-                {hasDevice && !isClass && !isActive && (
+                {holiday ? "享受假期" : isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
+                {hasDevice && !isClass && !isActive && !holiday && (
                   <span className="ml-0.5 text-[9px] opacity-70">{devices.length}</span>
                 )}
                 <svg className="inline-block ml-0.5" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -140,10 +143,10 @@ export function Hero() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-muted-foreground">{status.label}</span>
-                      <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${isClass ? "bg-emerald-500/10 text-emerald-600" : isActive ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"}`}>
-                        {status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学"}
-                      </span>
+                    <span className="text-xs text-muted-foreground">{holiday ? "假期" : status.label}</span>
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${holiday ? "bg-amber-500/10 text-amber-600" : isClass ? "bg-emerald-500/10 text-emerald-600" : isActive ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"}`}>
+                      {holiday ? "享受假期中" : status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学"}
+                    </span>
                     </div>
                     {status.type === "class" && (
                       <div className="mt-1.5 flex items-baseline justify-between gap-2">

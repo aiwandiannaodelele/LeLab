@@ -28,14 +28,16 @@ export default {
         const body = await request.text()
         const data = JSON.parse(body)
         const device = data.device || "unknown"
-        const key = `device:${device}`
 
-        // 读取旧值，只有变化时才写入
-        const oldRaw = await env.STATUS.get(key)
-        const changed = !oldRaw || oldRaw !== body
+        // 读取现有数据，更新对应设备
+        let all = {}
+        const raw = await env.STATUS.get("all")
+        if (raw) try { all = JSON.parse(raw) } catch {}
 
-        if (changed) {
-          await env.STATUS.put(key, body, { expirationTtl: 60 })
+        const oldVal = JSON.stringify(all[device] || {})
+        if (oldVal !== body) {
+          all[device] = data
+          await env.STATUS.put("all", JSON.stringify(all), { expirationTtl: 60 })
         }
 
         return new Response("ok", { headers: corsHeaders })
@@ -53,17 +55,9 @@ export default {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
           })
         }
-        const list = await env.STATUS.list({ prefix: "device:" })
-        const devices = []
-        for (const key of list.keys) {
-          const raw = await env.STATUS.get(key.name)
-          if (raw) {
-            try {
-              const data = JSON.parse(raw)
-              devices.push(data)
-            } catch {}
-          }
-        }
+        const raw = await env.STATUS.get("all")
+        const all = raw ? JSON.parse(raw) : {}
+        const devices = Object.values(all)
         return new Response(JSON.stringify({ devices }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         })

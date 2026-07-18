@@ -107,13 +107,21 @@ log "状态上报脚本启动"
 log "Worker: $URL"
 echo ""
 
+LAST_STATUS=""
+LAST_BATTERY=""
+
 while true; do
   status=$(get_status)
   STATUS_VAL=$(echo "$status" | cut -d'|' -f1)
   BATTERY_VAL=$(echo "$status" | cut -d'|' -f2)
 
-  if [ -n "$STATUS_VAL" ] || [ -n "$BATTERY_VAL" ]; then
-    PAYLOAD=$(python3 -c "
+  # 只在状态或电量变化时上报
+  if [ "$STATUS_VAL" != "$LAST_STATUS" ] || [ "$BATTERY_VAL" != "$LAST_BATTERY" ]; then
+    LAST_STATUS="$STATUS_VAL"
+    LAST_BATTERY="$BATTERY_VAL"
+
+    if [ -n "$STATUS_VAL" ] || [ -n "$BATTERY_VAL" ]; then
+      PAYLOAD=$(python3 -c "
 import json
 d = {}
 d['status'] = $( [ -n "$STATUS_VAL" ] && echo "\"$STATUS_VAL\"" || echo "None" )
@@ -121,11 +129,12 @@ d['battery'] = $( [ -n "$BATTERY_VAL" ] && echo "\"$BATTERY_VAL\"" || echo "None
 d['device'] = \"$DEVICE\"
 print(json.dumps(d, ensure_ascii=False))
 ")
-    response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$URL" \
-      -H "Authorization: Bearer $TOKEN" \
-      -H "Content-Type: application/json" \
-      -d "$PAYLOAD")
-    log "上报 → HTTP $response ($PAYLOAD)"
+      response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$URL" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "Content-Type: application/json" \
+        -d "$PAYLOAD")
+      log "上报 → HTTP $response ($PAYLOAD)"
+    fi
   fi
   sleep 5
 done

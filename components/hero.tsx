@@ -122,7 +122,7 @@ export function Hero() {
                       ? "bg-blue-500 text-white"
                       : "bg-muted-foreground/40 text-white"
               }`}>
-                {isClass ? "上课" : isActive ? "休息" : primaryStatus || "离线"}
+                {isClass ? "上课" : isActive ? "休息" : primaryStatus || (devices.length > 0 ? "在线" : "离线")}
                 <svg className="inline-block ml-0.5" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
               </span>
             </div>
@@ -160,15 +160,16 @@ export function Hero() {
                     {status.type === "done" || status.type === "weekend" ? (
                       <p className="mt-1.5 text-sm text-muted-foreground">今日课程已结束</p>
                     ) : null}
-                    {devices.length > 0 && devices.some(d => d.status) && (
+                    {devices.length > 0 && (
                       <div className="mt-2 flex flex-col gap-1.5 border-t border-border/40 pt-2">
-                        {devices.filter(d => d.status).map((d, i) => (
+                        {devices.map((d, i) => (
                           <div key={i} className="flex items-center justify-between text-xs">
                             <span className={`font-medium ${
+                              !d.status ? "text-muted-foreground" :
                               d.status === "编程中" ? "text-blue-500" :
                               d.status === "刷题中" ? "text-purple-500" : "text-rose-500"
                             }`}>
-                              {d.status}
+                              {d.status || "空闲"}
                             </span>
                             <div className="flex items-center gap-2 text-muted-foreground">
                               {d.battery && <span>{d.battery}</span>}

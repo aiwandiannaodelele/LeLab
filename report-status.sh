@@ -84,6 +84,14 @@ get_status() {
   elif echo "$batt_raw" | grep -qi "AC Power\|charged"; then
     BATTERY="电源供电"
   fi
+
+  # 合盖检测
+  local CLAMSHELL
+  CLAMSHELL=$(ioreg -r -k AppleClamshellState -d 4 2>/dev/null | awk '/AppleClamshellState/ {print $NF}' | head -1)
+  if [ "$CLAMSHELL" = "Yes" ]; then
+    BATTERY="${BATTERY} 合盖"
+  fi
+
   log "Battery final: $BATTERY"
 
   echo "${RESULT}|${BATTERY}"

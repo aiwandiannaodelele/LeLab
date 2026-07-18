@@ -36,6 +36,13 @@ function Get-Status {
   $titleLower = $title.ToLower()
   $processLower = $process.ToLower()
 
+  Write-Host "  前台窗口: $process - $title"
+
+  # 列出所有进程
+  $allProcs = Get-Process | Sort-Object ProcessName
+  $procNames = ($allProcs | ForEach-Object { $_.ProcessName }) -join ", "
+  Write-Host "  所有进程: $procNames"
+
   # Minecraft: java.exe / javaw.exe
   if ($processLower -eq "java" -or $processLower -eq "javaw") {
     return "游戏中"

@@ -74,9 +74,9 @@ get_status() {
   batt_raw=$(pmset -g batt 2>/dev/null)
   if echo "$batt_raw" | grep -qi "InternalBattery"; then
     BATTERY=$(echo "$batt_raw" | grep -oE '[0-9]+%')
-    if echo "$batt_raw" | grep -qi "charging\|AC"; then
+    if echo "$batt_raw" | grep -qi "AC Power\|AC attached"; then
       BATTERY="${BATTERY} 充电中"
-    elif echo "$batt_raw" | grep -qi "charged"; then
+    elif echo "$batt_raw" | grep -qi "charged;"; then
       BATTERY="${BATTERY} 已充满"
     elif echo "$batt_raw" | grep -qi "discharging"; then
       BATTERY="${BATTERY} 使用电池"
@@ -84,8 +84,12 @@ get_status() {
   elif echo "$batt_raw" | grep -qi "AC Power\|charged"; then
     BATTERY="电源供电"
   fi
+  elif echo "$batt_raw" | grep -qi "AC Power\|charged"; then
+    BATTERY="电源供电"
+  fi
+  log "Battery final: $BATTERY"
 
-  echo "${RESULT}>>>${BATTERY}"
+  echo "${RESULT}|${BATTERY}"
 }
 
 log "状态上报脚本启动"
@@ -94,8 +98,8 @@ echo ""
 
 while true; do
   status=$(get_status)
-  STATUS_VAL=$(echo "$status" | cut -d'>' -f1)
-  BATTERY_VAL=$(echo "$status" | cut -d'>' -f3)
+  STATUS_VAL=$(echo "$status" | cut -d'|' -f1)
+  BATTERY_VAL=$(echo "$status" | cut -d'|' -f2)
 
   if [ -n "$STATUS_VAL" ] || [ -n "$BATTERY_VAL" ]; then
     PAYLOAD=$(python3 -c "

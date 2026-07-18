@@ -23,7 +23,7 @@ export default {
       try {
         const body = await request.text()
         if (env.STATUS) {
-          await env.STATUS.put("current", body, { expirationTtl: 300 })
+          await env.STATUS.put("current", body, { expirationTtl: 30 })
           return new Response("ok", { headers: corsHeaders })
         }
         return new Response("no KV", { headers: corsHeaders })

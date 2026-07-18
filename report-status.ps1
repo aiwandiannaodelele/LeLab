@@ -41,11 +41,16 @@ function Get-Status {
     return "游戏中"
   }
 
+  # 三角洲行动
+  if ($processLower.Contains("deltaforceclient") -or $titleLower.Contains("三角洲行动")) {
+    return "游戏中"
+  }
+
   # 检查所有窗口（不只是前台窗口）
   $allWindows = [System.Diagnostics.Process]::GetProcesses()
   foreach ($p in $allWindows) {
     $pn = $p.ProcessName.ToLower()
-    if ($pn -eq "java" -or $pn -eq "javaw") {
+    if ($pn -eq "java" -or $pn -eq "javaw" -or $pn.Contains("deltaforceclient")) {
       return "游戏中"
     }
   }

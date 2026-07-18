@@ -49,6 +49,11 @@ get_status() {
       STATUS_WINDOW="$process - $title"
     fi
 
+    if echo "$combined" | grep -q "deltaforceclient"; then
+      STATUS_RESULT="游戏中"
+      STATUS_WINDOW="$process - $title"
+    fi
+
     for kw in "opencode" "code" "visual studio" "webstorm" "idea" "cursor" "windsurf"; do
       if echo "$combined" | grep -q "$kw"; then
         STATUS_RESULT="编程中"

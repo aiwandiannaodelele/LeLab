@@ -117,9 +117,11 @@ export function Hero() {
                   ? "bg-emerald-500 text-white"
                   : isActive
                     ? "bg-amber-500 text-white"
-                    : "bg-muted-foreground/40 text-white"
+                    : deviceStatus.status
+                      ? "bg-blue-500 text-white"
+                      : "bg-muted-foreground/40 text-white"
               }`}>
-                {isClass ? "上课" : isActive ? "休息" : "放学"}
+                {isClass ? "上课" : isActive ? "休息" : deviceStatus.status || "离线"}
               </span>
             </div>
             <div

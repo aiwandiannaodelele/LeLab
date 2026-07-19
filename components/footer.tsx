@@ -49,7 +49,7 @@ export function Footer() {
             萌ICP备20266608号
           </a>
           <span className="text-xs text-muted-foreground/40">
-            总访问量 <span id="busuanzi_site_pv">-</span> · 总访客 <span id="busuanzi_site_uv">-</span>
+            Powered by Next.js
           </span>
         </div>
       </div>

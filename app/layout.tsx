@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Geist, Geist_Mono, Roboto } from "next/font/google"
 
 import "./globals.css"
@@ -69,6 +70,7 @@ export default async function RootLayout({
     >
       <body className="min-h-svh bg-background text-foreground">
         <ThemeProvider>
+          <Script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" strategy="afterInteractive" />
           <div className="flex min-h-svh flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>

@@ -19,25 +19,20 @@ export default {
           status: 401, headers: corsHeaders,
         })
       }
-      if (!env.STATUS) {
-        return new Response(JSON.stringify({ error: "KV not bound" }), {
-          status: 500, headers: corsHeaders,
-        })
-      }
       try {
         const body = await request.text()
         const data = JSON.parse(body)
         const device = data.device || "unknown"
+        const now = Date.now()
 
-        // 读取现有数据，更新对应设备
-        let all = {}
-        const raw = await env.STATUS.get("all")
-        if (raw) try { all = JSON.parse(raw) } catch {}
+        // 查旧值，只有变化时才写入
+        const row = await env.DB.prepare("SELECT data FROM status WHERE device = ?").bind(device).first()
+        const oldData = row ? row.data : null
 
-        const oldVal = JSON.stringify(all[device] || {})
-        if (oldVal !== body) {
-          all[device] = data
-          await env.STATUS.put("all", JSON.stringify(all), { expirationTtl: 60 })
+        if (oldData !== body) {
+          await env.DB.prepare(
+            "INSERT OR REPLACE INTO status (device, data, updated_at) VALUES (?, ?, ?)"
+          ).bind(device, body, now).run()
         }
 
         return new Response("ok", { headers: corsHeaders })
@@ -50,14 +45,8 @@ export default {
 
     if (request.method === "GET" && url.pathname === "/api/status") {
       try {
-        if (!env.STATUS) {
-          return new Response(JSON.stringify({ devices: [] }), {
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-          })
-        }
-        const raw = await env.STATUS.get("all")
-        const all = raw ? JSON.parse(raw) : {}
-        const devices = Object.values(all)
+        const { results } = await env.DB.prepare("SELECT data FROM status").all()
+        const devices = (results || []).map(r => JSON.parse(r.data))
         return new Response(JSON.stringify({ devices }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         })

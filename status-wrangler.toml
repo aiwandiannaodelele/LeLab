@@ -3,9 +3,10 @@ compatibility_date = "2026-07-15"
 
 workers_dev = true
 
-[[kv_namespaces]]
-binding = "STATUS"
-id = "请替换为你的KV Namespace ID"
+[[d1_databases]]
+binding = "DB"
+database_name = "lele-status"
+database_id = "请替换为你的D1数据库ID"
 
 [env.variables]
 AUTH_TOKEN = "0402467da62d23db170ad60fb4def3280de761f18f7924ef295dbdb6898e2244"

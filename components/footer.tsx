@@ -38,7 +38,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-0.5 sm:items-end">
+          <div className="flex flex-col items-center gap-0.5 sm:items-end">
           <SiteRunningTime />
           <a
             href="https://icp.gov.moe/?keyword=20266608"
@@ -48,6 +48,9 @@ export function Footer() {
           >
             萌ICP备20266608号
           </a>
+          <span className="text-xs text-muted-foreground/40">
+            总访问量 <span id="busuanzi_site_pv">-</span> · 总访客 <span id="busuanzi_site_uv">-</span>
+          </span>
         </div>
       </div>
     </footer>

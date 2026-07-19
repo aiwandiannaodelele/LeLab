@@ -70,7 +70,7 @@ export default async function RootLayout({
     >
       <body className="min-h-svh bg-background text-foreground">
         <ThemeProvider>
-          <Script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer />
+          <Script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" strategy="afterInteractive" />
           <div className="flex min-h-svh flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>

@@ -17,8 +17,12 @@ type Discussion = {
 }
 
 import { execSync } from "node:child_process"
+import { writeFileSync, unlinkSync, mkdtempSync } from "node:fs"
+import { join } from "node:path"
+import { tmpdir } from "node:os"
 
 async function getDiscussions(): Promise<Discussion[]> {
+  let tmpFile = ""
   try {
     const query = `{repository(owner:"aiwandiannaodelele",name:"giscus"){discussions(first:30,orderBy:{field:CREATED_AT,direction:DESC}){nodes{title number bodyText createdAt url author{login} comments{totalCount}}}}}`
 
@@ -26,23 +30,20 @@ async function getDiscussions(): Promise<Discussion[]> {
     if (!token) {
       try { token = execSync("gh auth token", { encoding: "utf8" }).trim() } catch {}
     }
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    }
-    if (token) headers["Authorization"] = `Bearer ${token}`
 
-    const res = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ query }),
-      next: { revalidate: 300 },
-    })
+    const payload = JSON.stringify({ query })
+    tmpFile = join(tmpdir(), "gh-discuss.json")
+    writeFileSync(tmpFile, payload, "utf8")
 
-    if (!res.ok) return []
-    const json = await res.json()
+    const auth = token ? `-H "Authorization: Bearer ${token}"` : ""
+    const cmd = `curl -s ${auth} -H "Content-Type: application/json" -d @${tmpFile} https://api.github.com/graphql`
+    const result = execSync(cmd, { encoding: "utf8", timeout: 10000 })
+    const json = JSON.parse(result)
     return json?.data?.repository?.discussions?.nodes || []
   } catch {
     return []
+  } finally {
+    try { if (tmpFile) unlinkSync(tmpFile) } catch {}
   }
 }
 

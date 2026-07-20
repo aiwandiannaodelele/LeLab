@@ -11,8 +11,8 @@ export const siteConfig = {
   nav: [
     { label: "首页", href: "/", icon: "home" },
     { label: "文章", href: "/posts", icon: "book" },
-    { label: "项目", href: "/projects", icon: "github" },
     { label: "标签", href: "/tags", icon: "tag" },
+    { label: "项目", href: "/projects", icon: "github" },
     { label: "工具", href: "/tools", icon: "settings" },
     { label: "友链", href: "/links", icon: "link" },
     { label: "关于", href: "/about", icon: "sparkles" },

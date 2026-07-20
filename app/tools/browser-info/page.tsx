@@ -6,39 +6,43 @@ import { Icon } from "@/components/icons"
 
 export default function BrowserInfoPage() {
   const [mounted, setMounted] = React.useState(false)
-  const [info, setInfo] = React.useState<Record<string, any>>({})
+  const [libInfo, setLibInfo] = React.useState<Record<string, any>>({})
   const [clientUA, setClientUA] = React.useState("")
 
   React.useEffect(() => {
     setMounted(true)
     setClientUA(navigator.userAgent)
 
-    const loadScript = () => {
+    const s = document.createElement("script")
+    s.src = "https://cdn.jsdelivr.net/npm/browser-tool@1.3.4/dist/browser.min.js"
+    s.onload = () => {
       const w = window as any
-      if (!w.browser) return
-      Promise.all([
-        w.browser.getInfo(),
-        w.browser.getFingerprint(),
-      ]).then(([info, fp]) => {
-        setInfo({ ...info, ...fp })
-      }).catch(() => {})
+      if (w.browser?.getInfo) {
+        Promise.all([
+          w.browser.getInfo(),
+          w.browser.getFingerprint().catch(() => ({})),
+        ]).then(([info, fp]) => setLibInfo({ ...info, ...fp })).catch(() => {})
+      }
     }
-
-    if ((window as any).browser) {
-      loadScript()
-    } else {
-      const s = document.createElement("script")
-      s.src = "https://cdn.jsdelivr.net/npm/browser-tool@1.3.3/dist/browser.min.js"
-      s.onload = loadScript
-      document.head.appendChild(s)
-    }
+    document.head.appendChild(s)
   }, [])
 
-  const browserName = info.browser || "—"
-  const browserVer = info.browserVersion || "—"
-  const engine = info.engine || "—"
-  const isWebview = info.isWebview
-  const isRobot = info.isRobot
+  const info = { ...libInfo }
+
+  // 基础数据（直接从浏览器获取，保证有值）
+  const base = {
+    browser: info.browser || "—",
+    browserVersion: info.browserVersion || "—",
+    engine: info.engine || "—",
+    isWebview: info.isWebview,
+    isRobot: info.isRobot,
+    system: info.system || "—",
+    systemVersion: info.systemVersion || "—",
+    platform: info.platform || "—",
+    architecture: info.architecture || "—",
+    bitness: info.bitness,
+    device: info.device || "—",
+  }
 
   if (!mounted) {
     return (
@@ -75,24 +79,24 @@ export default function BrowserInfoPage() {
 
       <div className="space-y-8">
         <Section title="浏览器">
-          <Row label="名称" value={browserName} />
-          <Row label="版本" value={browserVer} />
-          <Row label="内核" value={engine} />
-          <Row label="WebView" value={isWebview !== undefined ? (isWebview ? "是" : "否") : "—"} />
-          <Row label="爬虫" value={isRobot !== undefined ? (isRobot ? "是" : "否") : "—"} />
+          <Row label="名称" value={base.browser} />
+          <Row label="版本" value={base.browserVersion} />
+          <Row label="内核" value={base.engine} />
+          <Row label="WebView" value={base.isWebview !== undefined ? (base.isWebview ? "是" : "否") : "—"} />
+          <Row label="爬虫" value={base.isRobot !== undefined ? (base.isRobot ? "是" : "否") : "—"} />
           <Row label="User Agent" value={clientUA} />
         </Section>
 
         <Section title="操作系统">
-          <Row label="系统" value={info.system || "—"} />
-          <Row label="版本" value={info.systemVersion || "—"} />
-          <Row label="平台" value={info.platform || "—"} />
-          <Row label="架构" value={info.architecture || "—"} />
-          <Row label="位数" value={info.bitness ? `${info.bitness}位` : "—"} />
+          <Row label="系统" value={base.system} />
+          <Row label="版本" value={base.systemVersion} />
+          <Row label="平台" value={base.platform} />
+          <Row label="架构" value={base.architecture} />
+          <Row label="位数" value={base.bitness ? `${base.bitness}位` : "—"} />
         </Section>
 
         <Section title="设备">
-          <Row label="设备类型" value={info.device || "—"} />
+          <Row label="设备类型" value={base.device} />
           <Row label="像素比" value={`${window.devicePixelRatio}x`} />
           <Row label="设备内存" value={(navigator as any).deviceMemory ? `${(navigator as any).deviceMemory} GB` : "未知"} />
           <Row label="CPU 核心" value={String(navigator.hardwareConcurrency)} />
@@ -114,7 +118,7 @@ export default function BrowserInfoPage() {
         <Section title="语言与时区">
           <Row label="语言" value={navigator.language} />
           <Row label="时区" value={Intl.DateTimeFormat().resolvedOptions().timeZone} />
-          <Row label="当前时间" value={new Date().toLocaleString("zh-CN")} suppressHydrationWarning />
+          <Row label="当前时间" suppressHydrationWarning value={new Date().toLocaleString("zh-CN")} />
         </Section>
 
         <Section title="浏览器指纹">
@@ -127,7 +131,7 @@ export default function BrowserInfoPage() {
         </Section>
 
         <Section title="功能支持">
-          <Row label="WebGL" value={typeof (window as any).WebGLRenderingContext !== "undefined" ? "支持" : "不支持"} />
+          <Row label="WebGL" value={typeof WebGLRenderingContext !== "undefined" ? "支持" : "不支持"} />
           <Row label="NFC" value={typeof (window as any).NDEFReader !== "undefined" ? "支持" : "不支持"} />
           <Row label="WebSocket" value={typeof WebSocket !== "undefined" ? "支持" : "不支持"} />
           <Row label="WebAssembly" value={typeof WebAssembly !== "undefined" ? "支持" : "不支持"} />

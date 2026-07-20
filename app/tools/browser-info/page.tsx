@@ -183,14 +183,3 @@ function getCanvasFingerprint(): string {
     return c.toDataURL().length + " 字节"
   } catch { return "—" }
 }
-  try {
-    const c = document.createElement("canvas")
-    const gl = c.getContext("webgl") || c.getContext("experimental-webgl")
-    if (!gl) return "不支持"
-    const debugInfo = (gl as any).getExtension("WEBGL_debug_renderer_info")
-    if (!debugInfo) return "支持"
-    return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "支持"
-  } catch {
-    return "不支持"
-  }
-}

@@ -155,7 +155,7 @@ function getWebGLInfo(): string {
     if (!gl) return "不支持"
     const debugInfo = (gl as any).getExtension("WEBGL_debug_renderer_info")
     if (!debugInfo) return "支持"
-    return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "支持"
+    return (debugInfo as any).UNMASKED_RENDERER_WEBGL || "支持"
   } catch {
     return "不支持"
   }

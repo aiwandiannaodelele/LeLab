@@ -15,9 +15,13 @@ export default function BrowserInfoPage() {
 
     const loadScript = () => {
       const w = window as any
-      if (w.browser) {
-        w.browser.getInfo().then(setInfo).catch(() => {})
-      }
+      if (!w.browser) return
+      Promise.all([
+        w.browser.getInfo(),
+        w.browser.getFingerprint(),
+      ]).then(([info, fp]) => {
+        setInfo({ ...info, ...fp })
+      }).catch(() => {})
     }
 
     if ((window as any).browser) {
@@ -30,14 +34,11 @@ export default function BrowserInfoPage() {
     }
   }, [])
 
-  const basic = info.basic || {}
-  const fingerprint = info.fingerprint || {}
-
-  const browserName = basic.browser || (mounted ? "—" : "")
-  const browserVer = basic.browserVersion || (mounted ? "—" : "")
-  const engine = basic.engine || (mounted ? "—" : "")
-  const isWebview = basic.isWebview
-  const isRobot = basic.isRobot
+  const browserName = info.browser || "—"
+  const browserVer = info.browserVersion || "—"
+  const engine = info.engine || "—"
+  const isWebview = info.isWebview
+  const isRobot = info.isRobot
 
   if (!mounted) {
     return (
@@ -83,15 +84,15 @@ export default function BrowserInfoPage() {
         </Section>
 
         <Section title="操作系统">
-          <Row label="系统" value={basic.system || "—"} />
-          <Row label="版本" value={basic.systemVersion || "—"} />
-          <Row label="平台" value={basic.platform || "—"} />
-          <Row label="架构" value={basic.architecture || "—"} />
-          <Row label="位数" value={basic.bitness ? `${basic.bitness}位` : "—"} />
+          <Row label="系统" value={info.system || "—"} />
+          <Row label="版本" value={info.systemVersion || "—"} />
+          <Row label="平台" value={info.platform || "—"} />
+          <Row label="架构" value={info.architecture || "—"} />
+          <Row label="位数" value={info.bitness ? `${info.bitness}位` : "—"} />
         </Section>
 
         <Section title="设备">
-          <Row label="设备类型" value={basic.device || "—"} />
+          <Row label="设备类型" value={info.device || "—"} />
           <Row label="像素比" value={`${window.devicePixelRatio}x`} />
           <Row label="设备内存" value={(navigator as any).deviceMemory ? `${(navigator as any).deviceMemory} GB` : "未知"} />
           <Row label="CPU 核心" value={String(navigator.hardwareConcurrency)} />
@@ -117,12 +118,12 @@ export default function BrowserInfoPage() {
         </Section>
 
         <Section title="浏览器指纹">
-          <Row label="Canvas 指纹" value={(info as any).canvas || "—"} />
-          <Row label="WebGL 指纹" value={(info as any).webgl || "—"} />
-          <Row label="字体指纹" value={(info as any).font || "—"} />
-          <Row label="Audio 指纹" value={(info as any).audio || "—"} />
-          <Row label="MIME 指纹" value={(info as any).mime || "—"} />
-          <Row label="综合指纹" value={(info as any).value || "—"} />
+          <Row label="Canvas 指纹" value={info.canvas || "—"} />
+          <Row label="WebGL 指纹" value={info.webgl || "—"} />
+          <Row label="字体指纹" value={info.font || "—"} />
+          <Row label="Audio 指纹" value={info.audio || "—"} />
+          <Row label="MIME 指纹" value={info.mime || "—"} />
+          <Row label="综合指纹" value={info.value || "—"} />
         </Section>
 
         <Section title="功能支持">

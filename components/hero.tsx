@@ -116,7 +116,7 @@ export function Hero() {
                 loading="eager"
               />
               <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${
-                holiday
+                holiday && !primaryStatus
                   ? "bg-amber-500 text-white"
                   : isClass || primaryStatus
                     ? "bg-emerald-500 text-white"
@@ -124,8 +124,8 @@ export function Hero() {
                       ? "bg-amber-500 text-white"
                       : "bg-muted-foreground/40 text-white"
               }`}>
-                {holiday ? "享受假期" : isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
-                {hasDevice && !isClass && !isActive && !holiday && (
+                {holiday && !primaryStatus ? "享受假期" : isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
+                {hasDevice && !isClass && !isActive && !(holiday && !primaryStatus) && (
                   <span className="ml-0.5 text-[9px] opacity-70">{devices.length}</span>
                 )}
                 <svg className="inline-block ml-0.5" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -148,7 +148,7 @@ export function Hero() {
                       {holiday ? "享受假期中" : status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学"}
                     </span>
                     </div>
-                    {status.type === "class" && (
+                    {!holiday && status.type === "class" && (
                       <div className="mt-1.5 flex items-baseline justify-between gap-2">
                         <span className="font-heading text-base font-semibold">{status.subject}</span>
                         <span className="text-sm font-semibold tabular-nums text-emerald-500">
@@ -156,13 +156,13 @@ export function Hero() {
                         </span>
                       </div>
                     )}
-                    {(status.type === "break" || status.type === "before") && (
+                    {!holiday && (status.type === "break" || status.type === "before") && (
                       <p className="mt-1.5 text-sm">
                         <span className="font-medium">下一节 {status.next}</span>
                         <span className="ml-1.5 text-xs text-muted-foreground">{status.time} 上课</span>
                       </p>
                     )}
-                    {status.type === "done" || status.type === "weekend" ? (
+                    {!holiday && (status.type === "done" || status.type === "weekend") ? (
                       <p className="mt-1.5 text-sm text-muted-foreground">今日课程已结束</p>
                     ) : null}
                     {devices.length > 0 && (

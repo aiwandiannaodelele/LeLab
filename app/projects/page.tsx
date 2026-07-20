@@ -26,10 +26,13 @@ const excludeRepos = new Set([
 
 async function getRepos(): Promise<Repo[]> {
   try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 5000)
     const res = await fetch(
       "https://api.github.com/users/aiwandiannaodelele/repos?sort=updated&per_page=60",
-      { next: { revalidate: 3600 } },
+      { signal: controller.signal },
     )
+    clearTimeout(timeout)
     if (!res.ok) return []
     const all: Repo[] = await res.json()
     return all

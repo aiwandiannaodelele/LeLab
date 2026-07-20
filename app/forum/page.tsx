@@ -20,11 +20,15 @@ async function getDiscussions(): Promise<Discussion[]> {
   try {
     const query = `{repository(owner:"aiwandiannaodelele",name:"giscus"){discussions(first:30,orderBy:{field:CREATED_AT,direction:DESC}){nodes{title number bodyText createdAt url author{login} comments{totalCount}}}}}`
 
+    const token = process.env.GITHUB_TOKEN || ""
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    }
+    if (token) headers["Authorization"] = `Bearer ${token}`
+
     const res = await fetch("https://api.github.com/graphql", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify({ query }),
       next: { revalidate: 300 },
     })

@@ -45,8 +45,11 @@ export default {
 
     if (request.method === "GET" && url.pathname === "/api/status") {
       try {
-        const { results } = await env.DB.prepare("SELECT data FROM status").all()
-        const devices = (results || []).map(r => JSON.parse(r.data))
+        const cutoff = Date.now() - 120000 // 120秒内上报的才显示
+        const { results } = await env.DB.prepare("SELECT data, updated_at FROM status").all()
+        const devices = (results || [])
+          .filter(r => r.updated_at > cutoff)
+          .map(r => JSON.parse(r.data))
         return new Response(JSON.stringify({ devices }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         })

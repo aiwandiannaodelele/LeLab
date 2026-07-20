@@ -16,11 +16,16 @@ type Discussion = {
   comments?: { totalCount: number }
 }
 
+import { execSync } from "node:child_process"
+
 async function getDiscussions(): Promise<Discussion[]> {
   try {
     const query = `{repository(owner:"aiwandiannaodelele",name:"giscus"){discussions(first:30,orderBy:{field:CREATED_AT,direction:DESC}){nodes{title number bodyText createdAt url author{login} comments{totalCount}}}}}`
 
-    const token = process.env.GITHUB_TOKEN || ""
+    let token = process.env.GITHUB_TOKEN || ""
+    if (!token) {
+      try { token = execSync("gh auth token", { encoding: "utf8" }).trim() } catch {}
+    }
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
     }

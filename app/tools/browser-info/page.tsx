@@ -24,7 +24,7 @@ export default function BrowserInfoPage() {
       loadScript()
     } else {
       const s = document.createElement("script")
-      s.src = "https://cdn.jsdelivr.net/npm/browser@1.3.3/dist/browser.min.js"
+      s.src = "https://cdn.jsdelivr.net/npm/browser-tool@1.3.3/dist/browser.min.js"
       s.onload = loadScript
       document.head.appendChild(s)
     }

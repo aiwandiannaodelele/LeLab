@@ -98,6 +98,14 @@ export function CommandPalette({
       group: "工具",
       icon: "github",
     },
+    {
+      id: "browser-info",
+      title: "浏览器信息",
+      titlePy: "liulanqixinxi",
+      href: "/tools/browser-info",
+      group: "工具",
+      icon: "search",
+    },
   ]
 
   const items = React.useMemo(

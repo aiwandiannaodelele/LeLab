@@ -13,6 +13,12 @@ const tools = [
     href: "/tools/github-accelerator",
     icon: "github",
   },
+  {
+    title: "浏览器信息",
+    desc: "查看当前浏览器可获取的所有信息。",
+    href: "/tools/browser-info",
+    icon: "search",
+  },
 ]
 
 export default function ToolsPage() {

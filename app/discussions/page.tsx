@@ -21,11 +21,8 @@ function DiscussionsInner() {
   const router = useRouter()
   const current = tabs.find((t) => t.id === searchParams.get("tab")) || tabs[0]
 
-  const [key, setKey] = React.useState(0)
-
   function switchTab(tab: string) {
     router.replace(`/discussions?tab=${tab}`, { scroll: false })
-    setKey((k) => k + 1)
   }
 
   return (
@@ -51,7 +48,7 @@ function DiscussionsInner() {
       </aside>
 
       <div className="min-w-0 flex-1">
-        <div key={key}>
+        <div key={current.id}>
           <Giscus
             repo={siteConfig.giscus.repo}
             repoId={siteConfig.giscus.repoId}

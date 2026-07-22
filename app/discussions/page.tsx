@@ -57,6 +57,7 @@ function DiscussionsInner() {
             repoId={siteConfig.giscus.repoId}
             category={siteConfig.giscus.category}
             categoryId={siteConfig.giscus.categoryId}
+            compact
           />
         </div>
       </div>

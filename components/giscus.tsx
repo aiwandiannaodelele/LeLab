@@ -17,6 +17,7 @@ type GiscusProps = {
   emitMetadata?: boolean
   inputPosition?: "top" | "bottom"
   lang?: string
+  compact?: boolean
 }
 
 export function Giscus({
@@ -29,6 +30,7 @@ export function Giscus({
   emitMetadata = false,
   inputPosition = "top",
   lang = "zh-CN",
+  compact = false,
 }: GiscusProps) {
   const { resolvedTheme } = useTheme()
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -65,7 +67,7 @@ export function Giscus({
   }, [resolvedTheme, repo, repoId, category, categoryId, mapping, reactionsEnabled, emitMetadata, inputPosition, lang])
 
   return (
-    <div className="mt-14 pt-8 border-t border-border/60">
+    <div className={compact ? "" : "mt-14 pt-8 border-t border-border/60"}>
       <div ref={containerRef} />
     </div>
   )

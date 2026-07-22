@@ -51,10 +51,6 @@ function DiscussionsInner() {
       </aside>
 
       <div className="min-w-0 flex-1">
-        <div className="mb-4">
-          <h2 className="font-heading text-lg font-semibold">{current.label}</h2>
-          <p className="text-sm text-muted-foreground">{current.desc}</p>
-        </div>
         <div key={key}>
           <Giscus
             repo={siteConfig.giscus.repo}

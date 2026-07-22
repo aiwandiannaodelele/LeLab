@@ -120,6 +120,10 @@ main .pagination-loader-container {
   display: none;
 }
 
+.gsc-comment-box-emoji {
+  display: none;
+}
+
 .gsc-timeline {
   flex-direction: column-reverse;
 }

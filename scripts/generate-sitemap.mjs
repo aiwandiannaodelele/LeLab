@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const postsDir = path.join(__dirname, "..", "content", "posts")
-const siteUrl = "https://lelab.cc.cd"
+const siteUrl = "https://1l.lol"
 
 function getPosts() {
   if (!fs.existsSync(postsDir)) return []

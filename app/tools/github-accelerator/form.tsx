@@ -10,7 +10,7 @@ export function GithubAccelForm() {
     e.preventDefault()
     const trimmed = url.trim()
     if (!trimmed) return
-    window.open(`https://ghp.lelab.cc.cd/${trimmed}`, "_blank")
+    window.open(`https://ghp.1l.lol/${trimmed}`, "_blank")
   }
 
   return (

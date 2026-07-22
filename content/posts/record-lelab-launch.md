@@ -26,7 +26,7 @@ coverImage: ''
 - 内容：Markdown 文件，通过 Sveltia CMS 在网页上管理
 - 评论：giscus，基于 GitHub Discussions
 - 统计：Umami Cloud
-- 域名：免费短二级域名 lelab.cc.cd，可托管 Cloudflare
+- 域名：免费短二级域名 1l.lol，可托管 Cloudflare
 
 ## **配套服务**
 

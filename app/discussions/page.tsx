@@ -28,10 +28,15 @@ function DiscussionsInner() {
     setKey((k) => k + 1)
   }
 
+  React.useEffect(() => {
+    document.documentElement.style.overflow = "hidden"
+    return () => { document.documentElement.style.overflow = "" }
+  }, [])
+
   return (
-    <div className="flex flex-col gap-6 md:flex-row md:items-start">
-      <aside className="w-full shrink-0 md:w-56">
-        <nav className="flex flex-col gap-1">
+    <div className="flex h-[calc(100vh-4rem)] -mx-5 px-5">
+      <aside className="w-56 shrink-0 pt-10 sticky top-0 self-start h-screen overflow-y-auto">
+        <nav className="flex flex-col gap-1 pr-4">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -50,13 +55,14 @@ function DiscussionsInner() {
         </nav>
       </aside>
 
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1 overflow-y-auto pt-10 pb-20 pl-6">
         <div key={key}>
           <Giscus
             repo={siteConfig.giscus.repo}
             repoId={siteConfig.giscus.repoId}
             category={siteConfig.giscus.category}
             categoryId={siteConfig.giscus.categoryId}
+            mapping="url"
             compact
           />
         </div>
@@ -67,8 +73,8 @@ function DiscussionsInner() {
 
 export default function DiscussionsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
-      <header className="mb-10">
+    <div className="mx-auto max-w-5xl">
+      <header className="px-5 pt-10 pb-0">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="sparkles" size={14} className="text-primary" />
           DISCUSSIONS

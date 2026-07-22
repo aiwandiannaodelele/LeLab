@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>乐乐 Lab</title>
-    <link>https://lelab.cc.cd</link>
+    <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 Jul 2026 08:17:17 GMT</lastBuildDate>
-    <atom:link href="https://lelab.cc.cd/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Wed, 22 Jul 2026 05:30:30 GMT</lastBuildDate>
+    <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
       <title>记录一下我零成本建站的全过程</title>
-      <link>https://lelab.cc.cd/posts/record-lelab-launch/</link>
-      <guid>https://lelab.cc.cd/posts/record-lelab-launch/</guid>
+      <link>https://1l.lol/posts/record-lelab-launch/</link>
+      <guid>https://1l.lol/posts/record-lelab-launch/</guid>
       <description>告别模板套皮旧站，靠重构个人网站，说说 Next.js+Serverless 这套方案</description>
       <pubDate>Thu, 16 Jul 2026 00:00:00 GMT</pubDate>
     </item>

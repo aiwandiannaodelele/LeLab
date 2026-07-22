@@ -6,6 +6,7 @@ import remarkParse from "remark-parse"
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype"
 import rehypeSlug from "rehype-slug"
+import rehypeRaw from "rehype-raw"
 import rehypeStringify from "rehype-stringify"
 
 const postsDirectory = path.join(process.cwd(), "content", "posts")
@@ -38,13 +39,16 @@ function computeReadingTime(text: string): number {
 }
 
 async function renderMarkdown(source: string): Promise<string> {
+  // 预处理删除线：~~text~~ → <del>text</del>（解决中文无空格时 GFM 不识别的问题）
+  const processed = source.replace(/~~(.+?)~~/g, "<del>$1</del>")
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(rehypeSlug)
     .use(rehypeStringify)
-    .process(source)
+    .process(processed)
   return String(file)
 }
 

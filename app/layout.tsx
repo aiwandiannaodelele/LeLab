@@ -69,6 +69,9 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-svh bg-background text-foreground">
+        <link rel="preconnect" href="https://cdn.busuanzi.cc" />
+        <link rel="preconnect" href="https://github.com" />
+        <link rel="preconnect" href="https://status.lelab.cc.cd" />
         <ThemeProvider>
           <Script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" strategy="afterInteractive" />
           <script type="application/ld+json" dangerouslySetInnerHTML={{

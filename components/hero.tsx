@@ -117,7 +117,7 @@ export function Hero() {
                 priority
               />
               <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${
-                holiday && !primaryStatus
+                holiday
                   ? "bg-amber-500 text-white"
                   : isClass || primaryStatus
                     ? "bg-emerald-500 text-white"
@@ -125,7 +125,7 @@ export function Hero() {
                       ? "bg-amber-500 text-white"
                       : "bg-muted-foreground/40 text-white"
               }`}>
-                {holiday && !primaryStatus ? "享受假期" : isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
+                {holiday ? (primaryStatus || "享受假期") : isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
                 {hasDevice && !isClass && !isActive && !(holiday && !primaryStatus) && (
                   <span className="ml-0.5 text-[9px] opacity-70">{devices.length}</span>
                 )}

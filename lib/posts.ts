@@ -30,12 +30,19 @@ function slugifyFilename(fileName: string): string {
 }
 
 function computeReadingTime(text: string): number {
-  const words = text
+  // 中文字符数
+  const chineseChars = (text.match(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g) || []).length
+  // 英文单词数（去除 markdown 符号后按空格拆分）
+  const englishWords = text
+    .replace(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g, " ")
     .replace(/[#>*`_\-!\[\]()]/g, " ")
     .trim()
     .split(/\s+/)
     .filter(Boolean).length
-  return Math.max(1, Math.round(words / 220))
+
+  // 中文阅读速度 ~400 字/分钟，英文 ~200 词/分钟
+  const minutes = chineseChars / 400 + englishWords / 200
+  return Math.max(1, Math.round(minutes))
 }
 
 async function renderMarkdown(source: string): Promise<string> {

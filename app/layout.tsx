@@ -71,6 +71,15 @@ export default async function RootLayout({
       <body className="min-h-svh bg-background text-foreground">
         <ThemeProvider>
           <Script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" strategy="afterInteractive" />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: siteConfig.name,
+              url: "https://1l.lol",
+              description: siteConfig.description,
+            })
+          }} />
           <div className="flex min-h-svh flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>

@@ -114,6 +114,7 @@ export function Hero() {
                 className="size-24 rounded-full object-cover ring-2 ring-border/50"
                 unoptimized
                 loading="eager"
+                priority
               />
               <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${
                 holiday && !primaryStatus

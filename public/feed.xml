@@ -5,14 +5,14 @@
     <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 22 Jul 2026 05:30:30 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 05:34:05 GMT</lastBuildDate>
     <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
-      <title>记录一下我零成本建站的全过程</title>
+      <title>推倒模板重做｜Next.js 16 静态站完整搭建实录</title>
       <link>https://1l.lol/posts/record-lelab-launch/</link>
       <guid>https://1l.lol/posts/record-lelab-launch/</guid>
-      <description>告别模板套皮旧站，靠重构个人网站，说说 Next.js+Serverless 这套方案</description>
+      <description>告别模板套皮旧站，重构个人网站</description>
       <pubDate>Thu, 16 Jul 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>

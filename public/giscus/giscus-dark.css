@@ -140,6 +140,10 @@ main .gsc-left-header {
 }
 
 /* Hide reaction/emoji buttons */
+.gsc-comments-count {
+  display: none;
+}
+
 .gsc-reactions-button,
 .gsc-emoji-button,
 .gsc-reactions-menu,

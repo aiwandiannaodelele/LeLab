@@ -4,6 +4,7 @@ import * as React from "react"
 import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { Giscus } from "@/components/giscus"
+import { Icon } from "@/components/icons"
 import { cn } from "@/lib/utils"
 import { siteConfig } from "@/lib/site"
 
@@ -69,8 +70,12 @@ function DiscussionsInner() {
 
 export default function DiscussionsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10 sm:py-14">
-      <header className="mb-8">
+    <div className="mx-auto max-w-6xl px-5 py-16">
+      <header className="mb-10">
+        <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+          <Icon name="sparkles" size={14} className="text-primary" />
+          DISCUSSIONS
+        </p>
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">讨论</h1>
         <p className="mt-2 text-sm text-muted-foreground">社区讨论，欢迎参与。</p>
       </header>

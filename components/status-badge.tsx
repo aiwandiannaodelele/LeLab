@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-const STATUS_API = "https://lelab.cc.cd/api/status"
+const STATUS_API = "https://1l.lol/api/status"
 
 const statusColors: Record<string, string> = {
   "编程中": "bg-blue-500/10 text-blue-500",

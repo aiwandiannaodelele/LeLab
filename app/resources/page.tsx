@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { marked } from "marked"
 import { Icon } from "@/components/icons"
 
 export default function ResourcesPage() {
@@ -35,7 +36,10 @@ export default function ResourcesPage() {
             <div key={release.tag_name} className="rounded-2xl border border-border/60 bg-card p-6">
               <h2 className="font-heading text-xl font-semibold tracking-tight">{release.name}</h2>
               {release.body && (
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{release.body}</p>
+                <div
+                  className="mt-2 text-sm text-muted-foreground leading-relaxed [&_a]:text-primary [&_a]:underline"
+                  dangerouslySetInnerHTML={{ __html: marked.parse(release.body, { async: false }) as string }}
+                />
               )}
               {release.assets.filter(a => a.type === "attach").length > 0 && (
                 <div className="mt-5 space-y-2">

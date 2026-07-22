@@ -28,15 +28,10 @@ function DiscussionsInner() {
     setKey((k) => k + 1)
   }
 
-  React.useEffect(() => {
-    document.documentElement.style.overflow = "hidden"
-    return () => { document.documentElement.style.overflow = "" }
-  }, [])
-
   return (
-    <div style={{ height: "calc(100vh - 4rem - 6rem)" }}>
-      <aside className="w-56 shrink-0 overflow-y-auto">
-        <nav className="flex flex-col gap-1 pr-4 pt-2">
+    <div className="flex flex-col gap-6 md:flex-row md:items-start">
+      <aside className="w-full shrink-0 md:w-56 md:sticky md:top-20">
+        <nav className="flex flex-col gap-1">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -55,8 +50,8 @@ function DiscussionsInner() {
         </nav>
       </aside>
 
-      <div className="min-w-0 flex-1 overflow-y-auto pl-6 pr-5">
-        <div key={key} className="pb-10">
+      <div className="min-w-0 flex-1">
+        <div key={key}>
           <Giscus
             repo={siteConfig.giscus.repo}
             repoId={siteConfig.giscus.repoId}
@@ -73,13 +68,14 @@ function DiscussionsInner() {
 
 export default function DiscussionsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5">
-      <header className="pt-8 pb-4">
+    <div className="mx-auto max-w-5xl px-5 py-16">
+      <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="sparkles" size={14} className="text-primary" />
           DISCUSSIONS
         </p>
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">讨论</h1>
+        <p className="mt-2 text-sm text-muted-foreground">社区讨论，欢迎参与。</p>
       </header>
       <Suspense fallback={<div className="text-sm text-muted-foreground">加载中...</div>}>
         <DiscussionsInner />

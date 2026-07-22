@@ -120,8 +120,13 @@ main .pagination-loader-container {
   display: none;
 }
 
-.gsc-comment-box-emoji {
-  display: none;
+.gsc-emoji-button {
+  display: none !important;
+}
+
+.gsc-comment-box-tabs button[aria-label*="emoji" i],
+.gsc-comment-box-tabs button[aria-label*="反应" i] {
+  display: none !important;
 }
 
 .gsc-timeline {

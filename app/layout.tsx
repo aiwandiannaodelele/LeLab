@@ -8,6 +8,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { CommandPalette } from "@/components/command-palette"
+import { BusuanziRefresh } from "@/components/busuanzi-refresh"
 import { ScheduleDebug } from "@/components/schedule-debug"
 import { siteConfig } from "@/lib/site"
 import { getAllPosts } from "@/lib/posts"
@@ -74,6 +75,7 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://status.lelab.cc.cd" />
         <ThemeProvider>
           <Script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" strategy="afterInteractive" />
+          <BusuanziRefresh />
           <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",

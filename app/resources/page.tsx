@@ -37,9 +37,9 @@ export default function ResourcesPage() {
               {release.body && (
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{release.body}</p>
               )}
-              {release.assets.length > 0 && (
+              {release.assets.filter(a => a.type === "attach").length > 0 && (
                 <div className="mt-5 space-y-2">
-                  {release.assets.map((asset) => (
+                  {release.assets.filter(a => a.type === "attach").map((asset) => (
                     <a
                       key={asset.name}
                       href={asset.browser_download_url}
@@ -49,7 +49,7 @@ export default function ResourcesPage() {
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-                          <ArrowDown />
+                          <DownloadIcon />
                         </span>
                         <span className="text-sm font-medium truncate transition-colors group-hover:text-primary">
                           {asset.name || "下载"}
@@ -79,10 +79,12 @@ function formatExt(url: string) {
   return map[ext] || ext.toUpperCase()
 }
 
-function ArrowDown() {
+function DownloadIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 5v14M19 12l-7 7-7-7"/>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
     </svg>
   )
 }

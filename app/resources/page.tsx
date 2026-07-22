@@ -3,6 +3,8 @@
 import * as React from "react"
 import { marked } from "marked"
 import { Icon } from "@/components/icons"
+import { Giscus } from "@/components/giscus"
+import { siteConfig } from "@/lib/site"
 
 export default function ResourcesPage() {
   const [releases, setReleases] = React.useState<Release[]>([])
@@ -70,6 +72,15 @@ export default function ResourcesPage() {
           ))}
         </div>
       )}
+
+      <div className="mt-14">
+        <Giscus
+          repo={siteConfig.giscus.repo}
+          repoId={siteConfig.giscus.repoId}
+          category={siteConfig.giscus.category}
+          categoryId={siteConfig.giscus.categoryId}
+        />
+      </div>
     </div>
   )
 }

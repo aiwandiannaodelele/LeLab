@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function GithubAcceleratorPage() {
   return (
-    <div className="mx-auto max-w-3xl px-5 py-16">
+    <div className="mx-auto max-w-5xl px-5 py-16">
       <Link
         href="/tools"
         className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"

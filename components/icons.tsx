@@ -20,6 +20,7 @@ import {
   Search01Icon,
   FallingStarIcon,
   ArrowDown02Icon,
+  AiFolder01Icon,
 } from "@hugeicons/core-free-icons"
 
 import type { ComponentProps } from "react"
@@ -94,6 +95,7 @@ export function Icon({
     search: Search01Icon,
     star: FallingStarIcon,
     download: ArrowDown02Icon,
+    folder: AiFolder01Icon,
   }
   return <HugeiconsIcon icon={map[name] ?? SparklesIcon} {...props} />
 }

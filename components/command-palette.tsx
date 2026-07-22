@@ -31,7 +31,7 @@ const navIconMap: Record<string, string> = {
   "/posts": "book",
   "/projects": "github",
   "/tags": "tag",
-  "/resources": "download",
+  "/resources": "folder",
   "/tools": "settings",
   "/links": "link",
   "/about": "sparkles",

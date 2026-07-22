@@ -13,6 +13,7 @@ type GiscusProps = {
   category: string
   categoryId: string
   mapping?: string
+  term?: string
   reactionsEnabled?: boolean
   emitMetadata?: boolean
   inputPosition?: "top" | "bottom"
@@ -26,6 +27,7 @@ export function Giscus({
   category,
   categoryId,
   mapping = "pathname",
+  term,
   reactionsEnabled = true,
   emitMetadata = false,
   inputPosition = "top",
@@ -48,7 +50,8 @@ export function Giscus({
     script.setAttribute("data-category", category)
     script.setAttribute("data-category-id", categoryId)
     script.setAttribute("data-mapping", mapping)
-    script.setAttribute("data-strict", "0")
+    if (term) script.setAttribute("data-term", term)
+    script.setAttribute("data-strict", "1")
     script.setAttribute("data-reactions-enabled", reactionsEnabled ? "1" : "0")
     script.setAttribute("data-emit-metadata", emitMetadata ? "1" : "0")
     script.setAttribute("data-input-position", inputPosition)

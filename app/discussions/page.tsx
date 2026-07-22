@@ -54,7 +54,8 @@ function DiscussionsInner() {
             repoId={siteConfig.giscus.repoId}
             category={siteConfig.giscus.category}
             categoryId={siteConfig.giscus.categoryId}
-            mapping="url"
+            term={`discuss-${current.id}`}
+            mapping="pathname"
             compact
           />
         </div>

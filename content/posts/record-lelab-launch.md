@@ -1,8 +1,8 @@
 ---
-title: 记录一下我零成本建站的全过程
+title: 推倒模板重做｜Next.js 16 静态站完整搭建实录
 slug: record-lelab-launch
 date: 2026-07-16
-excerpt: 告别模板套皮旧站，靠重构个人网站，说说 Next.js+Serverless 这套方案
+excerpt: 告别模板套皮旧站，重构个人网站
 tags:
   - 记录
   - Next.js
@@ -26,7 +26,7 @@ coverImage: ''
 - 内容：Markdown 文件，通过 Sveltia CMS 在网页上管理
 - 评论：giscus，基于 GitHub Discussions
 - 统计：Umami Cloud
-- 域名：免费短二级域名 1l.lol，可托管 Cloudflare
+- 域名：7¥ 在 Spaceship 上买的超短顶级域 1l.lol
 
 ## **配套服务**
 

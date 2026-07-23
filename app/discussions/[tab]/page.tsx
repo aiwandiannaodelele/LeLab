@@ -30,7 +30,7 @@ export default async function DiscussionTabPage({
     <div className="mx-auto max-w-5xl px-5 py-16">
       <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Icon name="sparkles" size={14} className="text-primary" />
+          <Icon name="discussion" size={14} className="text-primary" />
           DISCUSSIONS
         </p>
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">讨论</h1>

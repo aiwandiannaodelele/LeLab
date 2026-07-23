@@ -21,7 +21,7 @@ export default function ResourcesPage() {
     <div className="mx-auto max-w-5xl px-5 py-16">
       <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Icon name="sparkles" size={14} className="text-primary" />
+          <Icon name="folder" size={14} className="text-primary" />
           RESOURCES
         </p>
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">资源</h1>

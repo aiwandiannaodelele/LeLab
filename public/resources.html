@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>资源 · 乐乐 Lab</title>
+    <meta name="description" content="一些资源下载。" />
+    <link rel="icon" href="https://q2.qlogo.cn/headimg_dl?dst_uin=2992025461&spec=5" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script src="./resources/tailwind.js"></script>
+    <script src="./resources/marked.js"></script>
+    <style type="text/tailwindcss">
+      @custom-variant dark (&:is(.dark *));
+      @theme {
+        --color-background: var(--background);
+        --color-foreground: var(--foreground);
+        --color-card: var(--card);
+        --color-card-foreground: var(--card-foreground);
+        --color-popover: var(--popover);
+        --color-popover-foreground: var(--popover-foreground);
+        --color-primary: var(--primary);
+        --color-primary-foreground: var(--primary-foreground);
+        --color-secondary: var(--secondary);
+        --color-secondary-foreground: var(--secondary-foreground);
+        --color-muted: var(--muted);
+        --color-muted-foreground: var(--muted-foreground);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--accent-foreground);
+        --color-destructive: var(--destructive);
+        --color-border: var(--border);
+        --color-input: var(--input);
+        --color-ring: var(--ring);
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.625rem;
+        --radius-xl: 0.875rem;
+        --radius-2xl: 1.125rem;
+        --radius-3xl: 1.375rem;
+        --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        --font-heading: var(--font-sans);
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      :root {
+        --background: oklch(1 0 0);
+        --foreground: oklch(0.145 0 0);
+        --card: oklch(1 0 0);
+        --card-foreground: oklch(0.145 0 0);
+        --popover: oklch(1 0 0);
+        --popover-foreground: oklch(0.145 0 0);
+        --primary: oklch(0.52 0.105 223.128);
+        --primary-foreground: oklch(0.984 0.019 200.873);
+        --secondary: oklch(0.967 0.001 286.375);
+        --secondary-foreground: oklch(0.21 0.006 285.885);
+        --muted: oklch(0.97 0 0);
+        --muted-foreground: oklch(0.556 0 0);
+        --accent: oklch(0.97 0 0);
+        --accent-foreground: oklch(0.205 0 0);
+        --destructive: oklch(0.577 0.245 27.325);
+        --border: oklch(0.922 0 0);
+        --input: oklch(0.922 0 0);
+        --ring: oklch(0.708 0 0);
+      }
+      .dark {
+        --background: oklch(0.145 0 0);
+        --foreground: oklch(0.985 0 0);
+        --card: oklch(0.205 0 0);
+        --card-foreground: oklch(0.985 0 0);
+        --popover: oklch(0.205 0 0);
+        --popover-foreground: oklch(0.985 0 0);
+        --primary: oklch(0.45 0.085 224.283);
+        --primary-foreground: oklch(0.984 0.019 200.873);
+        --secondary: oklch(0.274 0.006 286.033);
+        --secondary-foreground: oklch(0.985 0 0);
+        --muted: oklch(0.269 0 0);
+        --muted-foreground: oklch(0.708 0 0);
+        --accent: oklch(0.269 0 0);
+        --accent-foreground: oklch(0.985 0 0);
+        --destructive: oklch(0.704 0.191 22.216);
+        --border: oklch(1 0 0 / 10%);
+        --input: oklch(1 0 0 / 15%);
+        --ring: oklch(0.556 0 0);
+      }
+      html {
+        font-family: var(--font-sans);
+        font-size: 18px;
+      }
+      body {
+        background-color: var(--background);
+        color: var(--foreground);
+      }
+      .prose-md p {
+        margin: 0.625rem 0;
+        line-height: 1.7;
+      }
+      .prose-md a {
+        color: var(--primary);
+        text-decoration: underline;
+      }
+      .prose-md strong {
+        font-weight: 600;
+      }
+      .prose-md code {
+        background: var(--muted);
+        border-radius: 6px;
+        padding: 0.1em 0.4em;
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+      }
+      .prose-md ul {
+        margin: 0.625rem 0;
+        list-style: disc;
+        padding-left: 1.5rem;
+      }
+      .prose-md ol {
+        margin: 0.625rem 0;
+        list-style: decimal;
+        padding-left: 1.5rem;
+      }
+      .prose-md h1,
+      .prose-md h2,
+      .prose-md h3 {
+        font-weight: 600;
+        margin: 1rem 0 0.5rem;
+      }
+      .prose-md blockquote {
+        border-left: 2px solid color-mix(in oklch, var(--primary) 50%, transparent);
+        padding-left: 1.25rem;
+        color: var(--muted-foreground);
+        font-style: italic;
+        margin: 0.625rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 transition-all duration-300 border-b border-transparent">
+      <nav class="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
+        <a class="group flex items-center gap-2 text-base font-semibold tracking-tight" href="https://1l.lol/">
+          <img alt="乐乐 Lab" loading="lazy" width="32" height="32" decoding="async" class="size-8 rounded-xl object-cover shadow-sm transition-transform group-hover:rotate-6" src="https://q2.qlogo.cn/headimg_dl?dst_uin=2992025461&spec=5" />
+          <span class="font-heading">乐乐 Lab</span>
+        </a>
+        <div class="hidden items-center gap-1 md:flex">
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M3 11.9896V14.5C3 17.7998 3 19.4497 4.02513 20.4749C5.05025 21.5 6.70017 21.5 10 21.5H14C17.2998 21.5 18.9497 21.5 19.9749 20.4749C21 19.4497 21 17.7998 21 14.5V11.9896C21 10.3083 21 9.46773 20.6441 8.74005C20.2882 8.01237 19.6247 7.49628 18.2976 6.46411L16.2976 4.90855C14.2331 3.30285 13.2009 2.5 12 2.5C10.7991 2.5 9.76689 3.30285 7.70242 4.90855L5.70241 6.46411C4.37533 7.49628 3.71179 8.01237 3.3559 8.74005C3 9.46773 3 10.3083 3 11.9896Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M15.0002 17C14.2007 17.6224 13.1504 18 12.0002 18C10.8499 18 9.79971 17.6224 9.00018 17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>首页</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/posts/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M15.5 7H8.5M12.499 11H8.49902" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M20 22H6C4.89543 22 4 21.1046 4 20M4 20C4 18.8954 4.89543 18 6 18H20V6C20 4.11438 20 3.17157 19.4142 2.58579C18.8284 2 17.8856 2 16 2H10C7.17157 2 5.75736 2 4.87868 2.87868C4 3.75736 4 5.17157 4 8V20Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M19.5 18C19.5 18 18.5 18.7628 18.5 20C18.5 21.2372 19.5 22 19.5 22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>文章</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/projects/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M6.51734 17.1132C6.91177 17.6905 8.10883 18.9228 9.74168 19.2333M9.86428 22C8.83582 21.8306 2 19.6057 2 12.0926C2 5.06329 8.0019 2 12.0008 2C15.9996 2 22 5.06329 22 12.0926C22 19.6057 15.1642 21.8306 14.1357 22C14.1357 22 13.9267 18.5826 14.0487 17.9969C14.1706 17.4113 13.7552 16.4688 13.7552 16.4688C14.7262 16.1055 16.2043 15.5847 16.7001 14.1874C17.0848 13.1032 17.3268 11.5288 16.2508 10.0489C16.2508 10.0489 16.5318 7.65809 15.9996 7.56548C15.4675 7.47287 13.8998 8.51192 13.8998 8.51192C13.4432 8.38248 12.4243 8.13476 12.0018 8.17939C11.5792 8.13476 10.5568 8.38248 10.1002 8.51192C10.1002 8.51192 8.53249 7.47287 8.00036 7.56548C7.46823 7.65809 7.74917 10.0489 7.74917 10.0489C6.67316 11.5288 6.91516 13.1032 7.2999 14.1874C7.79575 15.5847 9.27384 16.1055 10.2448 16.4688C10.2448 16.4688 9.82944 17.4113 9.95135 17.9969C10.0733 18.5826 9.86428 22 9.86428 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>项目</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-foreground" href="https://1l.lol/resources/">
+            <span class="absolute inset-0 -z-10 rounded-full bg-muted"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M7 6H16.75C18.8567 6 19.91 6 20.6667 6.50559C20.9943 6.72447 21.2755 7.00572 21.4944 7.33329C22 8.08996 22 9.14331 22 11.25C22 14.7612 22 16.5167 21.1573 17.7779C20.975 18.0508 20.7666 18.3045 20.5355 18.5355M3.46447 18.5355C2 17.0711 2 14.714 2 12V6.94427C2 5.1278 2 4.21956 2.38032 3.53806C2.65142 3.05227 3.05227 2.65142 3.53806 2.38032C4.21956 2 5.1278 2 6.94427 2C8.10802 2 8.6899 2 9.19926 2.19101C10.3622 2.62712 10.8418 3.68358 11.3666 4.73313L12 6" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path><path d="M18.25 21.25L16 19L16 16M18.25 20.5C17.8358 20.5 17.5 20.8358 17.5 21.25C17.5 21.6642 17.8358 22 18.25 22C18.6642 22 19 21.6642 19 21.25C19 20.8358 18.6642 20.5 18.25 20.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M5.75 21.25L8 19L8 16M5.75 20.5C6.16421 20.5 6.5 20.8358 6.5 21.25C6.5 21.6642 6.16421 22 5.75 22C5.33579 22 5 21.6642 5 21.25C5 20.8358 5.33579 20.5 5.75 20.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M12 21.25L12 16M12 20.5C11.5858 20.5 11.25 20.8358 11.25 21.25C11.25 21.6642 11.5858 22 12 22C12.4142 22 12.75 21.6642 12.75 21.25C12.75 20.8358 12.4142 20.5 12 20.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>资源</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/discussions/general/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M15 2L15.5387 4.39157C15.9957 6.42015 17.5798 8.00431 19.6084 8.46127L22 9L19.6084 9.53873C17.5798 9.99569 15.9957 11.5798 15.5387 13.6084L15 16L14.4613 13.6084C14.0043 11.5798 12.4202 9.99569 10.3916 9.53873L8 9L10.3916 8.46127C12.4201 8.00431 14.0043 6.42015 14.4613 4.39158L15 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"></path><path d="M7 12L7.38481 13.7083C7.71121 15.1572 8.84275 16.2888 10.2917 16.6152L12 17L10.2917 17.3848C8.84275 17.7112 7.71121 18.8427 7.38481 20.2917L7 22L6.61519 20.2917C6.28879 18.8427 5.15725 17.7112 3.70827 17.3848L2 17L3.70827 16.6152C5.15725 16.2888 6.28879 15.1573 6.61519 13.7083L7 12Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"></path></svg>讨论</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/tools/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M15.5 12C15.5 13.933 13.933 15.5 12 15.5C10.067 15.5 8.5 13.933 8.5 12C8.5 10.067 10.067 8.5 12 8.5C13.933 8.5 15.5 10.067 15.5 12Z" stroke="currentColor" stroke-width="1.5"></path><path d="M21.011 14.0965C21.5329 13.9558 21.7939 13.8854 21.8969 13.7508C22 13.6163 22 13.3998 22 12.9669V11.0332C22 10.6003 22 10.3838 21.8969 10.2493C21.7938 10.1147 21.5329 10.0443 21.011 9.90358C19.0606 9.37759 17.8399 7.33851 18.3433 5.40087C18.4817 4.86799 18.5509 4.60156 18.4848 4.44529C18.4187 4.28902 18.2291 4.18134 17.8497 3.96596L16.125 2.98673C15.7528 2.77539 15.5667 2.66972 15.3997 2.69222C15.2326 2.71472 15.0442 2.90273 14.6672 3.27873C13.208 4.73448 10.7936 4.73442 9.33434 3.27864C8.95743 2.90263 8.76898 2.71463 8.60193 2.69212C8.43489 2.66962 8.24877 2.77529 7.87653 2.98663L6.15184 3.96587C5.77253 4.18123 5.58287 4.28891 5.51678 4.44515C5.45068 4.6014 5.51987 4.86787 5.65825 5.4008C6.16137 7.3385 4.93972 9.37763 2.98902 9.9036C2.46712 10.0443 2.20617 10.1147 2.10308 10.2492C2 10.3838 2 10.6003 2 11.0332V12.9669C2 13.3998 2 13.6163 2.10308 13.7508C2.20615 13.8854 2.46711 13.9558 2.98902 14.0965C4.9394 14.6225 6.16008 16.6616 5.65672 18.5992C5.51829 19.1321 5.44907 19.3985 5.51516 19.5548C5.58126 19.7111 5.77092 19.8188 6.15025 20.0341L7.87495 21.0134C8.24721 21.2247 8.43334 21.3304 8.6004 21.3079C8.76746 21.2854 8.95588 21.0973 9.33271 20.7213C10.7927 19.2644 13.2088 19.2643 14.6689 20.7212C15.0457 21.0973 15.2341 21.2853 15.4012 21.3078C15.5682 21.3303 15.7544 21.2246 16.1266 21.0133L17.8513 20.034C18.2307 19.8187 18.4204 19.711 18.4864 19.5547C18.5525 19.3984 18.4833 19.132 18.3448 18.5991C17.8412 16.6616 19.0609 14.6226 21.011 14.0965Z" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg>工具</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/links/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M9.5 14.5L14.5 9.49995" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path><path d="M16.8463 14.6095L19.4558 12C21.5147 9.94108 21.5147 6.60298 19.4558 4.54411C17.397 2.48524 14.0589 2.48524 12 4.54411L9.39045 7.15366M14.6095 16.8463L12 19.4558C9.94113 21.5147 6.60303 21.5147 4.54416 19.4558C2.48528 17.3969 2.48528 14.0588 4.54416 12L7.1537 9.39041" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg>友链</a>
+          <a class="relative rounded-full px-3.5 py-1.5 text-sm transition-colors inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground" href="https://1l.lol/about/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M15 2L15.5387 4.39157C15.9957 6.42015 17.5798 8.00431 19.6084 8.46127L22 9L19.6084 9.53873C17.5798 9.99569 15.9957 11.5798 15.5387 13.6084L15 16L14.4613 13.6084C14.0043 11.5798 12.4202 9.99569 10.3916 9.53873L8 9L10.3916 8.46127C12.4201 8.00431 14.0043 6.42015 14.4613 4.39158L15 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"></path><path d="M7 12L7.38481 13.7083C7.71121 15.1572 8.84275 16.2888 10.2917 16.6152L12 17L10.2917 17.3848C8.84275 17.7112 7.71121 18.8427 7.38481 20.2917L7 22L6.61519 20.2917C6.28879 18.8427 5.15725 17.7112 3.70827 17.3848L2 17L3.70827 16.6152C5.15725 16.2888 6.28879 15.1573 6.61519 13.7083L7 12Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"></path></svg>关于</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="theme-toggle-nav" type="button" aria-label="切换主题" class="relative inline-flex size-9 items-center justify-center rounded-full border border-border/70 text-foreground/80 transition-colors hover:bg-muted hover:text-foreground">
+            <svg id="icon-sun-nav" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" color="currentColor" class="dark:hidden"><path d="M21.5 14.0784C20.3003 14.7189 18.9301 15.0821 17.4751 15.0821C12.7491 15.0821 8.91792 11.2509 8.91792 6.52485C8.91792 5.06986 9.28105 3.69968 9.92163 2.5C5.66765 3.49698 2.5 7.31513 2.5 11.8731C2.5 17.1899 6.8101 21.5 12.1269 21.5C16.6849 21.5 20.503 18.3324 21.5 14.0784Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+            <svg id="icon-moon-nav" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" color="currentColor" class="hidden dark:block"><path d="M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z" stroke="currentColor" stroke-width="1.5"></path><path d="M12 2C11.6227 2.33333 11.0945 3.2 12 4M12 20C12.3773 20.3333 12.9055 21.2 12 22M19.5 4.50271C18.9685 4.46982 17.9253 4.72293 18.0042 5.99847M5.49576 17.5C5.52865 18.0315 5.27555 19.0747 4 18.9958M5.00271 4.5C4.96979 5.03202 5.22315 6.0763 6.5 5.99729M18 17.5026C18.5315 17.4715 19.5747 17.7108 19.4958 18.9168M22 12C21.6667 11.6227 20.8 11.0945 20 12M4 11.5C3.66667 11.8773 2.8 12.4055 2 11.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-5xl px-5 py-16">
+      <header class="mb-10">
+        <p
+          class="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            color="currentColor"
+            class="text-primary"
+          >
+            <path d="M7 6H16.75C18.8567 6 19.91 6 20.6667 6.50559C20.9943 6.72447 21.2755 7.00572 21.4944 7.33329C22 8.08996 22 9.14331 22 11.25C22 14.7612 22 16.5167 21.1573 17.7779C20.975 18.0508 20.7666 18.3045 20.5355 18.5355M3.46447 18.5355C2 17.0711 2 14.714 2 12V6.94427C2 5.1278 2 4.21956 2.38032 3.53806C2.65142 3.05227 3.05227 2.65142 3.53806 2.38032C4.21956 2 5.1278 2 6.94427 2C8.10802 2 8.6899 2 9.19926 2.19101C10.3622 2.62712 10.8418 3.68358 11.3666 4.73313L12 6" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+            <path d="M18.25 21.25L16 19L16 16M18.25 20.5C17.8358 20.5 17.5 20.8358 17.5 21.25C17.5 21.6642 17.8358 22 18.25 22C18.6642 22 19 21.6642 19 21.25C19 20.8358 18.6642 20.5 18.25 20.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+            <path d="M5.75 21.25L8 19L8 16M5.75 20.5C6.16421 20.5 6.5 20.8358 6.5 21.25C6.5 21.6642 6.16421 22 5.75 22C5.33579 22 5 21.6642 5 21.25C5 20.8358 5.33579 20.5 5.75 20.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+            <path d="M12 21.25L12 16M12 20.5C11.5858 20.5 11.25 20.8358 11.25 21.25C11.25 21.6642 11.5858 22 12 22C12.4142 22 12.75 21.6642 12.75 21.25C12.75 20.8358 12.4142 20.5 12 20.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+          </svg>
+          RESOURCES
+        </p>
+        <h1
+          class="font-heading text-3xl font-semibold tracking-tight sm:text-4xl"
+        >
+          资源
+        </h1>
+        <p class="mt-2 text-sm text-muted-foreground">一些资源下载。</p>
+      </header>
+
+      <div id="list" class="space-y-6"><!-- rendered by JS --></div>
+    </main>
+
+    <footer class="mt-20 border-t border-border/60">
+      <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 py-10 sm:flex-row">
+        <div class="flex flex-col items-center gap-3 sm:items-start">
+          <div class="flex items-center gap-2 text-sm text-muted-foreground">
+            <img alt="乐乐 Lab" loading="lazy" width="28" height="28" decoding="async" class="size-7 rounded-lg object-cover" src="https://q2.qlogo.cn/headimg_dl?dst_uin=2992025461&spec=5" />
+            <span>© <span id="year"></span> 乐乐 Lab</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <a target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="inline-flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" href="https://github.com/aiwandiannaodelele">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" color="currentColor"><path d="M6.51734 17.1132C6.91177 17.6905 8.10883 18.9228 9.74168 19.2333M9.86428 22C8.83582 21.8306 2 19.6057 2 12.0926C2 5.06329 8.0019 2 12.0008 2C15.9996 2 22 5.06329 22 12.0926C22 19.6057 15.1642 21.8306 14.1357 22C14.1357 22 13.9267 18.5826 14.0487 17.9969C14.1706 17.4113 13.7552 16.4688 13.7552 16.4688C14.7262 16.1055 16.2043 15.5847 16.7001 14.1874C17.0848 13.1032 17.3268 11.5288 16.2508 10.0489C16.2508 10.0489 16.5318 7.65809 15.9996 7.56548C15.4675 7.47287 13.8998 8.51192 13.8998 8.51192C13.4432 8.38248 12.4243 8.13476 12.0018 8.17939C11.5792 8.13476 10.5568 8.38248 10.1002 8.51192C10.1002 8.51192 8.53249 7.47287 8.00036 7.56548C7.46823 7.65809 7.74917 10.0489 7.74917 10.0489C6.67316 11.5288 6.91516 13.1032 7.2999 14.1874C7.79575 15.5847 9.27384 16.1055 10.2448 16.4688C10.2448 16.4688 9.82944 17.4113 9.95135 17.9969C10.0733 18.5826 9.86428 22 9.86428 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+            </a>
+            <a target="_blank" rel="noopener noreferrer" aria-label="Bilibili" class="inline-flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" href="https://space.bilibili.com/520410176">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="18" height="18" viewBox="0 0 24 24" style="color:currentColor"><path fill="currentColor" d="M17.813 4.653h.854q2.266.08 3.773 1.574Q23.946 7.72 24 9.987v7.36q-.054 2.266-1.56 3.773c-1.506 1.507-2.262 1.524-3.773 1.56H5.333q-2.266-.054-3.773-1.56C.053 19.614.036 18.858 0 17.347v-7.36q.054-2.267 1.56-3.76t3.773-1.574h.774l-1.174-1.12a1.23 1.23 0 0 1-.373-.906q0-.534.373-.907l.027-.027q.4-.373.92-.373t.92.373L9.653 4.44q.107.106.187.213h4.267a.8.8 0 0 1 .16-.213l2.853-2.747q.4-.373.92-.373c.347 0 .662.151.929.4s.391.551.391.907q0 .532-.373.906zM5.333 7.24q-1.12.027-1.88.773q-.76.748-.786 1.894v7.52q.026 1.146.786 1.893t1.88.773h13.334q1.12-.026 1.88-.773t.786-1.893v-7.52q-.026-1.147-.786-1.894t-1.88-.773zM8 11.107q.56 0 .933.373q.375.374.4.96v1.173q-.025.586-.4.96q-.373.375-.933.374c-.56-.001-.684-.125-.933-.374q-.375-.373-.4-.96V12.44q0-.56.386-.947q.387-.386.947-.386m8 0q.56 0 .933.373q.375.374.4.96v1.173q-.025.586-.4.96q-.373.375-.933.374c-.56-.001-.684-.125-.933-.374q-.375-.373-.4-.96V12.44q.025-.586.4-.96q.373-.373.933-.373"></path></svg>
+            </a>
+            <a target="_blank" rel="noopener noreferrer" aria-label="RSS" class="inline-flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" href="https://1l.lol/feed.xml">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+            </a>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 sm:items-end">
+          <span id="running-time" class="text-xs text-muted-foreground/50"></span>
+          <a href="https://icp.gov.moe/?keyword=20266608" target="_blank" rel="noopener noreferrer" class="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors">萌ICP备20266608号</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      var API =
+        "https://api.gitcode.com/api/v5/repos/aiwandiannaodelele/lelabfiles/releases";
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      var startDate = new Date("2026-07-14T20:00:00");
+      function calcRunningTime() {
+        var diff = Math.max(0, Date.now() - startDate.getTime());
+        var totalMinutes = Math.floor(diff / 60000);
+        var minutes = totalMinutes % 60;
+        var totalHours = (totalMinutes - minutes) / 60;
+        var hours = totalHours % 24;
+        var totalDays = (totalHours - hours) / 24;
+        var days = totalDays % 30;
+        var totalMonths = (totalDays - days) / 30;
+        var months = totalMonths % 12;
+        var years = (totalMonths - months) / 12;
+        document.getElementById("running-time").textContent =
+          "已运行 " + years + " 年 " + months + " 个月 " + days + " 天 " + hours + " 小时";
+      }
+      calcRunningTime();
+      setInterval(calcRunningTime, 60000);
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          }[c];
+        });
+      }
+
+      function formatExt(url) {
+        var ext = (url.split(".").pop() || "").toLowerCase();
+        var map = {
+          exe: "可执行文件",
+          zip: "ZIP",
+          tar: "TAR",
+          gz: "GZip",
+          bz2: "BZip2",
+          "7z": "7z",
+        };
+        return map[ext] || ext.toUpperCase();
+      }
+
+      function downloadIcon() {
+        return (
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" ' +
+          'stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+          'stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>' +
+          '<polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
+        );
+      }
+
+      function renderRelease(release) {
+        var bodyHtml = "";
+        if (release.body) {
+          try {
+            bodyHtml = marked.parse(release.body, { async: false });
+          } catch (e) {
+            bodyHtml = "<p>" + escapeHtml(release.body) + "</p>";
+          }
+        }
+        var attachAssets = (release.assets || []).filter(function (a) {
+          return a.type === "attach";
+        });
+        var assetsHtml = "";
+        if (attachAssets.length > 0) {
+          assetsHtml =
+            '<div class="mt-5 space-y-2">' +
+            attachAssets
+              .map(function (asset) {
+                var name = asset.name || "下载";
+                var url = asset.browser_download_url || "#";
+                return (
+                  '<a href="' +
+                  escapeHtml(url) +
+                  '" target="_blank" rel="noopener noreferrer" ' +
+                  'class="group flex items-center justify-between rounded-xl border border-border/60 px-4 py-3 transition-colors hover:bg-muted/60">' +
+                  '<div class="flex items-center gap-3 min-w-0">' +
+                  '<span class="grid size-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">' +
+                  downloadIcon() +
+                  "</span>" +
+                  '<span class="text-sm font-medium truncate transition-colors group-hover:text-primary">' +
+                  escapeHtml(name) +
+                  "</span>" +
+                  "</div>" +
+                  '<span class="shrink-0 ml-3 rounded-full bg-muted px-2.5 py-0.5 text-[11px] text-muted-foreground">' +
+                  escapeHtml(formatExt(url)) +
+                  "</span>" +
+                  "</a>"
+                );
+              })
+              .join("") +
+            "</div>";
+        }
+        return (
+          '<div class="rounded-2xl border border-border/60 bg-card p-6">' +
+          '<h2 class="font-heading text-xl font-semibold tracking-tight">' +
+          escapeHtml(release.name || release.tag_name || "") +
+          "</h2>" +
+          (bodyHtml
+            ? '<div class="prose-md mt-2 text-sm text-muted-foreground leading-relaxed [&_a]:text-primary [&_a]:underline">' +
+              bodyHtml +
+              "</div>"
+            : "") +
+          assetsHtml +
+          "</div>"
+        );
+      }
+
+      function setLoading() {
+        document.getElementById("list").innerHTML =
+          '<p class="text-sm text-muted-foreground">加载中...</p>';
+      }
+
+      function setEmpty() {
+        document.getElementById("list").innerHTML =
+          '<p class="text-sm text-muted-foreground">暂无资源。</p>';
+      }
+
+      function setError() {
+        document.getElementById("list").innerHTML =
+          '<p class="text-sm text-muted-foreground">加载失败，请稍后再试。</p>';
+      }
+
+      function load() {
+        setLoading();
+        fetch(API)
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            if (!Array.isArray(data) || data.length === 0) {
+              setEmpty();
+              return;
+            }
+            document.getElementById("list").innerHTML = data
+              .map(renderRelease)
+              .join("");
+          })
+          .catch(function () {
+            setError();
+          });
+      }
+
+      function syncThemeIcon() {
+        var dark = document.documentElement.classList.contains("dark");
+        var sun = document.getElementById("icon-sun-nav");
+        var moon = document.getElementById("icon-moon-nav");
+        if (sun) sun.classList.toggle("hidden", !dark);
+        if (moon) moon.classList.toggle("hidden", dark);
+      }
+
+      function toggleTheme() {
+        var dark = document.documentElement.classList.toggle("dark");
+        try {
+          localStorage.setItem("theme", dark ? "dark" : "light");
+        } catch (e) {}
+        syncThemeIcon();
+      }
+
+      var tn = document.getElementById("theme-toggle-nav");
+      if (tn) tn.addEventListener("click", toggleTheme);
+
+      syncThemeIcon();
+      load();
+    </script>
+  </body>
+</html>

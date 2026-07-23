@@ -13,7 +13,7 @@ export const siteConfig = {
     { label: "文章", href: "/posts", icon: "book" },
     { label: "项目", href: "/projects", icon: "github" },
     { label: "资源", href: "/resources", icon: "folder" },
-    { label: "讨论", href: "/discussions/general", icon: "sparkles" },
+    { label: "讨论", href: "/discussions/general", icon: "discussion" },
     { label: "工具", href: "/tools", icon: "settings" },
     { label: "友链", href: "/links", icon: "link" },
     { label: "关于", href: "/about", icon: "sparkles" },

@@ -9,8 +9,10 @@ import { siteConfig } from "@/lib/site"
 export default function ResourcesPage() {
   const [releases, setReleases] = React.useState<Release[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [showTip, setShowTip] = React.useState(false)
 
   React.useEffect(() => {
+    setShowTip(true)
     fetch("https://api.gitcode.com/api/v5/repos/aiwandiannaodelele/lelabfiles/releases")
       .then(r => r.json())
       .then(data => { setReleases(data); setLoading(false) })
@@ -81,6 +83,35 @@ export default function ResourcesPage() {
           categoryId={siteConfig.giscus.categoryId}
         />
       </div>
+
+      {showTip && (
+        <div className="fixed bottom-5 right-5 z-50 w-72 max-w-[calc(100vw-2.5rem)] rounded-2xl border border-border/60 bg-card p-4 shadow-lg">
+          <div className="flex items-start justify-between gap-2">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              本网站使用 Cloudflare 加速节点，若您需要在校园网等“dddd”的环境访问，可使用此网址：
+              <a
+                href="https://muselink.cc/fnd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+              >
+                muselink.cc/fnd
+              </a>
+            </p>
+            <button
+              type="button"
+              aria-label="关闭"
+              onClick={() => setShowTip(false)}
+              className="shrink-0 rounded-md text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

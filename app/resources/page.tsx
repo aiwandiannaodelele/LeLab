@@ -90,12 +90,12 @@ export default function ResourcesPage() {
             <p className="text-sm leading-relaxed text-muted-foreground">
               本网站使用 Cloudflare 加速节点，若您需要在校园网等“dddd”的环境访问，可使用此网址：
               <a
-                href="https://muselink.cc/fnd"
+                href="https://vlink.cc/fnd"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
               >
-                muselink.cc/fnd
+vlink.cc/fnd
               </a>
             </p>
             <button

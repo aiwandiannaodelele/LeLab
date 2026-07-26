@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>跳转中 · 乐乐 Lab</title>
+  <style>
+    :root {
+      --bg: oklch(1 0 0); --fg: oklch(0.145 0 0); --card: oklch(1 0 0);
+      --primary: oklch(0.52 0.105 223.128); --muted: oklch(0.97 0 0); --muted-fg: oklch(0.556 0 0);
+      --border: oklch(0.922 0 0);
+    }
+    .dark { --bg: oklch(0.145 0 0); --fg: oklch(0.985 0 0); --card: oklch(0.205 0 0);
+      --primary: oklch(0.45 0.085 224.283); --muted: oklch(0.269 0 0); --muted-fg: oklch(0.708 0 0);
+      --border: oklch(1 0 0 / 10%); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif;
+      background: var(--bg); color: var(--fg); display: flex; align-items: center; justify-content: center;
+      min-height: 100dvh; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 1rem;
+      padding: 2rem; max-width: 420px; width: 90%; text-align: center; }
+    .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--primary);
+      border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    p { font-size: 14px; line-height: 1.6; color: var(--muted-fg); }
+    .url { font-size: 13px; color: var(--primary); word-break: break-all; margin-top: .5rem; }
+    a { color: var(--primary); text-decoration: underline; }
+    .btn { display: inline-block; margin-top: 1rem; padding: .5rem 1.25rem; border-radius: 999px;
+      background: var(--primary); color: #fff; text-decoration: none; font-size: 14px; font-weight: 500;
+      transition: opacity .2s; }
+    .btn:hover { opacity: .85; }
+  </style>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches))
+          document.documentElement.classList.add("dark");
+      } catch(e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="card" id="app">
+    <div class="spinner" id="spinner"></div>
+    <p id="msg">正在前往链接……</p>
+    <p class="url" id="url-display"></p>
+    <a class="btn" id="btn" style="display:none" target="_blank" rel="noopener noreferrer">手动跳转</a>
+  </div>
+  <script>
+    var q = new URLSearchParams(location.search);
+    var target = q.get("url") || q.get("link") || q.get("to") || "";
+
+    if (target) {
+      var display = document.getElementById("url-display");
+      var btn = document.getElementById("btn");
+      var msg = document.getElementById("msg");
+      var spinner = document.getElementById("spinner");
+
+      display.textContent = target;
+      btn.href = target;
+      btn.style.display = "inline-block";
+
+      if (/^https?:\/\//i.test(target)) {
+        var count = 3;
+        msg.textContent = "即将跳转 (" + count + ")";
+
+        function tick() {
+          count--;
+          if (count <= 0) {
+            location.href = target;
+            return;
+          }
+          msg.textContent = "即将跳转 (" + count + ")";
+          setTimeout(tick, 800);
+        }
+        setTimeout(tick, 800);
+      } else {
+        msg.textContent = "链接格式不正确，请手动跳转";
+        spinner.style.display = "none";
+      }
+    } else {
+      document.getElementById("msg").textContent = "缺少链接参数";
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("url-display").textContent = "用法: ?url=https://example.com";
+    }
+  </script>
+</body>
+</html>

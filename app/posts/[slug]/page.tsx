@@ -4,8 +4,6 @@ import type { Metadata } from "next"
 import { getAllPosts, getAdjacentPosts, getPost } from "@/lib/posts"
 import { formatDate } from "@/lib/posts"
 import { Icon } from "@/components/icons"
-import { siteConfig } from "@/lib/site"
-import { Giscus } from "@/components/giscus"
 
 type Params = { slug: string }
 
@@ -86,15 +84,6 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
         className="prose"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
-
-      {siteConfig.giscus.category && (
-        <Giscus
-          repo={siteConfig.giscus.repo}
-          repoId={siteConfig.giscus.repoId}
-          category={siteConfig.giscus.category}
-          categoryId={siteConfig.giscus.categoryId}
-        />
-      )}
 
       <div className="mt-14 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2">
         {prev ? (

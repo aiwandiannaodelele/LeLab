@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Script from "next/script"
 import { Geist, Geist_Mono, Roboto } from "next/font/google"
 
 import "./globals.css"
@@ -8,7 +7,6 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { CommandPalette } from "@/components/command-palette"
-import { BusuanziRefresh } from "@/components/busuanzi-refresh"
 import { ScheduleDebug } from "@/components/schedule-debug"
 import { siteConfig } from "@/lib/site"
 import { getAllPosts } from "@/lib/posts"
@@ -70,12 +68,41 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-svh bg-background text-foreground">
-        <link rel="preconnect" href="https://cdn.busuanzi.cc" />
         <link rel="preconnect" href="https://github.com" />
         <link rel="preconnect" href="https://status.lelab.cc.cd" />
+
+        <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charSet="UTF-8" />
+        <script type="text/javascript" charSet="UTF-8" dangerouslySetInnerHTML={{
+          __html: `
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"en","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"LeLab","website_privacy_policy_url":"https://1l.lol/privacy"});
+});
+          `,
+        }} />
+
+        <script type="text/plain" data-cookie-consent="functionality" src="https://giscus.app/client.js"
+          data-repo="aiwandiannaodelele/giscus"
+          data-repo-id="R_kgDOTY2nVw"
+          data-category="Announcements"
+          data-category-id="DIC_kwDOTY2nV84DBOPb"
+          data-mapping="specific"
+          data-term="resources"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossOrigin="anonymous"
+          async
+        />
+        <script type="text/plain" data-cookie-consent="tracking" src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" />
+
+        <noscript dangerouslySetInnerHTML={{
+          __html: 'Free cookie consent management tool by <a href="https://www.termsfeed.com/">TermsFeed</a>',
+        }} />
         <ThemeProvider>
-          <Script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" strategy="afterInteractive" />
-          <BusuanziRefresh />
           <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",

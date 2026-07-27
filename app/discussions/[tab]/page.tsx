@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation"
-import { Giscus } from "@/components/giscus"
 import { Icon } from "@/components/icons"
-import { siteConfig } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 
@@ -59,13 +57,7 @@ export default async function DiscussionTabPage({
         </aside>
 
         <div className="min-w-0 flex-1">
-          <Giscus
-            repo={siteConfig.giscus.repo}
-            repoId={siteConfig.giscus.repoId}
-            category={siteConfig.giscus.category}
-            categoryId={siteConfig.giscus.categoryId}
-            compact
-          />
+          <div id="giscus-comments"></div>
         </div>
       </div>
     </div>

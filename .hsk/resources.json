@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "resources": [
+    {
+      "id": "host-1784768204815245332",
+      "type": "host",
+      "filePath": "/Users/leleawa/Desktop/lele-site/lele-site/out",
+      "publicUrl": "https://ficp.fun/s/UMQP86OI4G?verify_code=3813",
+      "resourceId": "1784768204815245332",
+      "fileName": "out",
+      "status": "active",
+      "createdAt": "2026-07-23T00:56:45.753Z",
+      "lastCheckedAt": "2026-07-23T00:56:45.754Z"
+    },
+    {
+      "id": "host-1784770897543296727",
+      "type": "host",
+      "filePath": "/tmp/hsk-publish",
+      "publicUrl": "https://ficp.fun/s/UNEVzDDX1x?verify_code=7249",
+      "resourceId": "1784770897543296727",
+      "fileName": "hsk-publish",
+      "status": "active",
+      "createdAt": "2026-07-27T03:45:11.453Z",
+      "lastCheckedAt": "2026-07-27T03:45:11.455Z"
+    }
+  ]
+}

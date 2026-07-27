@@ -34,5 +34,5 @@ export function GiscusConsent({ term = "general" }: { term?: string }) {
     parent.appendChild(s)
   }, [term])
 
-  return <div ref={ref} />
+  return <div ref={ref} className="mt-14" />
 }

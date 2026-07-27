@@ -198,7 +198,9 @@ export function Hero() {
             <p className="mt-0.5 text-sm text-muted-foreground">
               {siteConfig.author.bio}
             </p>
-            <p className="mt-1.5 text-xs text-muted-foreground/50">&nbsp;</p>
+            <p className="mt-1.5 text-xs text-muted-foreground/50">
+              <span id="busuanzi_site_pv">-</span> 次访问 · 你是第 <span id="busuanzi_site_uv">-</span> 位访客
+            </p>
           </div>
         </div>
 

@@ -40,6 +40,10 @@ export function Footer() {
 
           <div className="flex flex-col items-center gap-0.5 sm:items-end">
           <SiteRunningTime />
+          <div className="flex items-center gap-3">
+            <Link href="/privacy" className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors">隐私政策</Link>
+            <Link href="/tos" className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors">用户协议</Link>
+          </div>
           <a
             href="https://icp.gov.moe/?keyword=20266608"
             target="_blank"

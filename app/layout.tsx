@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { CommandPalette } from "@/components/command-palette"
+import { BusuanziRefresh } from "@/components/busuanzi-refresh"
 import { ScheduleDebug } from "@/components/schedule-debug"
 import { siteConfig } from "@/lib/site"
 import { getAllPosts } from "@/lib/posts"
@@ -101,6 +102,7 @@ cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palet
             <Footer />
           </div>
           <BackToTop />
+          <BusuanziRefresh />
           <ScheduleDebug />
           <CommandPalette posts={posts} />
         </ThemeProvider>

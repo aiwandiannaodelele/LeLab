@@ -3,6 +3,7 @@
 import * as React from "react"
 import { marked } from "marked"
 import { Icon } from "@/components/icons"
+import { GiscusConsent } from "@/components/giscus-consent"
 
 export default function ResourcesPage() {
   const [releases, setReleases] = React.useState<Release[]>([])
@@ -72,6 +73,8 @@ export default function ResourcesPage() {
           ))}
         </div>
       )}
+
+      <GiscusConsent term="resources" />
 
       {showTip && (
         <div className="fixed bottom-5 right-5 z-50 w-72 max-w-[calc(100vw-2.5rem)] rounded-2xl border border-border/60 bg-card p-4 shadow-lg">

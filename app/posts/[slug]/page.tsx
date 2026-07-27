@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { getAllPosts, getAdjacentPosts, getPost } from "@/lib/posts"
 import { formatDate } from "@/lib/posts"
 import { Icon } from "@/components/icons"
+import { GiscusConsent } from "@/components/giscus-consent"
 
 type Params = { slug: string }
 
@@ -84,6 +85,8 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
         className="prose"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+
+      <GiscusConsent term={slug} />
 
       <div className="mt-14 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2">
         {prev ? (

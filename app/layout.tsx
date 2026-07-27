@@ -80,24 +80,7 @@ cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palet
           `,
         }} />
 
-        <script type="text/plain" data-cookie-consent="functionality" src="https://giscus.app/client.js"
-          data-repo="aiwandiannaodelele/giscus"
-          data-repo-id="R_kgDOTY2nVw"
-          data-category="Announcements"
-          data-category-id="DIC_kwDOTY2nV84DBOPb"
-          data-mapping="specific"
-          data-term="resources"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="top"
-          data-theme="preferred_color_scheme"
-          data-lang="zh-CN"
-          data-loading="lazy"
-          crossOrigin="anonymous"
-          async
-        />
-        <script type="text/plain" data-cookie-consent="tracking" src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" />
+<script type="text/plain" data-cookie-consent="tracking" src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" />
 
         <noscript dangerouslySetInnerHTML={{
           __html: 'Free cookie consent management tool by <a href="https://www.termsfeed.com/">TermsFeed</a>',

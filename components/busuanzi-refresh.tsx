@@ -14,14 +14,6 @@ export function BusuanziRefresh() {
       s.src = "https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"
       s.async = true
       document.body.appendChild(s)
-    } else {
-      const match = document.cookie.match(/(?:^|;\s*)cookie_consent_user_consent_token(?:\s*=\s*([^;]*))?\s*$/)
-      if (match) {
-        const s = document.createElement("script")
-        s.src = "https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"
-        s.async = true
-        document.body.appendChild(s)
-      }
     }
   }, [pathname])
 

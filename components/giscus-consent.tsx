@@ -4,12 +4,11 @@ import * as React from "react"
 
 export function GiscusConsent({ term = "general" }: { term?: string }) {
   const ref = React.useRef<HTMLDivElement>(null)
-  const prevTerm = React.useRef(term)
+  const loaded = React.useRef("")
 
   React.useEffect(() => {
-    if (!ref.current) return
-    if (prevTerm.current === term) return
-    prevTerm.current = term
+    if (!ref.current || loaded.current === term) return
+    loaded.current = term
 
     const parent = ref.current
     parent.innerHTML = ""

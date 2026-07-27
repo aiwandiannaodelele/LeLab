@@ -34,5 +34,5 @@ export function GiscusConsent({ term = "general" }: { term?: string }) {
     parent.appendChild(s)
   }, [term])
 
-  return <div ref={ref} className="mt-14" />
+  return <div ref={ref} className="mt-14 rounded-2xl border border-border/60 bg-card p-6" />
 }

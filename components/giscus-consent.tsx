@@ -1,14 +1,25 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes"
+import {
+  GISCUS_DARK_THEME,
+  GISCUS_LIGHT_THEME,
+} from "@/lib/giscus-themes"
 
 export function GiscusConsent({ term = "general" }: { term?: string }) {
+  const { resolvedTheme } = useTheme()
   const ref = React.useRef<HTMLDivElement>(null)
   const loaded = React.useRef("")
 
   React.useEffect(() => {
-    if (!ref.current || loaded.current === term) return
-    loaded.current = term
+    if (!ref.current) return
+
+    const theme =
+      resolvedTheme === "dark" ? GISCUS_DARK_THEME : GISCUS_LIGHT_THEME
+    const key = term + "|" + theme
+    if (loaded.current === key) return
+    loaded.current = key
 
     const parent = ref.current
     parent.innerHTML = ""
@@ -25,14 +36,18 @@ export function GiscusConsent({ term = "general" }: { term?: string }) {
     s.setAttribute("data-reactions-enabled", "1")
     s.setAttribute("data-emit-metadata", "0")
     s.setAttribute("data-input-position", "top")
-    s.setAttribute("data-theme", "preferred_color_scheme")
+    s.setAttribute("data-theme", theme)
     s.setAttribute("data-lang", "zh-CN")
     s.setAttribute("data-loading", "lazy")
     s.crossOrigin = "anonymous"
     s.async = true
 
     parent.appendChild(s)
-  }, [term])
+  }, [term, resolvedTheme])
 
-  return <div ref={ref} className="mt-14 rounded-2xl border border-border/60 bg-card p-6" />
+  return (
+    <div className="mt-14 border-t border-border/60 pt-8">
+      <div ref={ref} />
+    </div>
+  )
 }

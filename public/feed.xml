@@ -8,7 +8,7 @@
     <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Jul 2026 04:05:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 04:08:57 GMT</lastBuildDate>
     <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -78,17 +78,64 @@
 </code></pre>
 <p>AI 读完就知道怎么操作 Cloudflare 了——域名注册、DNS 解析、Pages/Workers 部署、SSL 证书、自定义域名绑定，全部自动搞定，你只需要说一句&quot;部署这个网站&quot;。</p>
 <p>哪怕是动态站也不用慌，让 AI 把后端迁移到 Cloudflare Workers 生态——D1 替代数据库、KV 替代缓存、Workers 替代服务器——一样一条龙自动部署，零服务器。</p>
-<h2>6. 完整上线一条龙</h2>
-<pre><code>写代码 → git push → 自动构建 → 自动部署 → https://你的域名
+<h2>6. 本站部署过程</h2>
+<p>拿本站举例，完整链路是这样的：</p>
+<pre><code>写代码 → git push → Cloudflare 检测到推送 → 自动拉代码
+→ npm run build → 生成静态文件 → 同步到全球 CDN
+→ https://1l.lol
 </code></pre>
-<p>实际上走一遍就是：</p>
+<p>具体步骤：</p>
 <ol>
-<li>本地 <code>npm run build</code> 确保能编译</li>
-<li><code>git add . &amp;&amp; git commit -m &quot;xxx&quot; &amp;&amp; git push</code></li>
-<li>托管平台检测到推送 → 自动拉代码 → 执行 build 命令 → 把产物丢到 CDN</li>
-<li>等几十秒，刷新页面就看到了</li>
+<li>代码传到 GitHub 仓库（私有或公开都行）</li>
+<li>Cloudflare Pages 关联这个 GitHub 仓库</li>
+<li>配置好框架（Next.js 选对应预设，构建命令填 <code>npm run build</code>，输出目录填 <code>out</code>）</li>
+<li>每次 <code>git push</code>，Cloudflare 自动收到通知</li>
+<li>拉取最新代码 → 在 Cloudflare 边缘节点上执行构建 → 产物自动部署到全球 CDN</li>
+<li>几十秒后刷新，已经在线了</li>
 </ol>
-<p>第一次部署麻烦点，后面每次更新就只需要 <code>git push</code> 一步。Vibe Coding 出来的东西想更新？一样，改完让 AI 改代码 → push → 完事。</p>
+<p><strong>部署原理</strong>：这不是&quot;上传文件到服务器&quot;，而是 Git 触发的一个自动化流水线（CI/CD）。你 push 代码 → 平台执行构建命令 → 产物分发到 CDN 边缘节点。用户访问时直接从最近的节点拉取，不需要关心物理服务器在哪。</p>
+<p><strong>和传统部署的区别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统部署</th>
+<th>Serverless 部署（本站）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务器</td>
+<td>自己买 VPS 或云服务器</td>
+<td>不需要，平台管理</td>
+</tr>
+<tr>
+<td>SSL 证书</td>
+<td>手动申请、续期</td>
+<td>自动配置</td>
+</tr>
+<tr>
+<td>防火墙/端口</td>
+<td>手动配置</td>
+<td>不需要关心</td>
+</tr>
+<tr>
+<td>防攻击</td>
+<td>自己装 WAF 或买高防</td>
+<td>平台自带防护</td>
+</tr>
+<tr>
+<td>上线流程</td>
+<td>服务器装环境 → 上传文件 → 配 nginx</td>
+<td>push 完事</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>流量大了要手动加机器</td>
+<td>自动扩容</td>
+</tr>
+</tbody></table>
+<p>这就是为什么我推荐 Serverless——你只需要关心代码，剩下的交给平台。Vibe Coding 出一个网站，push 到 GitHub，Cloudflare 自动搞定剩下的一切。</p>
+<p>第一次配置稍麻烦，后面每次更新只需要 <code>git push</code> 一步。</p>
 <h2>7. 总结</h2>
 <p>Vibe Coding 出来的网站，上线门槛其实很低：</p>
 <p>静态站 → 托管平台免费部署 + 买个域名 → 完事

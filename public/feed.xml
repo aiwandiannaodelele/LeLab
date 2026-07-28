@@ -8,9 +8,95 @@
     <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Jul 2026 03:20:09 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 03:56:39 GMT</lastBuildDate>
     <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title>Vibe Coding 新手部署指北</title>
+      <link>https://1l.lol/posts/vibe-coding-deploy-guide/</link>
+      <guid>https://1l.lol/posts/vibe-coding-deploy-guide/</guid>
+      <description>从零讲懂 AI 网站完整上线流程，不学复杂运维知识。</description>
+      <content:encoded><![CDATA[<p>本文面向使用 Vibe Coding 的新手，不用学复杂运维知识，从零讲懂 AI 网站完整上线流程。</p>
+<h2>1. 网站类型</h2>
+<p>通常来说，Vibe Coding 出的网站一般分 2 类：</p>
+<p><strong>纯静态站点（推荐新手）</strong></p>
+<p>Next.js 静态构建、原生 HTML/CSS/JS、Vue 静态页</p>
+<ul>
+<li>不用数据库、函数、接口</li>
+<li>成本极低，大量平台提供免费托管</li>
+</ul>
+<p>例：个人主页（如本站）、作品集、工具 Demo、博客</p>
+<p><strong>带后端服务/动态站点（SSR、接口、数据库）</strong></p>
+<p>需要持续运行服务，涉及服务器、环境变量、数据库。</p>
+<p>⚠️ 新手不优先尝试，有额外开销与运维难度。</p>
+<p>提醒新手：如果你只是做页面 Demo，优先让 AI 生成可静态导出的项目，避开持续运行后端服务器。</p>
+<h2>2. 部署方法</h2>
+<p>部署方法分为：</p>
+<p><strong>Git 仓库部署</strong></p>
+<p>适合长期迭代项目，绑定代码仓库后，每次推送代码会自动构建、自动更新网站，省心且高效。</p>
+<p><strong>直接上传</strong></p>
+<p>适合临时演示项目，无需搭建仓库，直接上传打包好的静态文件即可快速上线，简单零门槛。</p>
+<h2>3. 域名</h2>
+<p>网站没域名就像人没名字——IP 地址记不住又难看不专业。</p>
+<p><strong>免费方案</strong>：Cloudflare Pages / Vercel / Netlify 都会送你一个 <code>你的项目名.pages.dev</code> 之类的子域名，临时演示完全够用。</p>
+<p><strong>正经方案</strong>：去 Spaceship、Porkbun、Namesilo 买一个，.com 一年也就 60¥。想省钱可以搞 <code>1l.lol</code> 这种冷门顶级域，一年才 7¥。</p>
+<p><strong>绑定也很简单</strong>：买了域名 → DNS 解析到你用的托管平台 → 托管平台设置自定义域名 → 等生效就行</p>
+<p>新手注意：DNS 解析生效需要几分钟到几小时，别急着刷新。</p>
+<h2>4. 托管平台怎么选</h2>
+<p>纯静态站，推荐这三个，全免费：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>免费额度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Cloudflare Pages</strong></td>
+<td>无限带宽，500 构建/月</td>
+<td>国内访问快，自带 CDN</td>
+</tr>
+<tr>
+<td><strong>Vercel</strong></td>
+<td>100GB 带宽</td>
+<td>跟 Next.js 一家，集成最爽</td>
+</tr>
+<tr>
+<td><strong>Netlify</strong></td>
+<td>100GB 带宽，300 构建分钟</td>
+<td>老牌稳定</td>
+</tr>
+</tbody></table>
+<p>选哪个？你用的框架跟哪个平台关系好就选哪个。Next.js 推荐 Vercel 或 Cloudflare Pages，纯 HTML 随意。</p>
+<p>带后端的动态站？那就 Zeabur、Railway、Fly.io，月费 5-20$ 起步，新手不优先。</p>
+<h2>5. 完整上线一条龙</h2>
+<pre><code>写代码 → git push → 自动构建 → 自动部署 → https://你的域名
+</code></pre>
+<p>实际上走一遍就是：</p>
+<ol>
+<li>本地 <code>npm run build</code> 确保能编译</li>
+<li><code>git add . &amp;&amp; git commit -m &quot;xxx&quot; &amp;&amp; git push</code></li>
+<li>托管平台检测到推送 → 自动拉代码 → 执行 build 命令 → 把产物丢到 CDN</li>
+<li>等几十秒，刷新页面就看到了</li>
+</ol>
+<p>第一次部署麻烦点，后面每次更新就只需要 <code>git push</code> 一步。Vibe Coding 出来的东西想更新？一样，改完让 AI 改代码 → push → 完事。</p>
+<h2>6. 避坑指南</h2>
+<ul>
+<li><strong>慎用 .env</strong>：构建时注入的环境变量跟运行时不一样，新手最容易在这卡住</li>
+<li><strong>图片路径</strong>：静态站打包后 /public 才是根目录，别写成 <code>../images/xxx</code></li>
+<li><strong>路由大小写</strong>：Linux 服务器路径敏感，a.jpg 和 A.jpg 是两个文件</li>
+<li><strong>404 处理</strong>：SPA 路由需要托管平台配重写规则，不然刷新就 404</li>
+<li><strong>CI 超时</strong>：免费构建平台有超时限制，5-15 分钟不等，项目太大了构建不完</li>
+</ul>
+<h2>7. 总结</h2>
+<p>Vibe Coding 出来的网站，上线门槛其实很低：</p>
+<p>静态站 → 托管平台免费部署 + 买个域名 → 完事
+动态站 → 稍微麻烦，但新手可以先用静态站练手</p>
+<p>关键是：<strong>不要想着一步到位</strong>。先上线，再优化。网站是改出来的，不是设计出来的。</p>
+]]></content:encoded>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>推倒模板重做｜Next.js 16 静态站完整搭建实录</title>
       <link>https://1l.lol/posts/record-lelab-launch/</link>

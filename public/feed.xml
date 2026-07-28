@@ -8,7 +8,7 @@
     <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Jul 2026 03:58:21 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 04:03:14 GMT</lastBuildDate>
     <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -43,7 +43,8 @@
 <p><strong>绑定也很简单</strong>：买了域名 → DNS 解析到你用的托管平台 → 托管平台设置自定义域名 → 等生效就行</p>
 <p>新手注意：DNS 解析生效需要几分钟到几小时，别急着刷新。</p>
 <h2>4. 托管平台怎么选</h2>
-<p>纯静态站，推荐这三个，全免费：</p>
+<p><strong>Serverless 部署最方便</strong>——不需要买服务器、配证书、开端口、配防火墙、防攻击，这些平台全帮你搞定了。</p>
+<p>我推荐 <strong>Cloudflare Pages/Workers</strong>，本站就是部署在这上面的。免费额度：</p>
 <table>
 <thead>
 <tr>
@@ -53,9 +54,9 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>Cloudflare Pages</strong></td>
-<td>无限带宽，500 构建/月</td>
-<td>国内访问快，自带 CDN</td>
+<td><strong>Cloudflare Pages/Workers</strong></td>
+<td>无限带宽，<strong>每月 3000 分钟构建</strong></td>
+<td>国内访问快，自带 CDN，SSL 自动配</td>
 </tr>
 <tr>
 <td><strong>Vercel</strong></td>
@@ -68,7 +69,7 @@
 <td>老牌稳定</td>
 </tr>
 </tbody></table>
-<p>选哪个？你用的框架跟哪个平台关系好就选哪个。Next.js 推荐 Vercel 或 Cloudflare Pages，纯 HTML 随意。</p>
+<p>选哪个？你用的框架跟哪个平台关系好就选哪个。Next.js 推荐 Vercel 或 Cloudflare Pages/Workers，纯 HTML 随意。</p>
 <p>带后端的动态站？那就 Zeabur、Railway、Fly.io，月费 5-20$ 起步，新手不优先。</p>
 <h2>5. 完整上线一条龙</h2>
 <pre><code>写代码 → git push → 自动构建 → 自动部署 → https://你的域名

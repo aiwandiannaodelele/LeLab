@@ -63,15 +63,17 @@ Next.js 静态构建、原生 HTML/CSS/JS、Vue 静态页
 
 ## 4. 托管平台怎么选
 
-纯静态站，推荐这三个，全免费：
+**Serverless 部署最方便**——不需要买服务器、配证书、开端口、配防火墙、防攻击，这些平台全帮你搞定了。
+
+我推荐 **Cloudflare Pages/Workers**，本站就是部署在这上面的。免费额度：
 
 | 平台 | 免费额度 | 特点 |
 |------|---------|------|
-| **Cloudflare Pages** | 无限带宽，500 构建/月 | 国内访问快，自带 CDN |
+| **Cloudflare Pages/Workers** | 无限带宽，**每月 3000 分钟构建** | 国内访问快，自带 CDN，SSL 自动配 |
 | **Vercel** | 100GB 带宽 | 跟 Next.js 一家，集成最爽 |
 | **Netlify** | 100GB 带宽，300 构建分钟 | 老牌稳定 |
 
-选哪个？你用的框架跟哪个平台关系好就选哪个。Next.js 推荐 Vercel 或 Cloudflare Pages，纯 HTML 随意。
+选哪个？你用的框架跟哪个平台关系好就选哪个。Next.js 推荐 Vercel 或 Cloudflare Pages/Workers，纯 HTML 随意。
 
 带后端的动态站？那就 Zeabur、Railway、Fly.io，月费 5-20$ 起步，新手不优先。
 

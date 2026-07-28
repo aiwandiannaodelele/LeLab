@@ -20,28 +20,31 @@ export default function SearchPage() {
   const [query, setQuery] = React.useState("")
   const [results, setResults] = React.useState<PostEntry[]>([])
   const [index, setIndex] = React.useState<PostEntry[]>([])
+  const [loaded, setLoaded] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     fetch("/search-index.json")
       .then((r) => r.json())
-      .then((data) => setIndex(data))
+      .then((data) => { setIndex(data); setLoaded(true) })
   }, [])
 
   React.useEffect(() => {
     if (!query.trim()) { setResults([]); return }
     const fuse = new Fuse(index, {
       keys: [
-        { name: "title", weight: 2 },
-        { name: "tags", weight: 1.5 },
-        { name: "excerpt", weight: 1 },
-        { name: "content", weight: 0.5 },
+        { name: "title", weight: 3 },
+        { name: "tags", weight: 2 },
+        { name: "excerpt", weight: 1.5 },
+        { name: "content", weight: 0.8 },
       ],
-      threshold: 0.4,
+      threshold: 0.6,
       includeScore: true,
     })
     setResults(fuse.search(query).slice(0, 20).map((r) => r.item))
   }, [query, index])
+
+  const empty = query && results.length === 0
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16">
@@ -51,7 +54,7 @@ export default function SearchPage() {
           SEARCH
         </p>
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">搜索</h1>
-        <p className="mt-2 text-sm text-muted-foreground">全站文章全文检索。</p>
+        <p className="mt-2 text-sm text-muted-foreground">全站文章全文检索，实时匹配。</p>
       </header>
 
       <div className="relative">
@@ -64,7 +67,7 @@ export default function SearchPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="输入关键词搜索文章..."
-          className="w-full rounded-2xl border border-border/60 bg-card py-3.5 pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+          className="w-full rounded-2xl border border-border/60 bg-card py-3.5 pl-11 pr-11 text-sm text-foreground placeholder:text-muted-foreground/40 outline-none transition-all focus:border-primary/40 focus:shadow-sm focus:shadow-primary/5"
           autoFocus
         />
         {query && (
@@ -78,49 +81,63 @@ export default function SearchPage() {
         )}
       </div>
 
-      {query && results.length === 0 && (
+      {!loaded && (
+        <p className="mt-8 text-center text-sm text-muted-foreground">正在加载索引...</p>
+      )}
+
+      {loaded && !query && (
         <div className="mt-16 text-center">
           <div className="mx-auto mb-4 grid size-14 place-items-center rounded-2xl bg-muted">
             <Icon name="search" size={22} className="text-muted-foreground" />
           </div>
+          <p className="text-sm text-muted-foreground">输入关键词开始搜索</p>
+          <p className="mt-1 text-xs text-muted-foreground/50">支持标题、标签、正文全文匹配</p>
+        </div>
+      )}
+
+      {empty && (
+        <div className="mt-16 text-center">
+          <div className="mx-auto mb-4 grid size-14 place-items-center rounded-2xl bg-muted">
+            <Icon name="cancel" size={22} className="text-muted-foreground" />
+          </div>
           <p className="text-sm text-muted-foreground">未找到匹配结果</p>
-          <p className="mt-1 text-xs text-muted-foreground/50">试试其他关键词</p>
+          <p className="mt-1 text-xs text-muted-foreground/50">试试其他关键词，或检查输入是否正确</p>
         </div>
       )}
 
       {results.length > 0 && (
-        <p className="mt-4 text-xs text-muted-foreground/50">
-          找到 {results.length} 篇相关文章
+        <p className="mt-5 text-xs text-muted-foreground/50">
+          共找到 {results.length} 篇相关文章
         </p>
       )}
 
-      <div className="mt-4 space-y-3">
+      <div className="mt-3 space-y-3">
         {results.map((post) => (
           <Link
             key={post.slug}
             href={`/posts/${post.slug}/`}
-            className="group block rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-border hover:shadow-md"
+            className="group block rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-border/80 hover:shadow-md"
           >
             <div className="flex items-start gap-4">
               <div
-                className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-xl text-lg"
-                style={{ backgroundColor: post.cover + "20" }}
+                className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-xl"
+                style={{ backgroundColor: post.cover + "18" }}
               >
                 <span style={{ color: post.cover }}>
                   <Icon name="book" size={16} />
                 </span>
               </div>
               <div className="min-w-0 flex-1">
-                <h2 className="font-heading text-base font-semibold tracking-tight transition-colors group-hover:text-primary">
+                <h2 className="font-heading text-base font-semibold tracking-tight leading-snug transition-colors group-hover:text-primary">
                   {highlight(post.title, query)}
                 </h2>
-                <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                   {highlight(post.excerpt, query)}
                 </p>
-                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground/70">
+                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground/60">
                   <span className="inline-flex items-center gap-1">
                     <Icon name="calendar" size={12} />
-                    {formatDate(post.date)}
+                    {fmt(post.date)}
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <Icon name="clock" size={12} />
@@ -146,15 +163,19 @@ export default function SearchPage() {
 
 function highlight(text: string, query: string) {
   if (!query.trim()) return text
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-  const parts = text.split(new RegExp(`(${escaped})`, "gi"))
-  return parts.map((part, i) =>
-    part.toLowerCase() === query.toLowerCase()
-      ? <mark key={i} className="rounded bg-primary/15 text-foreground px-0.5">{part}</mark>
-      : part,
-  )
+  try {
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    const parts = text.split(new RegExp(`(${escaped})`, "gi"))
+    return parts.map((part, i) =>
+      part.toLowerCase() === query.toLowerCase()
+        ? <mark key={i} className="rounded-sm bg-primary/15 text-foreground font-medium px-0.5">{part}</mark>
+        : part,
+    )
+  } catch {
+    return text
+  }
 }
 
-function formatDate(iso: string) {
+function fmt(iso: string) {
   return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" })
 }

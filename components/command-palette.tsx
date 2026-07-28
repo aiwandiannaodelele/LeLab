@@ -21,6 +21,7 @@ type SearchItem = {
   titlePy: string
   excerpt?: string
   excerptPy?: string
+  tags?: string
   href: string
   group: string
   icon?: string
@@ -35,7 +36,6 @@ const navIconMap: Record<string, string> = {
   "/discussions/general": "discussion",
   "/tools": "settings",
   "/links": "link",
-  "/search": "search",
   "/about": "sparkles",
 }
 
@@ -46,6 +46,15 @@ export function CommandPalette({
 }) {
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
+  const [fullIndex, setFullIndex] = React.useState<
+    { slug: string; title: string; excerpt: string; tags: string[] }[]
+  >([])
+
+  React.useEffect(() => {
+    fetch("/search-index.json")
+      .then((r) => r.json())
+      .then((data) => setFullIndex(data))
+  }, [])
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -71,7 +80,7 @@ export function CommandPalette({
         titlePy: pinyin(n.label, { toneType: "none", separator: "", type: "string" }),
         href: n.href,
         group: "页面",
-        icon: navIconMap[n.href],
+        icon: navIconMap[n.href] || n.icon,
       })),
     [],
   )
@@ -130,11 +139,25 @@ export function CommandPalette({
     [items],
   )
 
+  const fullFuse = React.useMemo(
+    () =>
+      new Fuse(fullIndex, {
+        keys: [
+          { name: "title", weight: 2 },
+          { name: "tags", weight: 1.5 },
+          { name: "excerpt", weight: 1 },
+        ],
+        threshold: 0.5,
+      }),
+    [fullIndex],
+  )
+
   const [query, setQuery] = React.useState("")
 
-  const results = query ? fuse.search(query).map((r) => r.item) : items
+  const navResults = query ? fuse.search(query).map((r) => r.item) : items
+  const fullResults = query ? fullFuse.search(query).slice(0, 5).map((r) => r.item).filter((r) => !postItems.some((p) => p.id === r.slug)) : []
 
-  const grouped = results.reduce<Record<string, SearchItem[]>>((acc, item) => {
+  const grouped = navResults.reduce<Record<string, SearchItem[]>>((acc, item) => {
     if (!acc[item.group]) acc[item.group] = []
     acc[item.group].push(item)
     return acc
@@ -151,44 +174,72 @@ export function CommandPalette({
       <div className="absolute left-1/2 top-[15%] z-50 w-full max-w-xl -translate-x-1/2 rounded-2xl border border-border/60 bg-background shadow-2xl shadow-black/10">
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder="搜索页面和文章..."
+            placeholder="搜索页面、文章、全文..."
             value={query}
             onValueChange={setQuery}
           />
           <CommandList>
-            <CommandEmpty>没有找到结果。</CommandEmpty>
+            <CommandEmpty>
+              {fullResults.length > 0 ? null : "没有找到结果。"}
+            </CommandEmpty>
             {Object.entries(grouped).map(([group, groupItems]) => (
-              <CommandGroup key={group} heading={group}>
-                {groupItems.map((item) => (
+              groupItems.length > 0 && (
+                <CommandGroup key={group} heading={group}>
+                  {groupItems.map((item) => (
+                    <CommandItem
+                      key={item.id}
+                      onSelect={() => {
+                        setOpen(false)
+                        router.push(item.href)
+                      }}
+                      className="group"
+                    >
+                      {item.icon ? (
+                        <span className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground group-aria-selected:bg-primary/10 group-aria-selected:text-primary">
+                          <Icon name={item.icon} size={14} />
+                        </span>
+                      ) : (
+                        <span className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground">
+                          <Icon name="book" size={14} />
+                        </span>
+                      )}
+                      <div className="flex min-w-0 flex-1 items-center gap-2">
+                        <span className="font-medium truncate">{item.title}</span>
+                        {item.excerpt && (
+                          <span className="hidden truncate text-xs text-muted-foreground sm:inline">
+                            {item.excerpt}
+                          </span>
+                        )}
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )
+            ))}
+            {fullResults.length > 0 && (
+              <CommandGroup heading="全文搜索">
+                {fullResults.map((item) => (
                   <CommandItem
-                    key={item.id}
+                    key={item.slug}
                     onSelect={() => {
                       setOpen(false)
-                      router.push(item.href)
+                      router.push(`/posts/${item.slug}`)
                     }}
                     className="group"
                   >
-                    {item.icon ? (
-                      <span className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground group-aria-selected:bg-primary/10 group-aria-selected:text-primary">
-                        <Icon name={item.icon} size={14} />
-                      </span>
-                    ) : (
-                      <span className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground">
-                        <Icon name="book" size={14} />
-                      </span>
-                    )}
-                    <div className="flex min-w-0 flex-1 items-center gap-2">
+                    <span className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground group-aria-selected:bg-primary/10 group-aria-selected:text-primary">
+                      <Icon name="search" size={14} />
+                    </span>
+                    <div className="flex min-w-0 flex-1 flex-col">
                       <span className="font-medium truncate">{item.title}</span>
-                      {item.excerpt && (
-                        <span className="hidden truncate text-xs text-muted-foreground sm:inline">
-                          {item.excerpt}
-                        </span>
-                      )}
+                      <span className="truncate text-xs text-muted-foreground">
+                        {item.excerpt}
+                      </span>
                     </div>
                   </CommandItem>
                 ))}
               </CommandGroup>
-            ))}
+            )}
           </CommandList>
         </Command>
       </div>

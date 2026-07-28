@@ -16,7 +16,6 @@ export const siteConfig = {
     { label: "讨论", href: "/discussions/general", icon: "discussion" },
     { label: "工具", href: "/tools", icon: "settings" },
     { label: "友链", href: "/links", icon: "link" },
-    { label: "搜索", href: "/search", icon: "search" },
     { label: "关于", href: "/about", icon: "sparkles" },
   ],
   socials: [

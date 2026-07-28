@@ -46,7 +46,7 @@ export function GiscusConsent({ term = "general" }: { term?: string }) {
   }, [term, resolvedTheme])
 
   return (
-    <div className="mt-14 border-t border-border/60 pt-8">
+    <div>
       <div ref={ref} />
     </div>
   )

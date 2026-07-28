@@ -26,7 +26,7 @@ export default async function DiscussionTabPage({
   if (!current) notFound()
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
+    <div className="mx-auto max-w-5xl px-5 pt-10 pb-16">
       <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="discussion" size={14} className="text-primary" />

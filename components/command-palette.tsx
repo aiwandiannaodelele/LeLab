@@ -47,7 +47,7 @@ export function CommandPalette({
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
   const [fullIndex, setFullIndex] = React.useState<
-    { slug: string; title: string; excerpt: string; tags: string[] }[]
+    { slug: string; title: string; excerpt: string; tags: string[]; content: string }[]
   >([])
 
   React.useEffect(() => {
@@ -232,8 +232,8 @@ export function CommandPalette({
                     </span>
                     <div className="flex min-w-0 flex-1 flex-col">
                       <span className="font-medium truncate">{item.title}</span>
-                      <span className="truncate text-xs text-muted-foreground">
-                        {item.excerpt}
+                      <span className="truncate text-xs text-muted-foreground/60">
+                        {matchExcerpt(item.content, query)}
                       </span>
                     </div>
                   </CommandItem>
@@ -245,4 +245,37 @@ export function CommandPalette({
       </div>
     </div>
   )
+}
+
+function matchExcerpt(content: string, query: string) {
+  if (!query.trim() || !content) return content?.slice(0, 80) || ""
+  try {
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    const re = new RegExp(`(${escaped})`, "gi")
+    const sentences = content.split(/[。！？\n]/).filter((s) => s.trim().length > 0)
+
+    for (const sentence of sentences) {
+      if (re.test(sentence)) {
+        const trimmed = sentence.trim()
+        if (trimmed.length <= 120) {
+          const parts = trimmed.split(re)
+          return parts.map((part, i) =>
+            part.toLowerCase() === query.toLowerCase()
+              ? <mark key={i} className="rounded-sm bg-amber-500/20 font-medium text-foreground px-0.5">{part}</mark>
+              : part,
+          )
+        }
+        const idx = trimmed.toLowerCase().indexOf(query.toLowerCase())
+        const start = Math.max(0, idx - 20)
+        const snippet = (start > 0 ? "…" : "") + trimmed.slice(start, start + 120)
+        const parts = snippet.split(re)
+        return parts.map((part, i) =>
+          part.toLowerCase() === query.toLowerCase()
+            ? <mark key={i} className="rounded-sm bg-amber-500/20 font-medium text-foreground px-0.5">{part}</mark>
+            : part,
+        )
+      }
+    }
+  } catch { }
+  return content.slice(0, 120) + "…"
 }

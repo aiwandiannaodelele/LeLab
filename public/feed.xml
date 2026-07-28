@@ -8,14 +8,14 @@
     <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Jul 2026 03:56:39 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 03:58:21 GMT</lastBuildDate>
     <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
-      <title>Vibe Coding 新手部署指北</title>
+      <title>Vibe Coding 出一个超强的网页？怎么公开发布？</title>
       <link>https://1l.lol/posts/vibe-coding-deploy-guide/</link>
       <guid>https://1l.lol/posts/vibe-coding-deploy-guide/</guid>
-      <description>从零讲懂 AI 网站完整上线流程，不学复杂运维知识。</description>
+      <description>用 AI 写完网页本地运行完美，却卡在部署上线，这正是 Vibe Coding 最大的短板。</description>
       <content:encoded><![CDATA[<p>本文面向使用 Vibe Coding 的新手，不用学复杂运维知识，从零讲懂 AI 网站完整上线流程。</p>
 <h2>1. 网站类型</h2>
 <p>通常来说，Vibe Coding 出的网站一般分 2 类：</p>
@@ -81,15 +81,7 @@
 <li>等几十秒，刷新页面就看到了</li>
 </ol>
 <p>第一次部署麻烦点，后面每次更新就只需要 <code>git push</code> 一步。Vibe Coding 出来的东西想更新？一样，改完让 AI 改代码 → push → 完事。</p>
-<h2>6. 避坑指南</h2>
-<ul>
-<li><strong>慎用 .env</strong>：构建时注入的环境变量跟运行时不一样，新手最容易在这卡住</li>
-<li><strong>图片路径</strong>：静态站打包后 /public 才是根目录，别写成 <code>../images/xxx</code></li>
-<li><strong>路由大小写</strong>：Linux 服务器路径敏感，a.jpg 和 A.jpg 是两个文件</li>
-<li><strong>404 处理</strong>：SPA 路由需要托管平台配重写规则，不然刷新就 404</li>
-<li><strong>CI 超时</strong>：免费构建平台有超时限制，5-15 分钟不等，项目太大了构建不完</li>
-</ul>
-<h2>7. 总结</h2>
+<h2>6. 总结</h2>
 <p>Vibe Coding 出来的网站，上线门槛其实很低：</p>
 <p>静态站 → 托管平台免费部署 + 买个域名 → 完事
 动态站 → 稍微麻烦，但新手可以先用静态站练手</p>

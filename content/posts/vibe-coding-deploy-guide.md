@@ -1,12 +1,15 @@
 ---
-title: Vibe Coding 新手部署指北
+title: Vibe Coding 出一个超强的网页？怎么公开发布？
 slug: vibe-coding-deploy-guide
 date: 2026-07-23
-excerpt: 从零讲懂 AI 网站完整上线流程，不学复杂运维知识。
+excerpt: 用 AI 写完网页本地运行完美，却卡在部署上线，这正是 Vibe Coding 最大的短板。
 tags:
   - Vibe Coding
-  - 教程
-  - 部署
+  - AI
+  - Serverless
+  - CI/CD
+  - Cloud Deployment
+  - Git
 cover: '#3b82f6'
 coverImage: ''
 ---
@@ -87,15 +90,7 @@ Next.js 静态构建、原生 HTML/CSS/JS、Vue 静态页
 
 第一次部署麻烦点，后面每次更新就只需要 `git push` 一步。Vibe Coding 出来的东西想更新？一样，改完让 AI 改代码 → push → 完事。
 
-## 6. 避坑指南
-
-- **慎用 .env**：构建时注入的环境变量跟运行时不一样，新手最容易在这卡住
-- **图片路径**：静态站打包后 /public 才是根目录，别写成 `../images/xxx`
-- **路由大小写**：Linux 服务器路径敏感，a.jpg 和 A.jpg 是两个文件
-- **404 处理**：SPA 路由需要托管平台配重写规则，不然刷新就 404
-- **CI 超时**：免费构建平台有超时限制，5-15 分钟不等，项目太大了构建不完
-
-## 7. 总结
+## 6. 总结
 
 Vibe Coding 出来的网站，上线门槛其实很低：
 

@@ -8,7 +8,7 @@
     <link>https://1l.lol</link>
     <description>爱玩电脑的乐乐的个人站点</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Jul 2026 04:03:14 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 04:05:59 GMT</lastBuildDate>
     <atom:link href="https://1l.lol/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -71,7 +71,14 @@
 </tbody></table>
 <p>选哪个？你用的框架跟哪个平台关系好就选哪个。Next.js 推荐 Vercel 或 Cloudflare Pages/Workers，纯 HTML 随意。</p>
 <p>带后端的动态站？那就 Zeabur、Railway、Fly.io，月费 5-20$ 起步，新手不优先。</p>
-<h2>5. 完整上线一条龙</h2>
+<h2>5. 懒人版块</h2>
+<p>其实买域名、托管域名、部署、绑定可以一键搞定，<strong>Cloudflare 提供全套服务</strong>。</p>
+<p>你只需要让 AI 安装 MCP，读取这份文档：</p>
+<pre><code>https://developers.cloudflare.com/agent-setup/prompt.md
+</code></pre>
+<p>AI 读完就知道怎么操作 Cloudflare 了——域名注册、DNS 解析、Pages/Workers 部署、SSL 证书、自定义域名绑定，全部自动搞定，你只需要说一句&quot;部署这个网站&quot;。</p>
+<p>哪怕是动态站也不用慌，让 AI 把后端迁移到 Cloudflare Workers 生态——D1 替代数据库、KV 替代缓存、Workers 替代服务器——一样一条龙自动部署，零服务器。</p>
+<h2>6. 完整上线一条龙</h2>
 <pre><code>写代码 → git push → 自动构建 → 自动部署 → https://你的域名
 </code></pre>
 <p>实际上走一遍就是：</p>
@@ -82,7 +89,7 @@
 <li>等几十秒，刷新页面就看到了</li>
 </ol>
 <p>第一次部署麻烦点，后面每次更新就只需要 <code>git push</code> 一步。Vibe Coding 出来的东西想更新？一样，改完让 AI 改代码 → push → 完事。</p>
-<h2>6. 总结</h2>
+<h2>7. 总结</h2>
 <p>Vibe Coding 出来的网站，上线门槛其实很低：</p>
 <p>静态站 → 托管平台免费部署 + 买个域名 → 完事
 动态站 → 稍微麻烦，但新手可以先用静态站练手</p>

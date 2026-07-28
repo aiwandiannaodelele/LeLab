@@ -77,7 +77,21 @@ Next.js 静态构建、原生 HTML/CSS/JS、Vue 静态页
 
 带后端的动态站？那就 Zeabur、Railway、Fly.io，月费 5-20$ 起步，新手不优先。
 
-## 5. 完整上线一条龙
+## 5. 懒人版块
+
+其实买域名、托管域名、部署、绑定可以一键搞定，**Cloudflare 提供全套服务**。
+
+你只需要让 AI 安装 MCP，读取这份文档：
+
+```
+https://developers.cloudflare.com/agent-setup/prompt.md
+```
+
+AI 读完就知道怎么操作 Cloudflare 了——域名注册、DNS 解析、Pages/Workers 部署、SSL 证书、自定义域名绑定，全部自动搞定，你只需要说一句"部署这个网站"。
+
+哪怕是动态站也不用慌，让 AI 把后端迁移到 Cloudflare Workers 生态——D1 替代数据库、KV 替代缓存、Workers 替代服务器——一样一条龙自动部署，零服务器。
+
+## 6. 完整上线一条龙
 
 ```
 写代码 → git push → 自动构建 → 自动部署 → https://你的域名
@@ -92,7 +106,7 @@ Next.js 静态构建、原生 HTML/CSS/JS、Vue 静态页
 
 第一次部署麻烦点，后面每次更新就只需要 `git push` 一步。Vibe Coding 出来的东西想更新？一样，改完让 AI 改代码 → push → 完事。
 
-## 6. 总结
+## 7. 总结
 
 Vibe Coding 出来的网站，上线门槛其实很低：
 

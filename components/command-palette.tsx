@@ -155,7 +155,7 @@ export function CommandPalette({
   const [query, setQuery] = React.useState("")
 
   const navResults = query ? fuse.search(query).map((r) => r.item) : items
-  const fullResults = query ? fullFuse.search(query).slice(0, 5).map((r) => r.item).filter((r) => !postItems.some((p) => p.id === r.slug)) : []
+  const fullResults = query ? fullFuse.search(query).slice(0, 5).map((r) => r.item) : []
 
   const grouped = navResults.reduce<Record<string, SearchItem[]>>((acc, item) => {
     if (!acc[item.group]) acc[item.group] = []

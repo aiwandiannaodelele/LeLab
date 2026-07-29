@@ -2,7 +2,8 @@ import { notFound } from "next/navigation"
 import { Icon } from "@/components/icons"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { GiscusConsent } from "@/components/giscus-consent"
+import { Giscus } from "@/components/giscus"
+import { siteConfig } from "@/lib/site"
 
 const tabs = [
   { id: "general", label: "综合讨论", desc: "随便聊聊" },
@@ -58,7 +59,15 @@ export default async function DiscussionTabPage({
         </aside>
 
         <div className="min-w-0 flex-1">
-          <GiscusConsent term={tab} />
+          <Giscus
+            repo={siteConfig.giscus.repo}
+            repoId={siteConfig.giscus.repoId}
+            category={siteConfig.giscus.category}
+            categoryId={siteConfig.giscus.categoryId}
+            mapping="specific"
+            term={tab}
+            compact
+          />
         </div>
       </div>
     </div>

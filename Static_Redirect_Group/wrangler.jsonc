@@ -1,8 +1,0 @@
-{
-  "compatibility_date": "2026-07-23",
-  "name": "shortlink-api",
-  "main": "worker.js",
-  "placement": {
-    "mode": "smart"
-  }
-}

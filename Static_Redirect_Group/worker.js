@@ -93,22 +93,20 @@ export default {
         return Response.json({ error: "Security check failed" }, { status: 500, headers: { "Access-Control-Allow-Origin": "*" } })
       }
 
-      if (!expired_at || typeof expired_at !== "number") {
-        return Response.json({ error: "Invalid expiration timestamp" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
-      }
-
-      const expiredDate = new Date(expired_at * 1000)
-      const now = new Date()
-      if (isNaN(expiredDate.getTime())) {
-        return Response.json({ error: "Invalid timestamp" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
-      }
-
-      const diffDays = (expiredDate.getTime() - now.getTime()) / (1000 * 3600 * 24)
-      if (diffDays > 7) {
-        return Response.json({ error: "Max 7 days" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
-      }
-      if (diffDays <= 0) {
-        return Response.json({ error: "Must be in the future" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
+      let expiredAtISO = null
+      if (expired_at && typeof expired_at === "number") {
+        const expiredDate = new Date(expired_at * 1000)
+        if (isNaN(expiredDate.getTime())) {
+          return Response.json({ error: "Invalid timestamp" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
+        }
+        const diffDays = (expiredDate.getTime() - Date.now()) / (1000 * 3600 * 24)
+        if (diffDays > 7) {
+          return Response.json({ error: "Max 7 days" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
+        }
+        if (diffDays <= 0) {
+          return Response.json({ error: "Must be in the future" }, { status: 400, headers: { "Access-Control-Allow-Origin": "*" } })
+        }
+        expiredAtISO = expiredDate.toISOString()
       }
 
       const owner = env.GITHUB_OWNER
@@ -149,7 +147,7 @@ export default {
         return Response.json({ error: "Pathname already exists" }, { status: 409, headers: { "Access-Control-Allow-Origin": "*" } })
       }
 
-      rules[pathKey] = { url, expired_at: expiredDate.toISOString() }
+      rules[pathKey] = { url, expired_at: expiredAtISO }
 
       const encoder = new TextEncoder()
       const data = encoder.encode(`window.RULES_INTERMEDIATE = ${JSON.stringify(rules, null, 4)};\n`)

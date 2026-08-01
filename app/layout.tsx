@@ -73,6 +73,7 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://status.lelab.cc.cd" />
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5122152450697171" crossOrigin="anonymous" />
+        <script src="https://ai-chat-assistant-qlrbs0yf.edgeone.dev/embed.js" async />
         <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" async />
         <ThemeProvider>
           <script type="application/ld+json" dangerouslySetInnerHTML={{

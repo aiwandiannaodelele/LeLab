@@ -68,7 +68,7 @@ export default function FlashPlayerPage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col px-5 py-16">
+    <div className="flash-player-page mx-auto flex max-w-5xl flex-col px-5 py-16" style={{ minHeight: "calc(100vh - 150px)" }}>
       <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="star" size={14} className="text-primary" />
@@ -132,7 +132,7 @@ export default function FlashPlayerPage() {
         onDrop={(e) => { e.preventDefault(); onFile(e.dataTransfer.files?.[0]) }}
       >
         {!playing && (
-          <div className="grid flex-1 place-items-center rounded-2xl border border-dashed border-border/60 bg-muted/30 py-24 text-center">
+          <div className="grid flex-1 place-items-center rounded-2xl border border-dashed border-border/60 bg-muted/30 text-center">
             <div className="text-4xl mb-3">🎮</div>
             <p className="text-sm text-muted-foreground">输入 SWF 地址，或点击「上传」/ 拖入文件</p>
             <p className="mt-1 text-xs text-muted-foreground/50">
@@ -140,8 +140,24 @@ export default function FlashPlayerPage() {
             </p>
           </div>
         )}
-        <div ref={containerRef} className="min-h-[60vh] flex-1 rounded-2xl overflow-hidden bg-black/5 dark:bg-black/30" />
+        <div ref={containerRef} className="flex-1 rounded-2xl overflow-hidden bg-black/5 dark:bg-black/30" style={{ width: "100%", height: "100%" }} />
       </div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .flash-player-page { width: 100%; }
+        .flash-player-page .tool-flash-area { flex: 1; }
+        .flash-player-page ruffle-player,
+        .flash-player-page ruffle-player > div,
+        .flash-player-page canvas,
+        .flash-player-page embed {
+          width: 100% !important;
+          height: 100% !important;
+          display: block;
+        }
+        .flash-player-page .ruffle-player canvas {
+          object-fit: contain;
+          margin: 0 auto;
+        }
+      `}} />
     </div>
   )
 }

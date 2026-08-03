@@ -26,14 +26,26 @@ export function MomentCommentButton({ term }: { term: string }) {
 
       {open &&
         createPortal(
-          <div className="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto bg-black/40 p-4 pt-[8vh] backdrop-blur-sm">
-            <div className="w-full max-w-2xl rounded-2xl border border-border/60 bg-background shadow-2xl">
+          <div
+            className="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto bg-black/40 p-4 pt-[8vh] backdrop-blur-sm"
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(false)
+            }}
+          >
+            <div
+              className="w-full max-w-2xl rounded-2xl border border-border/60 bg-background shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex items-center justify-between border-b border-border/60 px-5 py-3">
                 <span className="text-sm font-medium">评论</span>
                 <button
                   type="button"
                   aria-label="关闭"
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setOpen(false)
+                  }}
                   className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <Icon name="cancel" size={18} />

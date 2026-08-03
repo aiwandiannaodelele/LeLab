@@ -90,6 +90,21 @@ export function Hero() {
   const hasDevice = devices.length > 0
   const holiday = siteConfig.holidayMode
 
+  const statusColor = (text: string) => {
+    if (text === "编程中") return "bg-blue-500 text-white"
+    if (text === "刷题中") return "bg-purple-500 text-white"
+    if (text === "游戏中") return "bg-rose-500 text-white"
+    return null
+  }
+  const statusSoft = (text: string) => {
+    if (text === "编程中") return "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+    if (text === "刷题中") return "bg-purple-500/10 text-purple-600 dark:text-purple-400"
+    if (text === "游戏中") return "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+    return null
+  }
+  const badgeSolid = statusColor(primaryStatus || "") || (holiday ? "bg-amber-500 text-white" : isClass ? "bg-emerald-500 text-white" : isActive || hasDevice ? "bg-amber-500 text-white" : "bg-muted-foreground/40 text-white")
+  const pillSoft = statusSoft(primaryStatus || "") || (holiday ? "bg-amber-500/10 text-amber-600" : isClass ? "bg-emerald-500/10 text-emerald-600" : isActive ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground")
+
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -116,15 +131,7 @@ export function Hero() {
                 loading="eager"
                 priority
               />
-              <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${
-                holiday
-                  ? "bg-amber-500 text-white"
-                  : isClass || primaryStatus
-                    ? "bg-emerald-500 text-white"
-                    : isActive || hasDevice
-                      ? "bg-amber-500 text-white"
-                      : "bg-muted-foreground/40 text-white"
-              }`}>
+              <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-medium border-2 border-background transition-colors duration-500 ${badgeSolid}`}>
                 {holiday ? (primaryStatus || "享受假期") : isClass ? "上课" : isActive ? "休息" : primaryStatus || (hasDevice ? "在线" : "离线")}
                 {hasDevice && !isClass && !isActive && !(holiday && !primaryStatus) && (
                   <span className="ml-0.5 text-[9px] opacity-70">{devices.length}</span>
@@ -139,14 +146,14 @@ export function Hero() {
             >
               <div className="w-[380px] rounded-2xl border border-border/60 bg-card p-4">
                 <div className="flex items-start gap-3">
-                  <div className={`grid size-9 shrink-0 place-items-center rounded-xl bg-muted ${isClass ? "text-emerald-500" : isActive ? "text-amber-500" : "text-muted-foreground"}`}>
+                  <div className={`grid size-9 shrink-0 place-items-center rounded-xl bg-muted ${primaryStatus === "编程中" ? "text-blue-500" : primaryStatus === "刷题中" ? "text-purple-500" : primaryStatus === "游戏中" ? "text-rose-500" : isClass ? "text-emerald-500" : isActive ? "text-amber-500" : "text-muted-foreground"}`}>
                     <Icon name="calendar" size={18} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                     <span className="text-xs text-muted-foreground">{holiday ? "假期" : status.label}</span>
-                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${holiday ? "bg-amber-500/10 text-amber-600" : isClass ? "bg-emerald-500/10 text-emerald-600" : isActive ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"}`}>
-                      {holiday ? "享受假期中" : status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学"}
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${pillSoft}`}>
+                      {holiday && !primaryStatus ? "享受假期中" : primaryStatus || (holiday ? "享受假期中" : status.type === "class" ? "上课中" : status.type === "break" || status.type === "before" ? "休息" : "已放学")}
                     </span>
                     </div>
                     {!holiday && status.type === "class" && (

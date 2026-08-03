@@ -37,7 +37,7 @@ export default async function MomentsPage() {
                   className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                   dangerouslySetInnerHTML={{ __html: renderMoment(m.content) }}
                 />
-                <div className="mt-3 flex items-center gap-4 border-t border-border/60 pt-3">
+                <div className="mt-3 flex items-center justify-end">
                   <MomentCommentButton term={m.slug} />
                 </div>
               </div>

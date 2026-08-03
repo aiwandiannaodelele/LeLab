@@ -34,7 +34,7 @@ export default async function HomePage() {
                 查看全部动态
                 <Icon name="chevronRight" size={12} />
               </p>
-              <div className="mt-3 flex items-center gap-4 border-t border-border/60 pt-3">
+              <div className="mt-3 flex items-center justify-end">
                 <MomentCommentButton term={latestMoment.slug} />
               </div>
             </Link>

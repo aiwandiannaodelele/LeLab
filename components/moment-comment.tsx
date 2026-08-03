@@ -14,16 +14,15 @@ export function MomentCommentButton({ term }: { term: string }) {
         type="button"
         aria-label="评论"
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(true) }}
-        className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-primary"
+        className="inline-flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
       >
-        <Icon name="discussion" size={14} />
-        评论
+        <Icon name="discussion" size={15} />
       </button>
 
       {open && (
         <div
           className="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto bg-black/40 p-4 pt-[8vh] backdrop-blur-sm"
-          onClick={() => setOpen(false)}
+          onClick={(e) => { e.stopPropagation(); setOpen(false) }}
         >
           <div
             className="w-full max-w-2xl rounded-2xl border border-border/60 bg-background shadow-2xl"

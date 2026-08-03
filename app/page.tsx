@@ -25,7 +25,10 @@ export default async function HomePage() {
               href="/moments"
               className="group block rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-border hover:shadow-md"
             >
-              <p className="mb-2 text-xs text-muted-foreground/70">{formatMomentDate(latestMoment.date)}</p>
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <p className="text-xs text-muted-foreground/70">{formatMomentDate(latestMoment.date)}</p>
+                <MomentCommentButton term={latestMoment.slug} />
+              </div>
               <div
                 className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                 dangerouslySetInnerHTML={{ __html: renderMoment(latestMoment.content) }}
@@ -34,9 +37,6 @@ export default async function HomePage() {
                 查看全部动态
                 <Icon name="chevronRight" size={12} />
               </p>
-              <div className="mt-3 flex items-center justify-end">
-                <MomentCommentButton term={latestMoment.slug} />
-              </div>
             </Link>
           </section>
         )}

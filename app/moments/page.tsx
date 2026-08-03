@@ -32,14 +32,14 @@ export default async function MomentsPage() {
                 <span className="size-1.5 rounded-full bg-primary-foreground" />
               </span>
               <div className="rounded-2xl border border-border/60 bg-card p-5">
-                <p className="mb-3 text-xs text-muted-foreground/70">{formatDate(m.date)}</p>
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <p className="text-xs text-muted-foreground/70">{formatDate(m.date)}</p>
+                  <MomentCommentButton term={m.slug} />
+                </div>
                 <div
                   className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                   dangerouslySetInnerHTML={{ __html: renderMoment(m.content) }}
                 />
-                <div className="mt-3 flex items-center justify-end">
-                  <MomentCommentButton term={m.slug} />
-                </div>
               </div>
             </div>
           ))}

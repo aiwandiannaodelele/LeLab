@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { marked } from "marked"
 import { getAllPosts, getAllTags } from "@/lib/posts"
 import { getAllMoments } from "@/lib/moments"
+import { renderMoment } from "@/lib/moment-render"
 import { Hero } from "@/components/hero"
 import { PostCard } from "@/components/post-card"
 import { Icon } from "@/components/icons"
@@ -27,7 +27,7 @@ export default async function HomePage() {
               <p className="mb-2 text-xs text-muted-foreground/70">{formatMomentDate(latestMoment.date)}</p>
               <div
                 className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
-                dangerouslySetInnerHTML={{ __html: marked.parse(latestMoment.content, { async: false }) as string }}
+                dangerouslySetInnerHTML={{ __html: renderMoment(latestMoment.content) }}
               />
               <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
                 查看全部动态

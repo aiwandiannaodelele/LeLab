@@ -1,5 +1,5 @@
-import { marked } from "marked"
 import { getAllMoments } from "@/lib/moments"
+import { renderMoment } from "@/lib/moment-render"
 import { Icon } from "@/components/icons"
 
 export const metadata = {
@@ -34,7 +34,7 @@ export default async function MomentsPage() {
                 <p className="mb-3 text-xs text-muted-foreground/70">{formatDate(m.date)}</p>
                 <div
                   className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
-                  dangerouslySetInnerHTML={{ __html: marked.parse(m.content, { async: false }) as string }}
+                  dangerouslySetInnerHTML={{ __html: renderMoment(m.content) }}
                 />
               </div>
             </div>

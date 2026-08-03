@@ -44,7 +44,7 @@ export default function FlashPlayerPage() {
         })
       if (!(window as any).RufflePlayer) {
         const s = document.createElement("script")
-        s.src = "https://unpkg.com/@ruffle-rs/ruffle"
+        s.src = "https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@0.4.1/ruffle.min.js"
         document.head.appendChild(s)
         await new Promise((resolve) => { s.onload = resolve })
       }

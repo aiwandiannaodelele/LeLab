@@ -7,7 +7,30 @@ export default function FlashPlayerPage() {
   const [url, setUrl] = React.useState("")
   const [playing, setPlaying] = React.useState(false)
   const [error, setError] = React.useState("")
+  const [target, setTarget] = React.useState("")
   const containerRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    if (!playing || !target) return
+    if (!containerRef.current) return
+
+    const RufflePlayer = (window as any).RufflePlayer
+    if (!RufflePlayer || !RufflePlayer.newest) { setError("Ruffle 加载失败，请刷新重试"); return }
+
+    const player = RufflePlayer.newest().createPlayer()
+    player.config = {
+      autoplay: "on",
+      unmuteOverlay: "hidden",
+      letterbox: "on",
+      splashScreen: false,
+    }
+    containerRef.current.appendChild(player)
+    try {
+      player.load(target)
+    } catch (e) {
+      setError("无法加载该文件，请确认是有效的 SWF 文件")
+    }
+  }, [playing, target])
 
   React.useEffect(() => {
     const loadRuffle = async () => {
@@ -30,29 +53,12 @@ export default function FlashPlayerPage() {
     loadRuffle().catch(() => {})
   }, [])
 
-  const playUrl = (target: string) => {
+  const playUrl = (urlToLoad: string) => {
     setError("")
-    if (!target) { setError("请输入 SWF 文件地址"); return }
-    if (!containerRef.current) return
-
-    containerRef.current.innerHTML = ""
-    const RufflePlayer = (window as any).RufflePlayer
-    if (!RufflePlayer || !RufflePlayer.newest) { setError("Ruffle 加载失败，请刷新重试"); return }
-
-    const player = RufflePlayer.newest().createPlayer()
-    player.config = {
-      autoplay: "on",
-      unmuteOverlay: "hidden",
-      letterbox: "on",
-      splashScreen: false,
-    }
-    containerRef.current.appendChild(player)
-    try {
-      player.load(target)
-      setPlaying(true)
-    } catch (e) {
-      setError("无法加载该文件，请确认是有效的 SWF 文件")
-    }
+    if (!urlToLoad) { setError("请输入 SWF 文件地址"); return }
+    if (containerRef.current) containerRef.current.innerHTML = ""
+    setTarget(urlToLoad)
+    setPlaying(true)
   }
 
   const play = () => playUrl(url.trim())
@@ -137,7 +143,7 @@ export default function FlashPlayerPage() {
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => { e.preventDefault(); onFile(e.dataTransfer.files?.[0]) }}
       >
-        {!playing ? (
+        {!playing && (
           <div className="grid aspect-video place-items-center">
             <div className="text-center">
               <div className="mb-3 text-4xl">🎮</div>
@@ -147,9 +153,8 @@ export default function FlashPlayerPage() {
               </p>
             </div>
           </div>
-        ) : (
-          <div ref={containerRef} className="aspect-video w-full" />
         )}
+        <div ref={containerRef} className={`aspect-video w-full ${playing ? "" : "hidden"}`} />
       </div>
     </div>
   )

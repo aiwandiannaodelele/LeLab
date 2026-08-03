@@ -83,24 +83,25 @@ export default function FlashPlayerPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <Link
-        href="/tools"
-        className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
-      >
-        <Icon name="arrowLeft" size={14} />
-        返回工具
-      </Link>
-
-      <header className="mb-8">
-        <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
-          <FlashIcon />
+      <header className="mb-8 flex items-center gap-4">
+        <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+          <Icon name="flash" size={24} />
         </div>
-        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-          Flash 播放器
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          在浏览器中直接运行老 Flash 动画，无需安装任何插件。
-        </p>
+        <div className="min-w-0 flex-1">
+          <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+            Flash 播放器
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            在浏览器中直接运行老 Flash 动画，无需安装任何插件。
+          </p>
+        </div>
+        <Link
+          href="/tools"
+          className="inline-flex shrink-0 items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+        >
+          <Icon name="arrowLeft" size={14} />
+          返回工具
+        </Link>
       </header>
 
       <div className="rounded-2xl border border-border/60 bg-card p-6">
@@ -168,14 +169,5 @@ export default function FlashPlayerPage() {
         <div ref={containerRef} className={`aspect-video w-full ${playing ? "" : "hidden"}`} />
       </div>
     </div>
-  )
-}
-
-function FlashIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M7 2l10 10-10 10V2z" />
-      <path d="M7 2l6 6-6 6V2z" opacity=".4" />
-    </svg>
   )
 }

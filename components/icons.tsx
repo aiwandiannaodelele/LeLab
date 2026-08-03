@@ -64,7 +64,7 @@ export function Icon({
         fill="currentColor"
         className={props.className}
       >
-        <path d="M8 2h9l-7 9h6l-9 11 4-10H7l1-10z" />
+        <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
       </svg>
     )
   }

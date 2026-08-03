@@ -47,35 +47,14 @@ export default function BrowserInfoPage() {
   if (!mounted) {
     return (
       <div className="mx-auto max-w-5xl px-5 py-16">
-        <Link href="/tools" className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary">
-          <Icon name="arrowLeft" size={14} />
-          返回工具
-        </Link>
-        <header className="mb-10">
-          <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
-            <Icon name="search" size={24} />
-          </div>
-          <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">浏览器信息</h1>
-          <p className="mt-2 text-sm text-muted-foreground">加载中...</p>
-        </header>
+        <ToolHeader icon="search" title="浏览器信息" desc="加载中..." />
       </div>
     )
   }
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <Link href="/tools" className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary">
-        <Icon name="arrowLeft" size={14} />
-        返回工具
-      </Link>
-
-      <header className="mb-10">
-        <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
-          <Icon name="search" size={24} />
-        </div>
-        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">浏览器信息</h1>
-        <p className="mt-2 text-sm text-muted-foreground">基于 browser-tool 库，查看当前浏览器可获取的所有信息。</p>
-      </header>
+      <ToolHeader icon="search" title="浏览器信息" desc="基于 browser-tool 库，查看当前浏览器可获取的所有信息。" />
 
       <div className="space-y-8">
         <Section title="浏览器">
@@ -160,5 +139,26 @@ function Row({ label, value, suppressHydrationWarning }: { label: string; value:
         {value || "—"}
       </span>
     </div>
+  )
+}
+
+function ToolHeader({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+  return (
+    <header className="mb-8 flex items-center gap-4">
+      <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+        <Icon name={icon} size={24} />
+      </div>
+      <div className="min-w-0 flex-1">
+        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
+      </div>
+      <Link
+        href="/tools"
+        className="inline-flex shrink-0 items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+      >
+        <Icon name="arrowLeft" size={14} />
+        返回工具
+      </Link>
+    </header>
   )
 }

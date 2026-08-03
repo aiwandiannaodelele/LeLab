@@ -28,3 +28,15 @@ collections:
       - { label: 封面色, name: cover, widget: color, allow_input: true, required: false }
       - { label: 封面图, name: coverImage, widget: image, required: false, hint: "上传图片后自动覆盖封面色" }
       - { label: 正文, name: body, widget: markdown, required: false }
+
+  - name: moments
+    label: 动态
+    label_singular: 动态
+    folder: content/moments
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{second}}"
+    preview_path: moments
+    fields:
+      - { label: 发布日期, name: date, widget: datetime, format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm", required: true }
+      - { label: 内容, name: body, widget: markdown, required: true }

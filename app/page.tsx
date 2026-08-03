@@ -1,19 +1,42 @@
 import Link from "next/link"
+import { marked } from "marked"
 import { getAllPosts, getAllTags } from "@/lib/posts"
+import { getAllMoments } from "@/lib/moments"
 import { Hero } from "@/components/hero"
 import { PostCard } from "@/components/post-card"
 import { Icon } from "@/components/icons"
 import { siteConfig } from "@/lib/site"
 
 export default async function HomePage() {
-  const [posts, tags] = await Promise.all([getAllPosts(), getAllTags()])
+  const [posts, tags, moments] = await Promise.all([getAllPosts(), getAllTags(), getAllMoments()])
   const latest = posts.slice(0, siteConfig.postsPerPage)
+  const latestMoment = moments[0]
 
   return (
     <>
       <Hero />
 
       <div className="mx-auto max-w-5xl px-5 pt-6">
+        {latestMoment && (
+          <section className="mb-14">
+            <SectionTitle title="动态" href="/moments" action="全部动态" />
+            <Link
+              href="/moments"
+              className="group block rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-border hover:shadow-md"
+            >
+              <p className="mb-2 text-xs text-muted-foreground/70">{formatMomentDate(latestMoment.date)}</p>
+              <div
+                className="text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
+                dangerouslySetInnerHTML={{ __html: marked.parse(latestMoment.content, { async: false }) as string }}
+              />
+              <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
+                查看全部动态
+                <Icon name="chevronRight" size={12} />
+              </p>
+            </Link>
+          </section>
+        )}
+
         <SectionTitle title="随笔" href="/posts" action="查看全部" />
 
         {latest.length === 0 ? (
@@ -84,4 +107,14 @@ function EmptyState() {
       还没有文章，去 <code className="rounded bg-muted px-1.5 py-0.5">content/posts/</code> 放几篇吧。
     </div>
   )
+}
+
+function formatMomentDate(iso: string) {
+  return new Date(iso).toLocaleString("zh-CN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  })
 }

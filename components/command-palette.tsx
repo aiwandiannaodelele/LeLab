@@ -29,6 +29,7 @@ type SearchItem = {
 
 const navIconMap: Record<string, string> = {
   "/": "home",
+  "/moments": "sparkles",
   "/posts": "book",
   "/projects": "github",
   "/tags": "tag",

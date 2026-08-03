@@ -26,7 +26,7 @@ export default async function HomePage() {
             >
               <p className="mb-2 text-xs text-muted-foreground/70">{formatMomentDate(latestMoment.date)}</p>
               <div
-                className="text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
+                className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                 dangerouslySetInnerHTML={{ __html: marked.parse(latestMoment.content, { async: false }) as string }}
               />
               <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">

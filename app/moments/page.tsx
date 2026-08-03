@@ -33,7 +33,7 @@ export default async function MomentsPage() {
               <div className="rounded-2xl border border-border/60 bg-card p-5">
                 <p className="mb-3 text-xs text-muted-foreground/70">{formatDate(m.date)}</p>
                 <div
-                  className="text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
+                  className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                   dangerouslySetInnerHTML={{ __html: marked.parse(m.content, { async: false }) as string }}
                 />
               </div>

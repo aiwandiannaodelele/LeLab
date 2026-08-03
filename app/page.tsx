@@ -5,6 +5,7 @@ import { renderMoment } from "@/lib/moment-render"
 import { Hero } from "@/components/hero"
 import { PostCard } from "@/components/post-card"
 import { Icon } from "@/components/icons"
+import { MomentCommentButton } from "@/components/moment-comment"
 import { siteConfig } from "@/lib/site"
 
 export default async function HomePage() {
@@ -33,6 +34,9 @@ export default async function HomePage() {
                 查看全部动态
                 <Icon name="chevronRight" size={12} />
               </p>
+              <div className="mt-3 flex items-center gap-4 border-t border-border/60 pt-3">
+                <MomentCommentButton term={latestMoment.slug} />
+              </div>
             </Link>
           </section>
         )}

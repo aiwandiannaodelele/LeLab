@@ -67,7 +67,7 @@ export function Giscus({
     return () => {
       container.innerHTML = ""
     }
-  }, [resolvedTheme, repo, repoId, category, categoryId, mapping, reactionsEnabled, emitMetadata, inputPosition, lang])
+  }, [resolvedTheme, repo, repoId, category, categoryId, mapping, term, reactionsEnabled, emitMetadata, inputPosition, lang])
 
   return (
     <div className={compact ? "" : "mt-14 pt-8 border-t border-border/60"}>

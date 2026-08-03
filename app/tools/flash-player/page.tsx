@@ -56,7 +56,7 @@ export default function FlashPlayerPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-16">
+    <div className="mx-auto flex max-w-4xl flex-col px-5 py-16">
       <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="star" size={14} className="text-primary" />
@@ -104,9 +104,9 @@ export default function FlashPlayerPage() {
         )}
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-1 flex-col">
         {!playing && (
-          <div className="grid place-items-center rounded-2xl border border-dashed border-border/60 bg-muted/30 py-24 text-center">
+          <div className="grid flex-1 place-items-center rounded-2xl border border-dashed border-border/60 bg-muted/30 py-24 text-center">
             <div className="text-4xl mb-3">🎮</div>
             <p className="text-sm text-muted-foreground">输入 SWF 地址开始播放</p>
             <p className="mt-1 text-xs text-muted-foreground/50">
@@ -114,16 +114,7 @@ export default function FlashPlayerPage() {
             </p>
           </div>
         )}
-        <div ref={containerRef} className="rounded-2xl overflow-hidden bg-black/5 dark:bg-black/30" />
-      </div>
-
-      <div className="mt-8 rounded-2xl border border-border/60 bg-card p-5 text-sm text-muted-foreground leading-relaxed">
-        <p className="mb-1 font-medium text-foreground">说明</p>
-        <ul className="list-disc pl-5 space-y-1">
-          <li>Ruffle 是开源 Flash 模拟器，在浏览器中运行 SWF</li>
-          <li>部分复杂 Flash 可能无法完美运行</li>
-          <li>支持本地文件？暂时仅支持在线 URL</li>
-        </ul>
+        <div ref={containerRef} className="min-h-[60vh] flex-1 rounded-2xl overflow-hidden bg-black/5 dark:bg-black/30" />
       </div>
     </div>
   )

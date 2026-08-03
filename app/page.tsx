@@ -22,7 +22,7 @@ export default async function HomePage() {
             <SectionTitle title="动态" href="/moments" action="全部动态" />
             <Link
               href="/moments"
-              className="group block rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-border hover:shadow-md"
+              className="group block rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-border hover:shadow-md"
             >
               <p className="mb-2 text-xs text-muted-foreground/70">{formatMomentDate(latestMoment.date)}</p>
               <div
@@ -57,7 +57,7 @@ export default async function HomePage() {
                 <Link
                   key={tag}
                   href={`/tags/${tag}`}
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3.5 py-1.5 text-sm text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3.5 py-1.5 text-sm text-muted-foreground transition-all hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
                 >
                   <Icon name="tag" size={13} />
                   {tag}

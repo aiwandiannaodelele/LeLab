@@ -128,7 +128,7 @@ export default function FlashPlayerPage() {
             <button
               type="button"
               onClick={play}
-              className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5 sm:flex-none"
+              className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors sm:flex-none"
             >
               <Icon name="arrowRight" size={14} />
               播放

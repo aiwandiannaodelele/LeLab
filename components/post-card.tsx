@@ -9,7 +9,7 @@ export function PostCard({ post }: { post: PostMeta }) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-lg sm:rounded-3xl"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 hover:border-border hover:shadow-lg sm:rounded-3xl"
     >
       <Cover cover={post.cover} coverImage={post.coverImage} title={post.title} />
 

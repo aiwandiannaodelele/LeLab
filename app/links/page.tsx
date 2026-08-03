@@ -41,7 +41,7 @@ export default function LinksPage() {
               href={f.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-1 hover:border-border hover:shadow-md"
+              className="group rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-border hover:shadow-md"
             >
               <div className="flex items-center gap-3">
                 {f.avatar ? (

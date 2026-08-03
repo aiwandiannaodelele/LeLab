@@ -57,7 +57,7 @@ function RedirectInner() {
         href={target}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-6 inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
+        className="mt-6 inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform"
       >
         手动跳转
         <Icon name="arrowRight" size={14} />

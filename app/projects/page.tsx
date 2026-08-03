@@ -86,7 +86,7 @@ export default async function ProjectsPage() {
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-1 hover:border-border hover:shadow-md"
+              className="group rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-border hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-3">
                 <h2 className="font-heading text-base font-semibold tracking-tight transition-colors group-hover:text-primary">

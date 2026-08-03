@@ -207,7 +207,7 @@ export function Hero() {
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/posts"
-            className="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3.5 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
+            className="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3.5 text-sm font-medium text-primary-foreground transition-transform"
           >
             看看文章
             <Icon name="chevronRight" size={14} />

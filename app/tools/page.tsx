@@ -48,7 +48,7 @@ export default function ToolsPage() {
           <Link
             key={tool.href}
             href={tool.href}
-            className="group rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-1 hover:border-border hover:shadow-md"
+            className="group rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-border hover:shadow-md"
           >
             <div className="mb-3 grid size-10 place-items-center rounded-xl bg-primary/10 text-primary">
               <Icon name={tool.icon} size={20} />

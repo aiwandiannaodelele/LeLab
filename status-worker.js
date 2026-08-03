@@ -25,7 +25,7 @@ export default {
         const device = data.device || "unknown"
         const now = Date.now()
 
-        // 查旧值，只有变化时才写入
+        // 查旧值，只有变化时才更新数据；但每次都要刷新 updated_at（保活）
         const row = await env.DB.prepare("SELECT data FROM status WHERE device = ?").bind(device).first()
         const oldData = row ? row.data : null
 
@@ -33,6 +33,10 @@ export default {
           await env.DB.prepare(
             "INSERT OR REPLACE INTO status (device, data, updated_at) VALUES (?, ?, ?)"
           ).bind(device, body, now).run()
+        } else {
+          await env.DB.prepare(
+            "UPDATE status SET updated_at = ? WHERE device = ?"
+          ).bind(now, device).run()
         }
 
         return new Response("ok", { headers: corsHeaders })

@@ -19,6 +19,12 @@ const tools = [
     href: "/tools/browser-info",
     icon: "search",
   },
+  {
+    title: "Flash 播放器",
+    desc: "用 Ruffle 在浏览器运行老 Flash 动画和游戏。",
+    href: "/tools/flash-player",
+    icon: "star",
+  },
 ]
 
 export default function ToolsPage() {

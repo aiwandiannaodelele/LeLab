@@ -30,9 +30,9 @@ export default function FlashPlayerPage() {
     loadRuffle().catch(() => {})
   }, [])
 
-  const play = () => {
+  const playUrl = (target: string) => {
     setError("")
-    if (!url.trim()) { setError("请输入 SWF 文件地址"); return }
+    if (!target) { setError("请输入 SWF 文件地址"); return }
     if (!containerRef.current) return
 
     containerRef.current.innerHTML = ""
@@ -43,11 +43,23 @@ export default function FlashPlayerPage() {
     player.config = { autoplay: "on", unmuteOverlay: "hidden" }
     containerRef.current.appendChild(player)
     try {
-      player.load(url.trim())
+      player.load(target)
       setPlaying(true)
     } catch (e) {
       setError("无法加载该文件，请确认是有效的 SWF 文件")
     }
+  }
+
+  const play = () => playUrl(url.trim())
+
+  const onFile = (file?: File) => {
+    if (!file) return
+    if (!file.name.toLowerCase().endsWith(".swf") && !file.type.includes("flash") && !file.type.includes("x-shockwave")) {
+      setError("请选择 .swf 格式的文件")
+      return
+    }
+    setUrl(URL.createObjectURL(file))
+    playUrl(URL.createObjectURL(file))
   }
 
   const stop = () => {
@@ -79,6 +91,16 @@ export default function FlashPlayerPage() {
             className="flex-1 rounded-xl border border-border/60 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 outline-none transition-colors focus:border-primary/40"
           />
           <div className="flex gap-2">
+            <label className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-border/60 px-4 text-sm text-muted-foreground transition-colors hover:bg-muted sm:flex-none">
+              <Icon name="arrowUp" size={14} />
+              上传
+              <input
+                type="file"
+                accept=".swf,application/x-shockwave-flash"
+                className="hidden"
+                onChange={(e) => onFile(e.target.files?.[0])}
+              />
+            </label>
             <button
               type="button"
               onClick={play}
@@ -104,13 +126,17 @@ export default function FlashPlayerPage() {
         )}
       </div>
 
-      <div className="mt-6 flex flex-1 flex-col">
+      <div
+        className="mt-6 flex flex-1 flex-col"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => { e.preventDefault(); onFile(e.dataTransfer.files?.[0]) }}
+      >
         {!playing && (
           <div className="grid flex-1 place-items-center rounded-2xl border border-dashed border-border/60 bg-muted/30 py-24 text-center">
             <div className="text-4xl mb-3">🎮</div>
-            <p className="text-sm text-muted-foreground">输入 SWF 地址开始播放</p>
+            <p className="text-sm text-muted-foreground">输入 SWF 地址，或点击「上传」/ 拖入文件</p>
             <p className="mt-1 text-xs text-muted-foreground/50">
-              也可以直接拖入 / 粘贴文件链接，支持 .swf 格式
+              支持 .swf 格式，本地文件即刻播放
             </p>
           </div>
         )}

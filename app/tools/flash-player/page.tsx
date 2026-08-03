@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { Icon } from "@/components/icons"
 
 export default function FlashPlayerPage() {
@@ -15,7 +16,7 @@ export default function FlashPlayerPage() {
     if (!containerRef.current) return
 
     const RufflePlayer = (window as any).RufflePlayer
-    if (!RufflePlayer || !RufflePlayer.newest) { setError("Ruffle 加载失败，请刷新重试"); return }
+    if (!RufflePlayer || !RufflePlayer.newest) { setError("播放器加载失败，请刷新重试"); return }
 
     const player = RufflePlayer.newest().createPlayer()
     player.config = {
@@ -77,18 +78,28 @@ export default function FlashPlayerPage() {
   const stop = () => {
     if (containerRef.current) containerRef.current.innerHTML = ""
     setPlaying(false)
+    setTarget("")
   }
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <header className="mb-10">
-        <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Icon name="star" size={14} className="text-primary" />
-          FLASH PLAYER
-        </p>
-        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">Flash 播放器</h1>
+      <Link
+        href="/tools"
+        className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+      >
+        <Icon name="arrowLeft" size={14} />
+        返回工具
+      </Link>
+
+      <header className="mb-8">
+        <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
+          <FlashIcon />
+        </div>
+        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+          Flash 播放器
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          使用 Ruffle 在浏览器中运行老 Flash 动画，无需安装任何插件。
+          在浏览器中直接运行老 Flash 动画，无需安装任何插件。
         </p>
       </header>
 
@@ -157,5 +168,14 @@ export default function FlashPlayerPage() {
         <div ref={containerRef} className={`aspect-video w-full ${playing ? "" : "hidden"}`} />
       </div>
     </div>
+  )
+}
+
+function FlashIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M7 2l10 10-10 10V2z" />
+      <path d="M7 2l6 6-6 6V2z" opacity=".4" />
+    </svg>
   )
 }

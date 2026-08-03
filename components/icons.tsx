@@ -52,6 +52,23 @@ export function Icon({
     )
   }
 
+  if (name === "flash") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        role="img"
+        width={props.size ?? 24}
+        height={props.size ?? 24}
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={props.className}
+      >
+        <path d="M8 2h9l-7 9h6l-9 11 4-10H7l1-10z" />
+      </svg>
+    )
+  }
+
   if (name === "rss") {
     return (
       <svg

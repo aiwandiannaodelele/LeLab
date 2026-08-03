@@ -26,7 +26,7 @@ export function GithubAccelForm() {
         type="submit"
         className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
       >
-        <Icon name="sparkles" size={16} />
+        <Icon name="flash" size={16} />
         加速
       </button>
     </form>

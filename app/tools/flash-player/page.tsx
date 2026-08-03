@@ -40,7 +40,12 @@ export default function FlashPlayerPage() {
     if (!RufflePlayer || !RufflePlayer.newest) { setError("Ruffle 加载失败，请刷新重试"); return }
 
     const player = RufflePlayer.newest().createPlayer()
-    player.config = { autoplay: "on", unmuteOverlay: "hidden" }
+    player.config = {
+      autoplay: "on",
+      unmuteOverlay: "hidden",
+      letterbox: "on",
+      splashScreen: false,
+    }
     containerRef.current.appendChild(player)
     try {
       player.load(target)
@@ -58,8 +63,9 @@ export default function FlashPlayerPage() {
       setError("请选择 .swf 格式的文件")
       return
     }
-    setUrl(URL.createObjectURL(file))
-    playUrl(URL.createObjectURL(file))
+    const blob = URL.createObjectURL(file)
+    setUrl(blob)
+    playUrl(blob)
   }
 
   const stop = () => {
@@ -68,7 +74,7 @@ export default function FlashPlayerPage() {
   }
 
   return (
-    <div className="flash-player-page mx-auto flex max-w-5xl flex-col px-5 py-16" style={{ minHeight: "calc(100vh - 150px)" }}>
+    <div className="mx-auto max-w-5xl px-5 py-16">
       <header className="mb-10">
         <p className="mb-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="star" size={14} className="text-primary" />
@@ -127,37 +133,24 @@ export default function FlashPlayerPage() {
       </div>
 
       <div
-        className="mt-6 flex flex-1 flex-col"
+        className="mt-6 overflow-hidden rounded-2xl border border-border/60 bg-card"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => { e.preventDefault(); onFile(e.dataTransfer.files?.[0]) }}
       >
-        {!playing && (
-          <div className="grid flex-1 place-items-center rounded-2xl border border-dashed border-border/60 bg-muted/30 text-center">
-            <div className="text-4xl mb-3">🎮</div>
-            <p className="text-sm text-muted-foreground">输入 SWF 地址，或点击「上传」/ 拖入文件</p>
-            <p className="mt-1 text-xs text-muted-foreground/50">
-              支持 .swf 格式，本地文件即刻播放
-            </p>
+        {!playing ? (
+          <div className="grid aspect-video place-items-center">
+            <div className="text-center">
+              <div className="mb-3 text-4xl">🎮</div>
+              <p className="text-sm text-muted-foreground">输入 SWF 地址，或点击「上传」/ 拖入文件</p>
+              <p className="mt-1 text-xs text-muted-foreground/50">
+                支持 .swf 格式，本地文件即刻播放
+              </p>
+            </div>
           </div>
+        ) : (
+          <div ref={containerRef} className="aspect-video w-full" />
         )}
-        <div ref={containerRef} className="flex-1 rounded-2xl overflow-hidden bg-black/5 dark:bg-black/30" style={{ width: "100%", height: "100%" }} />
       </div>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .flash-player-page { width: 100%; }
-        .flash-player-page .tool-flash-area { flex: 1; }
-        .flash-player-page ruffle-player,
-        .flash-player-page ruffle-player > div,
-        .flash-player-page canvas,
-        .flash-player-page embed {
-          width: 100% !important;
-          height: 100% !important;
-          display: block;
-        }
-        .flash-player-page .ruffle-player canvas {
-          object-fit: contain;
-          margin: 0 auto;
-        }
-      `}} />
     </div>
   )
 }

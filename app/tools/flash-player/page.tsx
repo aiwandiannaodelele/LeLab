@@ -11,14 +11,23 @@ export default function FlashPlayerPage() {
 
   React.useEffect(() => {
     const loadRuffle = async () => {
+      const waitFor = (fn: () => boolean, ms = 3000) =>
+        new Promise<boolean>((resolve) => {
+          const t0 = Date.now()
+          const iv = setInterval(() => {
+            if (fn()) { clearInterval(iv); resolve(true) }
+            else if (Date.now() - t0 > ms) { clearInterval(iv); resolve(false) }
+          }, 100)
+        })
       if (!(window as any).RufflePlayer) {
         const s = document.createElement("script")
         s.src = "https://unpkg.com/@ruffle-rs/ruffle"
         document.head.appendChild(s)
         await new Promise((resolve) => { s.onload = resolve })
       }
+      await waitFor(() => (window as any).RufflePlayer?.newest?.().createPlayer)
     }
-    loadRuffle()
+    loadRuffle().catch(() => {})
   }, [])
 
   const play = () => {
@@ -28,9 +37,9 @@ export default function FlashPlayerPage() {
 
     containerRef.current.innerHTML = ""
     const RufflePlayer = (window as any).RufflePlayer
-    if (!RufflePlayer) { setError("Ruffle 加载失败，请刷新重试"); return }
+    if (!RufflePlayer || !RufflePlayer.newest) { setError("Ruffle 加载失败，请刷新重试"); return }
 
-    const player = RufflePlayer.newest().newPlayer()
+    const player = RufflePlayer.newest().createPlayer()
     player.config = { autoplay: "on", unmuteOverlay: "hidden" }
     containerRef.current.appendChild(player)
     try {

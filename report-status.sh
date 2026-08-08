@@ -96,6 +96,8 @@ get_status() {
   CLAMSHELL=$(ioreg -r -k AppleClamshellState -d 4 2>/dev/null | awk '/AppleClamshellState/ {print $NF}' | head -1)
   if [ "$CLAMSHELL" = "Yes" ]; then
     BATTERY="${BATTERY} 合盖"
+    # 合盖时清空活动状态（避免显示编程中等）
+    RESULT=""
   fi
 
   log "Battery final: $BATTERY"

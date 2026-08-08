@@ -40,7 +40,7 @@ export function useDevices() {
 export function getPrimaryStatus(devices: DeviceData[]) {
   const order = ["游戏中", "编程中", "刷题中"]
   for (const s of order) {
-    if (devices.some(d => d.status === s)) return s
+    if (devices.some(d => d.status === s && !(d.battery || "").includes("合盖"))) return s
   }
   return null
 }

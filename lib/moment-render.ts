@@ -7,12 +7,12 @@ renderer.image = ({ href, title, text }: { href: string; title?: string | null; 
 }
 
 // 段落内如果是纯图片（多张），包成横向 flex 容器
-renderer.paragraph = ({ tokens }: Tokens.Paragraph) => {
-  const text = tokens.map((t) => ("raw" in t ? t.raw : "")).join("")
-  if ((text.match(/<img/g) || []).length > 0) {
-    return `<div class="moment-images">${text}</div>`
+renderer.paragraph = function ({ tokens }: Tokens.Paragraph) {
+  const html = this.parser?.parseInline(tokens) ?? ""
+  if ((html.match(/<img/g) || []).length > 0) {
+    return `<div class="moment-images">${html}</div>`
   }
-  return `<p>${text}</p>`
+  return `<p>${html}</p>`
 }
 
 export function renderMoment(md: string): string {

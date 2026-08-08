@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { getAllPosts, getAllTags } from "@/lib/posts"
 import { getAllMoments } from "@/lib/moments"
-import { renderMoment } from "@/lib/moment-render"
+import { renderMomentLines } from "@/lib/moment-render"
 import { Hero } from "@/components/hero"
 import { PostCard } from "@/components/post-card"
 import { Icon } from "@/components/icons"
@@ -31,7 +31,7 @@ export default async function HomePage() {
               </div>
               <div
                 className="moment-content lightbox-scope text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
-                dangerouslySetInnerHTML={{ __html: renderMoment(latestMoment.content) }}
+                dangerouslySetInnerHTML={{ __html: renderMomentLines(latestMoment.content) }}
               />
               <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
                 查看全部动态

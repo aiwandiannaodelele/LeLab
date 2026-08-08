@@ -18,3 +18,9 @@ renderer.paragraph = function ({ tokens }: Tokens.Paragraph) {
 export function renderMoment(md: string): string {
   return marked.parse(md, { async: false, renderer }) as string
 }
+
+// 合并相邻的纯图片容器为一行，处理图片之间有空行的情况
+export function renderMomentLines(md: string): string {
+  const html = renderMoment(md)
+  return html.replace(/<\/div>\s*<div class="moment-images">/g, "")
+}

@@ -35,6 +35,12 @@ ruffle-player canvas {
   margin: 0.25rem 0;
   line-height: 1.7;
 }
+.moment-content p:has(img) {
+  margin: 0;
+}
+.moment-content p:has(img) img {
+  margin: 0;
+}
 .moment-content .moment-images {
   display: flex;
   flex-wrap: wrap;

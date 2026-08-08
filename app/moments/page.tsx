@@ -1,5 +1,5 @@
 import { getAllMoments } from "@/lib/moments"
-import { renderMoment } from "@/lib/moment-render"
+import { renderMomentLines } from "@/lib/moment-render"
 import { Icon } from "@/components/icons"
 import { MomentCommentButton } from "@/components/moment-comment"
 
@@ -38,7 +38,7 @@ export default async function MomentsPage() {
                 </div>
                 <div
                   className="moment-content lightbox-scope text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
-                  dangerouslySetInnerHTML={{ __html: renderMoment(m.content) }}
+                  dangerouslySetInnerHTML={{ __html: renderMomentLines(m.content) }}
                 />
               </div>
             </div>

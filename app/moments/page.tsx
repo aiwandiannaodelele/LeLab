@@ -37,7 +37,7 @@ export default async function MomentsPage() {
                   <MomentCommentButton term={m.slug} />
                 </div>
                 <div
-                  className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
+                  className="moment-content lightbox-scope text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                   dangerouslySetInnerHTML={{ __html: renderMoment(m.content) }}
                 />
               </div>

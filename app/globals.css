@@ -16,6 +16,9 @@ ruffle-player canvas {
 }
 
 /* Moments 动态图片：朋友圈风格缩略图 */
+.lightbox-scope img {
+  cursor: zoom-in;
+}
 .moment-content img {
   max-width: 160px;
   max-height: 160px;

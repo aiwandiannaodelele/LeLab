@@ -9,6 +9,7 @@ import { BackToTop } from "@/components/back-to-top"
 import { CommandPalette } from "@/components/command-palette"
 import { BusuanziRefresh } from "@/components/busuanzi-refresh"
 import { ScheduleDebug } from "@/components/schedule-debug"
+import { LightboxProvider } from "@/components/lightbox"
 import { siteConfig } from "@/lib/site"
 import { getAllPosts } from "@/lib/posts"
 import { cn } from "@/lib/utils"
@@ -93,6 +94,7 @@ export default async function RootLayout({
           <BusuanziRefresh />
           <ScheduleDebug />
           <CommandPalette posts={posts} />
+          <LightboxProvider />
         </ThemeProvider>
       </body>
     </html>

@@ -83,7 +83,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       </header>
 
       <div
-        className="prose"
+        className="prose lightbox-scope"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
 

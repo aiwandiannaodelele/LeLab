@@ -30,7 +30,7 @@ export default async function HomePage() {
                 <MomentCommentButton term={latestMoment.slug} />
               </div>
               <div
-                className="moment-content text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
+                className="moment-content lightbox-scope text-sm leading-relaxed text-foreground/90 [&_a]:text-primary [&_a]:underline"
                 dangerouslySetInnerHTML={{ __html: renderMoment(latestMoment.content) }}
               />
               <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">

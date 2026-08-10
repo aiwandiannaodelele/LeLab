@@ -18,6 +18,11 @@ const VISITED_PROVINCES = [
   "福建",
   "香港",
   "澳门",
+  "四川",
+  "云南",
+  "贵州",
+  "海南",
+  "上海",
 ]
 
 export function FootprintMap() {

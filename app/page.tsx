@@ -4,6 +4,7 @@ import { getAllMoments } from "@/lib/moments"
 import { renderMomentLines } from "@/lib/moment-render"
 import { Hero } from "@/components/hero"
 import { PostCard } from "@/components/post-card"
+import { FootprintMap } from "@/components/footprint-map"
 import { Icon } from "@/components/icons"
 import { MomentCommentButton } from "@/components/moment-comment"
 import { siteConfig } from "@/lib/site"
@@ -18,6 +19,11 @@ export default async function HomePage() {
       <Hero />
 
       <div className="mx-auto max-w-5xl px-5 pt-6">
+        <section className="mb-14">
+          <SectionTitle title="足迹" />
+          <FootprintMap />
+        </section>
+
         {latestMoment && (
           <section className="mb-14">
             <SectionTitle title="动态" href="/moments" action="全部动态" />

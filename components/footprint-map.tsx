@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes"
 
 // ========== 在这里改！把你要点亮的省份写这里 ==========
 const VISITED_PROVINCES = [
@@ -29,10 +30,19 @@ const VISITED_PROVINCES = [
   "浙江",
 ]
 
+function readVar(name: string, fallback: string) {
+  if (typeof document === "undefined") return fallback
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+  return v || fallback
+}
+
 export function FootprintMap() {
   const ref = React.useRef<HTMLDivElement>(null)
   const chartRef = React.useRef<any>(null)
   const [loaded, setLoaded] = React.useState(false)
+  const { resolvedTheme } = useTheme()
+
+  const isDark = resolvedTheme === "dark"
 
   React.useEffect(() => {
     let cancelled = false
@@ -65,38 +75,58 @@ export function FootprintMap() {
         chart.setOption({
           tooltip: {
             trigger: "item",
-            backgroundColor: "rgba(15, 23, 42, 0.9)",
-            borderColor: "rgba(255,255,255,0.1)",
-            textStyle: { color: "#f8fafc", fontSize: 13 },
+            backgroundColor: readVar("--popover", "#ffffff"),
+            borderColor: readVar("--border", "#e5e5e5"),
+            borderWidth: 1,
+            padding: [8, 12],
+            textStyle: {
+              color: readVar("--popover-foreground", "#171717"),
+              fontSize: 12,
+              fontFamily: "var(--font-sans)",
+            },
             formatter: (p: any) => {
-              return p.value ? `<b>${p.name}</b> · 我去过 ✨` : `<b>${p.name}</b> · 还没去过`
+              return p.value
+                ? `<b>${p.name}</b><br/><span style="color:${readVar("--muted-foreground", "#737373")}">我来过这里 ✨</span>`
+                : `<b>${p.name}</b><br/><span style="color:${readVar("--muted-foreground", "#737373")}">还没去过</span>`
             },
           },
           visualMap: {
             min: 0,
             max: 1,
             show: false,
-            inRange: { color: ["#f1f5f9", "#34d399"] },
+            inRange: {
+              color: [
+                readVar("--muted", isDark ? "#1a1a1a" : "#f0f0f0"),
+                isDark ? "oklch(0.72 0.15 162.48)" : "oklch(0.72 0.15 162.48)",
+              ],
+            },
           },
           series: [
             {
               type: "map",
               map: "china",
               roam: true,
-              label: { show: true, fontSize: 10, color: "#94a3b8" },
+              zoom: 1.05,
+              label: {
+                show: true,
+                fontSize: 9,
+                color: readVar("--muted-foreground", "#a3a3a3"),
+              },
               itemStyle: {
-                borderColor: "rgba(148,163,184,0.3)",
-                borderWidth: 0.5,
-                areaColor: "#f1f5f9",
+                borderColor: readVar("--border", "#e5e5e5"),
+                borderWidth: 0.6,
+                areaColor: readVar("--muted", "#f0f0f0"),
               },
               emphasis: {
-                label: { color: "#111827", fontWeight: 600 },
+                label: { color: readVar("--foreground", "#171717"), fontWeight: 600 },
                 itemStyle: {
-                  areaColor: "rgba(52,211,153,0.9)",
-                  borderColor: "rgba(16,185,129,0.6)",
+                  areaColor: isDark
+                    ? "oklch(0.72 0.15 162.48)"
+                    : "oklch(0.8 0.14 162.48)",
+                  borderColor: isDark ? "oklch(0.62 0.13 162.48)" : "oklch(0.62 0.13 162.48)",
                   borderWidth: 1,
-                  shadowBlur: 15,
-                  shadowColor: "rgba(52,211,153,0.4)",
+                  shadowBlur: 12,
+                  shadowColor: "rgba(52,211,153,0.35)",
                 },
               },
               data,
@@ -118,10 +148,10 @@ export function FootprintMap() {
       cancelled = true
       chartRef.current?.dispose?.()
     }
-  }, [])
+  }, [isDark])
 
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-5">
+    <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-sm">
       <div className="mb-2 flex items-center justify-between">
         <div>
           <h3 className="font-heading text-base font-semibold tracking-tight">我的足迹</h3>
@@ -130,9 +160,9 @@ export function FootprintMap() {
           </p>
         </div>
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <span className="size-2.5 rounded-sm bg-[#f1f5f9] ring-1 ring-border/60" />
+          <span className="size-2.5 rounded-sm bg-muted ring-1 ring-border/60" />
           <span>未到访</span>
-          <span className="ml-2 size-2.5 rounded-sm bg-[#34d399]" />
+          <span className="ml-2 size-2.5 rounded-sm bg-emerald-500" />
           <span>到访</span>
         </div>
       </div>

@@ -118,8 +118,8 @@ export function FootprintMap() {
 
         const data = VISITED_PROVINCES.map((name) => ({ name: resolveName(name), value: 1 }))
 
-        // 直接使用品牌色，避免 oklch 转换问题
-        const primary = isDark ? "#3b82f6" : "#2563eb" // 蓝色品牌色
+        // 直接使用品牌色
+        const primary = "#007595" // 品牌色
         const muted = isDark ? "#1e293b" : "#f1f5f9" // 未到访颜色
         const border = isDark ? "#334155" : "#e2e8f0"
         const bg = isDark ? "#0f172a" : "#ffffff"
@@ -169,7 +169,7 @@ export function FootprintMap() {
                   borderColor: primary,
                   borderWidth: 1,
                   shadowBlur: 14,
-                  shadowColor: "rgba(8,145,178,0.4)",
+                  shadowColor: "rgba(0,117,149,0.4)",
                 },
               },
               data,

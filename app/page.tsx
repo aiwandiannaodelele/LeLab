@@ -5,6 +5,7 @@ import { renderMomentLines } from "@/lib/moment-render"
 import { Hero } from "@/components/hero"
 import { PostCard } from "@/components/post-card"
 import { FootprintMap } from "@/components/footprint-map"
+import { HomeNav } from "@/components/home-nav"
 import { Icon } from "@/components/icons"
 import { MomentCommentButton } from "@/components/moment-comment"
 import { siteConfig } from "@/lib/site"
@@ -17,15 +18,16 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <HomeNav />
 
       <div className="mx-auto max-w-5xl px-5 pt-6">
-        <section className="mb-14">
+        <section id="footprint" className="mb-14 scroll-mt-24">
           <SectionTitle title="足迹" />
           <FootprintMap />
         </section>
 
         {latestMoment && (
-          <section className="mb-14">
+          <section id="moments" className="mb-14 scroll-mt-24">
             <SectionTitle title="动态" href="/moments" action="全部动态" />
             <Link
               href="/moments"
@@ -47,20 +49,22 @@ export default async function HomePage() {
           </section>
         )}
 
-        <SectionTitle title="随笔" href="/posts" action="查看全部" />
+        <section id="posts" className="scroll-mt-24">
+          <SectionTitle title="随笔" href="/posts" action="查看全部" />
 
-        {latest.length === 0 ? (
-          <EmptyState />
-        ) : (
-          <div className="grid gap-5 sm:grid-cols-2">
-            {latest.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
-        )}
+          {latest.length === 0 ? (
+            <EmptyState />
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2">
+              {latest.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </div>
+          )}
+        </section>
 
         {tags.length > 0 && (
-          <section className="mt-16">
+          <section id="tags" className="mt-16 scroll-mt-24">
             <SectionTitle title="按标签逛逛" href="/tags" action="全部标签" />
             <div className="flex flex-wrap gap-2.5">
               {tags.map(({ tag, count }) => (

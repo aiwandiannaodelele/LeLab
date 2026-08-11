@@ -118,12 +118,13 @@ export function FootprintMap() {
 
         const data = VISITED_PROVINCES.map((name) => ({ name: resolveName(name), value: 1 }))
 
-        const primary = readVar("--primary", isDark ? "#0e7490" : "#0891b2")
-        const muted = readVar("--muted", isDark ? "#1a1a1a" : "#f0f0f0")
-        const border = readVar("--border", "#e5e5e5")
-        const bg = readVar("--popover", "#ffffff")
-        const fg = readVar("--popover-foreground", "#171717")
-        const mutedFg = readVar("--muted-foreground", "#737373")
+        // 直接使用品牌色，避免 oklch 转换问题
+        const primary = isDark ? "#3b82f6" : "#2563eb" // 蓝色品牌色
+        const muted = isDark ? "#1e293b" : "#f1f5f9" // 未到访颜色
+        const border = isDark ? "#334155" : "#e2e8f0"
+        const bg = isDark ? "#0f172a" : "#ffffff"
+        const fg = isDark ? "#f8fafc" : "#0f172a"
+        const mutedFg = isDark ? "#94a3b8" : "#64748b"
 
         chart.setOption({
           tooltip: {

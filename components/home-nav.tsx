@@ -1,12 +1,13 @@
 "use client"
 
 import * as React from "react"
+import { Icon } from "@/components/icons"
 
 const SECTIONS = [
-  { id: "footprint", label: "足迹" },
-  { id: "moments", label: "动态" },
-  { id: "posts", label: "随笔" },
-  { id: "tags", label: "标签" },
+  { id: "footprint", label: "足迹", icon: "star" },
+  { id: "moments", label: "动态", icon: "sparkles" },
+  { id: "posts", label: "随笔", icon: "book" },
+  { id: "tags", label: "标签", icon: "tag" },
 ]
 
 export function HomeNav() {
@@ -19,7 +20,7 @@ export function HomeNav() {
       let current = ""
       for (const s of SECTIONS) {
         const el = document.getElementById(s.id)
-        if (el && el.getBoundingClientRect().top <= 120) current = s.id
+        if (el && el.getBoundingClientRect().top <= 160) current = s.id
       }
       setActive(current)
     }
@@ -35,26 +36,29 @@ export function HomeNav() {
 
   return (
     <nav
-      className={`fixed left-1/2 top-20 z-40 -translate-x-1/2 rounded-full border border-border/60 bg-background/70 px-1.5 py-1.5 shadow-lg backdrop-blur-xl transition-all duration-300 ${
-        visible ? "opacity-100" : "pointer-events-none opacity-0"
+      className={`fixed right-5 top-1/2 z-40 -translate-y-1/2 flex-col items-center gap-1.5 rounded-2xl border border-border/60 bg-background/70 p-1.5 shadow-lg backdrop-blur-xl transition-all duration-300 ${
+        visible ? "flex opacity-100" : "pointer-events-none hidden opacity-0"
       }`}
     >
-      <div className="flex items-center gap-0.5">
-        {SECTIONS.map((s) => (
-          <button
-            key={s.id}
-            type="button"
-            onClick={() => scrollTo(s.id)}
-            className={`rounded-full px-3.5 py-1.5 text-xs transition-colors ${
-              active === s.id
-                ? "bg-primary/10 font-medium text-primary"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-            }`}
-          >
+      {SECTIONS.map((s) => (
+        <button
+          key={s.id}
+          type="button"
+          aria-label={s.label}
+          title={s.label}
+          onClick={() => scrollTo(s.id)}
+          className={`group relative grid size-9 place-items-center rounded-xl transition-colors ${
+            active === s.id
+              ? "bg-primary/10 text-primary"
+              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+          }`}
+        >
+          <Icon name={s.icon} size={16} />
+          <span className="pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded-md border border-border/60 bg-background px-2 py-1 text-xs text-muted-foreground opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
             {s.label}
-          </button>
-        ))}
-      </div>
+          </span>
+        </button>
+      ))}
     </nav>
   )
 }

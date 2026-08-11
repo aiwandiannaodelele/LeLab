@@ -30,10 +30,41 @@ const VISITED_PROVINCES = [
   "浙江",
 ]
 
-function readVar(name: string, fallback: string) {
+// oklch → hex，ECharts canvas 不支持 oklch
+function oklchToHex(oklchStr: string): string {
+  const m = oklchStr.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*[\d.]+)?\)/)
+  if (!m) return oklchStr
+  const [L, C, H] = [parseFloat(m[1]), parseFloat(m[2]), parseFloat(m[3])]
+
+  // oklch → oklab
+  const l = L
+  const a = C * Math.cos((H * Math.PI) / 180)
+  const b = C * Math.sin((H * Math.PI) / 180)
+
+  // oklab → linear sRGB
+  const l_ = l + 0.3963377774 * a + 0.2158037573 * b
+  const m_ = l - 0.1055613458 * a - 0.0638541728 * b
+  const s_ = l - 0.0894841775 * a - 1.291485548 * b
+
+  const cube = (x: number) => {
+    const x3 = x ** 3
+    return x3 > 0.0031308 ? 1.055 * x3 ** (1 / 3) - 0.055 : 12.92 * x
+  }
+  const r = Math.round(cube(l_) * 255)
+  const g = Math.round(cube(m_) * 255)
+  const bl = Math.round(cube(s_) * 255)
+  const clamp = (x: number) => Math.max(0, Math.min(255, x))
+  const toHex = (x: number) => clamp(x).toString(16).padStart(2, "0")
+  return `#${toHex(r)}${toHex(g)}${toHex(bl)}`
+}
+
+// 读取 CSS 变量并转为 hex
+function readVar(name: string, fallback: string): string {
   if (typeof document === "undefined") return fallback
   const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim()
-  return v || fallback
+  if (!v) return fallback
+  if (v.startsWith("oklch")) return oklchToHex(v)
+  return v
 }
 
 export function FootprintMap() {
@@ -72,34 +103,32 @@ export function FootprintMap() {
 
         const data = VISITED_PROVINCES.map((name) => ({ name, value: 1 }))
 
+        const primary = readVar("--primary", isDark ? "#0e7490" : "#0891b2")
+        const muted = readVar("--muted", isDark ? "#1a1a1a" : "#f0f0f0")
+        const border = readVar("--border", "#e5e5e5")
+        const bg = readVar("--popover", "#ffffff")
+        const fg = readVar("--popover-foreground", "#171717")
+        const mutedFg = readVar("--muted-foreground", "#737373")
+
         chart.setOption({
           tooltip: {
             trigger: "item",
-            backgroundColor: readVar("--popover", "#ffffff"),
-            borderColor: readVar("--border", "#e5e5e5"),
+            backgroundColor: bg,
+            borderColor: border,
             borderWidth: 1,
             padding: [8, 12],
-            textStyle: {
-              color: readVar("--popover-foreground", "#171717"),
-              fontSize: 12,
-              fontFamily: "var(--font-sans)",
-            },
+            textStyle: { color: fg, fontSize: 12, fontFamily: "var(--font-sans)" },
             formatter: (p: any) => {
               return p.value
-                ? `<b>${p.name}</b><br/><span style="color:${readVar("--muted-foreground", "#737373")}">我来过这里 ✨</span>`
-                : `<b>${p.name}</b><br/><span style="color:${readVar("--muted-foreground", "#737373")}">还没去过</span>`
+                ? `<b>${p.name}</b><br/><span style="color:${mutedFg}">我来过这里 ✨</span>`
+                : `<b>${p.name}</b><br/><span style="color:${mutedFg}">还没去过</span>`
             },
           },
           visualMap: {
             min: 0,
             max: 1,
             show: false,
-            inRange: {
-              color: [
-                readVar("--muted", isDark ? "#1a1a1a" : "#f0f0f0"),
-                isDark ? "oklch(0.72 0.15 162.48)" : "oklch(0.72 0.15 162.48)",
-              ],
-            },
+            inRange: { color: [muted, primary] },
           },
           series: [
             {
@@ -110,23 +139,21 @@ export function FootprintMap() {
               label: {
                 show: true,
                 fontSize: 9,
-                color: readVar("--muted-foreground", "#a3a3a3"),
+                color: mutedFg,
               },
               itemStyle: {
-                borderColor: readVar("--border", "#e5e5e5"),
+                borderColor: border,
                 borderWidth: 0.6,
-                areaColor: readVar("--muted", "#f0f0f0"),
+                areaColor: muted,
               },
               emphasis: {
-                label: { color: readVar("--foreground", "#171717"), fontWeight: 600 },
+                label: { color: fg, fontWeight: 600 },
                 itemStyle: {
-                  areaColor: isDark
-                    ? "oklch(0.72 0.15 162.48)"
-                    : "oklch(0.8 0.14 162.48)",
-                  borderColor: isDark ? "oklch(0.62 0.13 162.48)" : "oklch(0.62 0.13 162.48)",
+                  areaColor: primary,
+                  borderColor: primary,
                   borderWidth: 1,
-                  shadowBlur: 12,
-                  shadowColor: "rgba(52,211,153,0.35)",
+                  shadowBlur: 14,
+                  shadowColor: "rgba(8,145,178,0.4)",
                 },
               },
               data,
@@ -162,7 +189,7 @@ export function FootprintMap() {
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <span className="size-2.5 rounded-sm bg-muted ring-1 ring-border/60" />
           <span>未到访</span>
-          <span className="ml-2 size-2.5 rounded-sm bg-emerald-500" />
+          <span className="ml-2 size-2.5 rounded-sm bg-primary" />
           <span>到访</span>
         </div>
       </div>

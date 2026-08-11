@@ -101,7 +101,23 @@ export function FootprintMap() {
         const chart = echarts.init(el)
         chartRef.current = chart
 
-        const data = VISITED_PROVINCES.map((name) => ({ name, value: 1 }))
+        // 把简称映射为 ECharts 地图中的全称
+        const mapGeo = echarts.getMap("china")
+        const fullNames = new Set<string>()
+        mapGeo?.geoJson?.features?.forEach((f: any) => {
+          const nm = f?.properties?.name
+          if (nm) fullNames.add(nm)
+        })
+
+        const resolveName = (short: string) => {
+          if (fullNames.has(short)) return short
+          for (const full of fullNames) {
+            if (full.includes(short) || short.includes(full)) return full
+          }
+          return short
+        }
+
+        const data = VISITED_PROVINCES.map((name) => ({ name: resolveName(name), value: 1 }))
 
         const primary = readVar("--primary", isDark ? "#0e7490" : "#0891b2")
         const muted = readVar("--muted", isDark ? "#1a1a1a" : "#f0f0f0")

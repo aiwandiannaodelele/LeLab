@@ -26,6 +26,7 @@ const VISITED_PROVINCES = [
   "重庆",
   "山东",
   "天津",
+  "浙江",
 ]
 
 export function FootprintMap() {

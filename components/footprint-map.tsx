@@ -46,13 +46,12 @@ function oklchToHex(oklchStr: string): string {
   const m_ = l - 0.1055613458 * a - 0.0638541728 * b
   const s_ = l - 0.0894841775 * a - 1.291485548 * b
 
-  const cube = (x: number) => {
-    const x3 = x ** 3
-    return x3 > 0.0031308 ? 1.055 * x3 ** (1 / 3) - 0.055 : 12.92 * x
+  const toLinear = (x: number) => {
+    return x > 0.0031308 ? 1.055 * Math.pow(x, 1 / 3) - 0.055 : 12.92 * x
   }
-  const r = Math.round(cube(l_) * 255)
-  const g = Math.round(cube(m_) * 255)
-  const bl = Math.round(cube(s_) * 255)
+  const r = Math.round(toLinear(l_) * 255)
+  const g = Math.round(toLinear(m_) * 255)
+  const bl = Math.round(toLinear(s_) * 255)
   const clamp = (x: number) => Math.max(0, Math.min(255, x))
   const toHex = (x: number) => clamp(x).toString(16).padStart(2, "0")
   return `#${toHex(r)}${toHex(g)}${toHex(bl)}`

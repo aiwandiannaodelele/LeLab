@@ -4,12 +4,11 @@ import * as React from "react"
 import { Icon } from "@/components/icons"
 
 const SECTIONS = [
-  { id: "footprint", label: "足迹", icon: "star" },
   { id: "moments", label: "动态", icon: "sparkles" },
   { id: "posts", label: "随笔", icon: "book" },
   { id: "tags", label: "标签", icon: "tag" },
+  { id: "footprint", label: "足迹", icon: "star" },
 ]
-
 export function HomeNav() {
   const [active, setActive] = React.useState("")
   const [visible, setVisible] = React.useState(false)

@@ -21,11 +21,6 @@ export default async function HomePage() {
       <HomeNav />
 
       <div className="mx-auto max-w-5xl px-5 pt-6">
-        <section id="footprint" className="mb-14 scroll-mt-24">
-          <SectionTitle title="足迹" />
-          <FootprintMap />
-        </section>
-
         {latestMoment && (
           <section id="moments" className="mb-14 scroll-mt-24">
             <SectionTitle title="动态" href="/moments" action="全部动态" />
@@ -83,6 +78,11 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        <section id="footprint" className="mt-16 scroll-mt-24">
+          <SectionTitle title="足迹" />
+          <FootprintMap />
+        </section>
       </div>
     </>
   )

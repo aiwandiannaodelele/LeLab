@@ -7,7 +7,6 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { CommandPalette } from "@/components/command-palette"
-import { BusuanziRefresh } from "@/components/busuanzi-refresh"
 import { ScheduleDebug } from "@/components/schedule-debug"
 import { LightboxProvider } from "@/components/lightbox"
 import { siteConfig } from "@/lib/site"
@@ -91,7 +90,6 @@ export default async function RootLayout({
             <Footer />
           </div>
           <BackToTop />
-          <BusuanziRefresh />
           <ScheduleDebug />
           <CommandPalette posts={posts} />
           <LightboxProvider />

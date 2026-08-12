@@ -6,7 +6,6 @@ import Image from "next/image"
 import { Icon } from "@/components/icons"
 import { scheduleDebug } from "@/lib/schedule-debug"
 import { useDevices, getPrimaryStatus } from "@/components/status-badge"
-import { useBusuanzi } from "@/hooks/use-busuanzi"
 import { siteConfig } from "@/lib/site"
 import scheduleData from "@/lib/schedule.json"
 
@@ -79,7 +78,6 @@ export function Hero() {
   const [hover, setHover] = React.useState(false)
   const devices = useDevices()
   const primaryStatus = getPrimaryStatus(devices)
-  useBusuanzi()
 
   React.useEffect(() => {
     const t = setInterval(() => setStatus(getStatus()), 10000)

@@ -1,43 +1,39 @@
 "use client"
 
 import * as React from "react"
+import { usePathname } from "next/navigation"
 
-// 用 JSONP 拉取 busuanzi 站点统计并填充到元素，兼容 SPA 路由切换
+// 与 busuanzi 官方脚本相同的 POST 计数方式，兼容 SPA 路由切换
 export function useBusuanzi() {
+  const pathname = usePathname()
+
   React.useEffect(() => {
     let cancelled = false
-    let timer: number | undefined
 
-    const fetchCounts = () => {
-      const pvEl = document.getElementById("busuanzi_site_pv")
-      const uvEl = document.getElementById("busuanzi_site_uv")
-      if (!pvEl && !uvEl) return
-
-      const cbName = "busuanzi_cb_" + Math.random().toString(36).slice(2)
-      const script = document.createElement("script")
-      script.src = `https://busuanzi.ibruce.info/busuanzi?jsonpCallback=${cbName}`
-
-      ;(window as any)[cbName] = (data: any) => {
-        if (cancelled) return
-        if (pvEl && data.site_pv != null) pvEl.textContent = String(data.site_pv)
-        if (uvEl && data.site_uv != null) uvEl.textContent = String(data.site_uv)
-        delete (window as any)[cbName]
-        script.remove()
+    const fill = (data: Record<string, any>) => {
+      if (cancelled) return
+      const targets: [string, string][] = [
+        ["busuanzi_site_pv", "busuanzi_site_pv"],
+        ["busuanzi_site_uv", "busuanzi_site_uv"],
+      ]
+      for (const [key, elId] of targets) {
+        const el = document.getElementById(elId)
+        if (el && data[key] != null) el.textContent = String(data[key])
       }
-
-      script.onerror = () => {
-        delete (window as any)[cbName]
-        script.remove()
-      }
-      document.body.appendChild(script)
     }
 
-    fetchCounts()
-    timer = window.setInterval(fetchCounts, 30000)
+    fetch("https://cdn.busuanzi.cc/api.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: location.href, referrer: document.referrer }),
+      credentials: "include",
+    })
+      .then((r) => r.json())
+      .then(fill)
+      .catch(() => {})
 
     return () => {
       cancelled = true
-      if (timer) clearInterval(timer)
     }
-  }, [])
+  }, [pathname])
 }
